@@ -1,0 +1,122 @@
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,48,87,0.92) 0%, rgba(0,48,87,0.75) 100%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  color: var(--color-white);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.heroEyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-cyan);
+  margin-bottom: 1.25rem;
+}
+
+.heroHeading {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.heroSub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 2.5rem;
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+/* Core Message */
+.message {
+  background: var(--color-white);
+}
+
+.messageInner {
+  border-left: 5px solid var(--color-teal);
+  padding-left: 2rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.messageText {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--color-navy);
+  line-height: 1.85;
+  font-style: italic;
+}
+
+/* Services */
+.services {
+  background: var(--color-bg);
+}
+
+.servicesEyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.servicesHeading {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--color-navy);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Bottom CTA */
+.cta {
+  background: var(--color-teal);
+  padding: var(--section-padding);
+  text-align: center;
+}
+
+.ctaHeading {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    min-height: 75vh;
+  }
+}

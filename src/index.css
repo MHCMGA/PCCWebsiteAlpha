@@ -1,0 +1,68 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-navy);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ── Brand CSS Variables ── */
+:root {
+  --color-navy:   #003057;
+  --color-teal:   #008ed4;
+  --color-cyan:   #27b6fd;
+  --color-bg:     #f7f7f5;
+  --color-white:  #ffffff;
+  --color-border: #eeeeee;
+  --color-gray:   #6b7280;
+  --max-width: 1140px;
+  --section-padding: 5rem 1.5rem;
+}
+
+/* ── Container ── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Skip to content (accessibility) ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--color-teal);
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ── Focus styles ── */
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+/* ── Scroll animation ── */
+.animate-hidden {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Section base spacing ── */
+.section { padding: var(--section-padding); }
