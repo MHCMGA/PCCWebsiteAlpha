@@ -1,3 +1,4 @@
+import { Briefcase, ClipboardText } from '@phosphor-icons/react';
 import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import CTAButton from '../../components/CTAButton/CTAButton';
 import styles from './About.module.css';
@@ -11,19 +12,18 @@ const team = [
   {
     name: 'Matthew A. Holycross, CPA',
     role: 'Member',
-    bio: 'Matthew joined Palmetto in 2015, bringing a background in traditional Property & Casualty carrier management as well as extensive experience in the Alternative Risk and Captive market. His perspectives have expanded the firm\'s capabilities and value to clients.',
+    bio: "Matthew joined Palmetto in 2015, bringing a background in traditional Property & Casualty carrier management as well as extensive experience in the Alternative Risk and Captive market. His perspectives have expanded the firm's capabilities and value to clients.",
   },
   {
     name: 'Michael D. Hunter, CPA',
     role: 'Member',
-    bio: 'Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team\'s financial leadership.',
+    bio: "Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team's financial leadership.",
   },
 ];
 
 export default function About() {
   return (
     <>
-      {/* Banner */}
       <section className={styles.banner}>
         <div className={styles.bannerOverlay} />
         <div className={`container ${styles.bannerContent}`}>
@@ -34,7 +34,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company History */}
       <section className={`section ${styles.history}`}>
         <div className="container">
           <div className={styles.twoCol}>
@@ -46,10 +45,10 @@ export default function About() {
               <p>
                 Palmetto Consulting of Columbia, LLC was founded in 1998 by John A. Weitzel, an insurance
                 executive whose career spanned nearly 50 years working for, or consulting with, insurance
-                companies — primarily as a Chief Financial Officer.
+                companies - primarily as a Chief Financial Officer.
               </p>
               <p>
-                Since 2003, Palmetto's services have been focused almost exclusively on the captive insurance
+                Since 2003, Palmetto&apos;s services have been focused almost exclusively on the captive insurance
                 industry. Clients have included prospective and established captive insurance companies and
                 captive managers.
               </p>
@@ -58,7 +57,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* What We Do */}
       <section className={`section ${styles.whatWeDo}`}>
         <div className="container">
           <AnimatedSection>
@@ -68,11 +66,13 @@ export default function About() {
           <div className={styles.doGrid}>
             <AnimatedSection delay={100}>
               <div className={styles.doCard}>
-                <div className={styles.doIcon}>📋</div>
+                <div className={styles.doIcon}>
+                  <ClipboardText size={32} weight="duotone" aria-hidden="true" />
+                </div>
                 <h3>Controllership Services</h3>
                 <p>
                   Palmetto fills a void in the marketplace based on the premise that many captive managers
-                  provide adequate service fulfilling the Controllership function — including general ledger
+                  provide adequate service fulfilling the Controllership function - including general ledger
                   maintenance, cash receipt and disbursement operations, financial statement presentation,
                   and regulatory reporting.
                 </p>
@@ -80,12 +80,14 @@ export default function About() {
             </AnimatedSection>
             <AnimatedSection delay={200}>
               <div className={styles.doCard}>
-                <div className={styles.doIcon}>💼</div>
+                <div className={styles.doIcon}>
+                  <Briefcase size={32} weight="duotone" aria-hidden="true" />
+                </div>
                 <h3>Full CFO Services</h3>
                 <p>
                   Relatively few captive managers provide the full menu of Chief Financial Officer functions.
                   Palmetto specializes in Treasury, Investment monitoring, Tax planning, Budget analysis,
-                  Reinsurance negotiations, Rating agency relationships, and Internal audit — delivering a
+                  Reinsurance negotiations, Rating agency relationships, and Internal audit - delivering a
                   proactive approach that advances clients from compliance to best practices.
                 </p>
               </div>
@@ -94,7 +96,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Our Approach */}
       <section className={`section ${styles.approach}`}>
         <div className="container">
           <AnimatedSection>
@@ -104,8 +105,8 @@ export default function About() {
               <p className={styles.approachText}>
                 Palmetto assists clients in assembling teams of top-notch insurance management, underwriting,
                 claims, investment management, actuary, audit, and legal experts during the formation stage
-                of a new captive. We are uniquely equipped to serve as a client's captive manager or guide
-                a selected captive manager — assuring the team selects appropriate domiciles, develops
+                of a new captive. We are uniquely equipped to serve as a client&apos;s captive manager or guide
+                a selected captive manager - assuring the team selects appropriate domiciles, develops
                 business plans, projects financial results, and walks a captive application to regulators
                 from submission to approval.
               </p>
@@ -116,14 +117,13 @@ export default function About() {
                 this process.
               </p>
               <p className={styles.approachQuote}>
-                "There is a reason we do not advertise — all our business is generated by referral."
+                &quot;There is a reason we do not advertise - all our business is generated by referral.&quot;
               </p>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Team */}
       <section className={`section ${styles.team}`}>
         <div className="container">
           <AnimatedSection>
@@ -135,7 +135,7 @@ export default function About() {
               <AnimatedSection key={member.name} delay={i * 120}>
                 <div className={styles.teamCard}>
                   <div className={styles.teamAvatar}>
-                    {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                    {member.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
                   </div>
                   <h3 className={styles.teamName}>{member.name}</h3>
                   <p className={styles.teamRole}>{member.role}</p>
@@ -147,7 +147,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className={styles.cta}>
         <div className="container">
           <AnimatedSection>

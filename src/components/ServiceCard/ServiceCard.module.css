@@ -13,7 +13,9 @@
 }
 
 .icon {
-  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1rem;
   color: var(--color-teal);
 }

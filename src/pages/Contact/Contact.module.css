@@ -89,7 +89,10 @@
 }
 
 .detailIcon {
-  font-size: 1.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-teal);
   margin-top: 2px;
 }
 
@@ -202,7 +205,6 @@
   border-radius: 50%;
   background: var(--color-teal);
   color: var(--color-white);
-  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
