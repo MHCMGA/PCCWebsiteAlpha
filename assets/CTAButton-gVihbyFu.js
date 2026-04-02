@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-CXAyV2tg.js";import{t}from"./index-nFhbSJGi.js";var n={btn:`_btn_11ydl_1`,primary:`_primary_11ydl_17`,outline:`_outline_11ydl_28`},r=e();function i({label:e,to:i,variant:a=`primary`}){return(0,r.jsx)(t,{to:i,className:`${n.btn} ${n[a]}`,children:e})}export{i as t};
