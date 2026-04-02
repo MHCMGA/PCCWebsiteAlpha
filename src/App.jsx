@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 
 const Home    = lazy(() => import('./pages/Home/Home'))
 const About   = lazy(() => import('./pages/About/About'))
@@ -14,6 +15,7 @@ function PageLoader() {
 function App() {
   return (
     <>
+      <ScrollToTop />
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
       <main id="main-content">
