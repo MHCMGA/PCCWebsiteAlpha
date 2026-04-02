@@ -11,12 +11,15 @@ export default function Navbar() {
 
   // Slide-down entrance on first load
   useEffect(() => {
-    gsap.from(navRef.current, {
-      y: -80,
-      autoAlpha: 0,
-      duration: 0.6,
-      ease: 'power2.out',
+    const ctx = gsap.context(() => {
+      gsap.from(navRef.current, {
+        y: -80,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+      });
     });
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {
