@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { gsap } from 'gsap';
 import { Buildings, ChartLineUp, Handshake, Target } from '@phosphor-icons/react';
 import CTAButton from '../../components/CTAButton/CTAButton';
@@ -6,6 +7,8 @@ import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import StatsBar from '../../components/StatsBar/StatsBar';
 import styles from './Home.module.css';
+
+const DOMAIN = 'https://yourdomain.com';
 
 const services = [
   {
@@ -33,7 +36,6 @@ const services = [
 export default function Home() {
   const heroContentRef = useRef(null);
 
-  // GSAP stagger entrance for hero elements on page load
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('[data-hero-el]', {
@@ -45,17 +47,38 @@ export default function Home() {
         delay: 0.2,
       });
     }, heroContentRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
     <>
+      <Helmet>
+        <title>Palmetto Consulting of Columbia | Captive Insurance Consultants — Columbia, SC</title>
+        <meta name="description" content="Palmetto Consulting of Columbia, LLC are independent insurance consultants in Columbia, SC specializing in captive insurance design, growth management, and CFO services since 1998." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`${DOMAIN}/`} />
+
+        {/* Open Graph */}
+        <meta property="og:type"        content="website" />
+        <meta property="og:url"         content={`${DOMAIN}/`} />
+        <meta property="og:title"       content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
+        <meta property="og:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998." />
+        <meta property="og:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+        <meta property="og:site_name"   content="Palmetto Consulting of Columbia" />
+        <meta property="og:locale"      content="en_US" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card"        content="summary_large_image" />
+        <meta name="twitter:title"       content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
+        <meta name="twitter:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998." />
+        <meta name="twitter:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+      </Helmet>
+
       <section className={styles.hero}>
         <div className={styles.heroOverlay} />
         <div className={`container ${styles.heroContent}`} ref={heroContentRef}>
           <p className={styles.heroEyebrow} data-hero-el="">
-            Independent Insurance Consultants
+            Independent Insurance Consultants — Columbia, SC
           </p>
           <h1 className={styles.heroHeading} data-hero-el="">
             Palmetto Consulting<br />of Columbia
@@ -77,9 +100,9 @@ export default function Home() {
           <AnimatedSection>
             <div className={styles.messageInner}>
               <p className={styles.messageText}>
-                Palmetto remains uniquely focused on the intersection of captive insurance and the traditional
-                insurance marketplace - primarily on those opportunities where our backgrounds can add the
-                most value to our clients and partners.
+                Based in Columbia, South Carolina, Palmetto remains uniquely focused on the intersection
+                of captive insurance and the traditional insurance marketplace — primarily on those
+                opportunities where our backgrounds can add the most value to our clients and partners.
               </p>
             </div>
           </AnimatedSection>

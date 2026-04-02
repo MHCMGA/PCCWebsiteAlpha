@@ -1,7 +1,10 @@
+import { Helmet } from 'react-helmet-async';
 import { Briefcase, ClipboardText } from '@phosphor-icons/react';
 import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import CTAButton from '../../components/CTAButton/CTAButton';
 import styles from './About.module.css';
+
+const DOMAIN = 'https://yourdomain.com';
 
 const team = [
   {
@@ -21,9 +24,58 @@ const team = [
   },
 ];
 
+const personSchema = team.map((member) => ({
+  '@type': 'Person',
+  name: member.name,
+  jobTitle: member.role,
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Palmetto Consulting of Columbia, LLC',
+  },
+  description: member.bio,
+}));
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',     item: `${DOMAIN}/` },
+    { '@type': 'ListItem', position: 2, name: 'About Us', item: `${DOMAIN}/about` },
+  ],
+};
+
 export default function About() {
   return (
     <>
+      <Helmet>
+        <title>About Us | Palmetto Consulting of Columbia — Columbia, SC</title>
+        <meta name="description" content="Learn about Palmetto Consulting of Columbia, LLC — an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`${DOMAIN}/about`} />
+
+        {/* Open Graph */}
+        <meta property="og:type"        content="website" />
+        <meta property="og:url"         content={`${DOMAIN}/about`} />
+        <meta property="og:title"       content="About Us | Palmetto Consulting of Columbia" />
+        <meta property="og:description" content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States." />
+        <meta property="og:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+        <meta property="og:site_name"   content="Palmetto Consulting of Columbia" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card"        content="summary_large_image" />
+        <meta name="twitter:title"       content="About Us | Palmetto Consulting of Columbia" />
+        <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia — independent insurance consultants serving clients since 1998 from Columbia, SC." />
+        <meta name="twitter:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+
+        {/* Person + BreadcrumbList Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [...personSchema, breadcrumbSchema],
+          })}
+        </script>
+      </Helmet>
+
       <section className={styles.banner}>
         <div className={styles.bannerOverlay} />
         <div className={`container ${styles.bannerContent}`}>
@@ -45,12 +97,13 @@ export default function About() {
               <p>
                 Palmetto Consulting of Columbia, LLC was founded in 1998 by John A. Weitzel, an insurance
                 executive whose career spanned nearly 50 years working for, or consulting with, insurance
-                companies - primarily as a Chief Financial Officer.
+                companies — primarily as a Chief Financial Officer. Our offices are located in Columbia,
+                South Carolina, at the heart of the Palmetto State.
               </p>
               <p>
                 Since 2003, Palmetto&apos;s services have been focused almost exclusively on the captive insurance
                 industry. Clients have included prospective and established captive insurance companies and
-                captive managers.
+                captive managers across the United States.
               </p>
             </AnimatedSection>
           </div>
@@ -72,7 +125,7 @@ export default function About() {
                 <h3>Controllership Services</h3>
                 <p>
                   Palmetto fills a void in the marketplace based on the premise that many captive managers
-                  provide adequate service fulfilling the Controllership function - including general ledger
+                  provide adequate service fulfilling the Controllership function — including general ledger
                   maintenance, cash receipt and disbursement operations, financial statement presentation,
                   and regulatory reporting.
                 </p>
@@ -87,7 +140,7 @@ export default function About() {
                 <p>
                   Relatively few captive managers provide the full menu of Chief Financial Officer functions.
                   Palmetto specializes in Treasury, Investment monitoring, Tax planning, Budget analysis,
-                  Reinsurance negotiations, Rating agency relationships, and Internal audit - delivering a
+                  Reinsurance negotiations, Rating agency relationships, and Internal audit — delivering a
                   proactive approach that advances clients from compliance to best practices.
                 </p>
               </div>
@@ -106,7 +159,7 @@ export default function About() {
                 Palmetto assists clients in assembling teams of top-notch insurance management, underwriting,
                 claims, investment management, actuary, audit, and legal experts during the formation stage
                 of a new captive. We are uniquely equipped to serve as a client&apos;s captive manager or guide
-                a selected captive manager - assuring the team selects appropriate domiciles, develops
+                a selected captive manager — assuring the team selects appropriate domiciles, develops
                 business plans, projects financial results, and walks a captive application to regulators
                 from submission to approval.
               </p>
@@ -117,7 +170,7 @@ export default function About() {
                 this process.
               </p>
               <p className={styles.approachQuote}>
-                &quot;There is a reason we do not advertise - all our business is generated by referral.&quot;
+                &quot;There is a reason we do not advertise — all our business is generated by referral.&quot;
               </p>
             </div>
           </AnimatedSection>
