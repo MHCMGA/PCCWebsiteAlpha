@@ -1,7 +1,10 @@
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 import { Buildings, ChartLineUp, Handshake, Target } from '@phosphor-icons/react';
 import CTAButton from '../../components/CTAButton/CTAButton';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
+import StatsBar from '../../components/StatsBar/StatsBar';
 import styles from './Home.module.css';
 
 const services = [
@@ -28,21 +31,46 @@ const services = [
 ];
 
 export default function Home() {
+  const heroContentRef = useRef(null);
+
+  // GSAP stagger entrance for hero elements on page load
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('[data-hero-el]', {
+        autoAlpha: 0,
+        y: 22,
+        duration: 0.75,
+        stagger: 0.16,
+        ease: 'power2.out',
+        delay: 0.2,
+      });
+    }, heroContentRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
       <section className={styles.hero}>
         <div className={styles.heroOverlay} />
-        <div className={`container ${styles.heroContent}`}>
-          <AnimatedSection>
-            <p className={styles.heroEyebrow}>Independent Insurance Consultants</p>
-            <h1 className={styles.heroHeading}>Palmetto Consulting<br />of Columbia</h1>
-            <p className={styles.heroSub}>
-              Focused on the intersection of captive insurance<br />and the traditional insurance marketplace.
-            </p>
+        <div className={`container ${styles.heroContent}`} ref={heroContentRef}>
+          <p className={styles.heroEyebrow} data-hero-el="">
+            Independent Insurance Consultants
+          </p>
+          <h1 className={styles.heroHeading} data-hero-el="">
+            Palmetto Consulting<br />of Columbia
+          </h1>
+          <p className={styles.heroSub} data-hero-el="">
+            Focused on the intersection of captive insurance<br />
+            and the traditional insurance marketplace.
+          </p>
+          <div data-hero-el="">
             <CTAButton label="Let's Work Together" to="/contact" variant="primary" />
-          </AnimatedSection>
+          </div>
         </div>
       </section>
+
+      <StatsBar />
 
       <section className={`section ${styles.message}`}>
         <div className="container">
