@@ -8,11 +8,7 @@ export default function Footer() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.col}>
           <Link to="/" className={styles.brand}>
-            <Logo size={40} />
-            <div className={styles.brandText}>
-              <span className={styles.brandPCC}>PCC</span>
-              <span className={styles.brandSub}>Palmetto Consulting of Columbia</span>
-            </div>
+            <Logo size={40} variant="light" />
           </Link>
           <p className={styles.tagline}>Independent Insurance Consultants</p>
         </div>

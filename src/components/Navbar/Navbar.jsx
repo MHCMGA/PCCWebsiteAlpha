@@ -34,11 +34,7 @@ export default function Navbar() {
     <nav ref={navRef} className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`} role="navigation" aria-label="Main navigation">
       <div className={`container ${styles.inner}`}>
         <Link to="/" className={styles.brand} onClick={closeMenu}>
-          <Logo size={42} />
-          <div className={styles.brandText}>
-            <span className={styles.brandPCC}>PCC</span>
-            <span className={styles.brandFull}>Palmetto Consulting of Columbia</span>
-          </div>
+          <Logo size={32} />
         </Link>
 
         <button

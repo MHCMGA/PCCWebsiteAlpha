@@ -1,18 +1,21 @@
-export default function Logo({ size = 48 }) {
+import iconSrc from '../../assets/pcc-icon.png';
+import textSrc from '../../assets/pcc-text.png';
+
+export default function Logo({ size = 48, variant = 'default' }) {
+  const textFilter = variant === 'light' ? 'brightness(0) invert(1)' : 'none';
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 100 100"
-      aria-label="Palmetto Consulting of Columbia logo"
-      role="img"
-    >
-      {/* Teal outer circle */}
-      <circle cx="50" cy="50" r="50" fill="#008ed4" />
-      {/* White inner circle offset to create crescent */}
-      <circle cx="62" cy="44" r="36" fill="#ffffff" />
-      {/* Small inner teal circle to restore depth */}
-      <circle cx="38" cy="55" r="14" fill="#008ed4" />
-    </svg>
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: size * 0.08 }}>
+      <img
+        src={iconSrc}
+        alt=""
+        aria-hidden="true"
+        style={{ display: 'block', height: size * 0.9, width: 'auto' }}
+      />
+      <img
+        src={textSrc}
+        alt="PCC — Palmetto Consulting of Columbia"
+        style={{ display: 'block', height: size, width: 'auto', filter: textFilter }}
+      />
+    </span>
   );
 }
