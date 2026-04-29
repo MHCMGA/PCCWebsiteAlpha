@@ -182,11 +182,26 @@
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
-.submitBtn:hover {
+.submitBtn:hover:not(:disabled) {
   background: #0079b8;
   border-color: #0079b8;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0,142,212,0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.errorMsg {
+  color: #b00020;
+  background: #fdecee;
+  border: 1px solid #f5c2c7;
+  border-radius: 4px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 /* Success */

@@ -18,15 +18,34 @@ const breadcrumbSchema = {
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setForm({ name: '', email: '', message: '' });
+    setErrorMsg('');
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to send message. Please try again.');
+      }
+      setSubmitted(true);
+      setForm({ name: '', email: '', message: '' });
+    } catch (err) {
+      setErrorMsg(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -157,8 +176,11 @@ export default function Contact() {
                       required
                     />
                   </div>
-                  <button type="submit" className={styles.submitBtn}>
-                    Send Message
+                  {errorMsg && (
+                    <p className={styles.errorMsg} role="alert">{errorMsg}</p>
+                  )}
+                  <button type="submit" className={styles.submitBtn} disabled={submitting}>
+                    {submitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               )}
