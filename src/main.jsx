@@ -2,13 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import { initBotId } from 'botid/client/core'
 import './index.css'
 import App from './App.jsx'
-
-initBotId({
-  protect: [{ path: '/api/contact', method: 'POST' }],
-})
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,3 +14,14 @@ createRoot(document.getElementById('root')).render(
     </HelmetProvider>
   </StrictMode>,
 )
+
+const initBot = () =>
+  import('botid/client/core').then(({ initBotId }) =>
+    initBotId({ protect: [{ path: '/api/contact', method: 'POST' }] })
+  )
+
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(initBot, { timeout: 2000 })
+} else {
+  setTimeout(initBot, 1500)
+}
