@@ -8,7 +8,7 @@ import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import StatsBar from '../../components/StatsBar/StatsBar';
 import styles from './Home.module.css';
 
-const DOMAIN = 'https://yourdomain.com';
+const DOMAIN = 'https://palmettoconsulting.us';
 
 const services = [
   {

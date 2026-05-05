@@ -4,7 +4,7 @@ import { useState } from 'react';
 import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import styles from './Contact.module.css';
 
-const DOMAIN = 'https://yourdomain.com';
+const DOMAIN = 'https://palmettoconsulting.us';
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',

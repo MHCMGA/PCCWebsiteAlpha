@@ -4,7 +4,7 @@ import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import CTAButton from '../../components/CTAButton/CTAButton';
 import styles from './About.module.css';
 
-const DOMAIN = 'https://yourdomain.com';
+const DOMAIN = 'https://palmettoconsulting.us';
 
 const team = [
   {
