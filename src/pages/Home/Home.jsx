@@ -113,7 +113,7 @@ export default function Home() {
         className="relative isolate flex min-h-[78vh] items-center text-white"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,48,87,0.78), rgba(0,48,87,0.78)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80')",
+            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-bg.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
