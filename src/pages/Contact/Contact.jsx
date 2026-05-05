@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'sonner';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
 import HeroBanner from '@/components/HeroBanner/HeroBanner';
 import { Button } from '@/components/ui/button';
@@ -44,6 +43,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+    const { toast } = await import('sonner');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
