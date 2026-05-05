@@ -1,4 +1,4 @@
-// HeroBanner — full-bleed image hero with navy overlay, eyebrow + heading.
+// HeroBanner: full-bleed image hero with navy overlay, eyebrow and heading.
 // Inline `style` uses `backgroundImage` longhand and rgba whitespace matched
 // to Chrome CSSOM normalized form to avoid React #418 hydration mismatches
 // on the prerendered route. See checkpoint 017.

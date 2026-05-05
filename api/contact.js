@@ -117,7 +117,7 @@ export default async function handler(req, res) {
             from: `Palmetto Consulting <${FROM_EMAIL}>`,
             to: [cleanEmail],
             replyTo: REPLY_TO_PCC,
-            subject: "We received your message — Palmetto Consulting",
+            subject: "We received your message: Palmetto Consulting",
             html: replyHtml,
             text: replyText,
             tags: [{ name: "template", value: "contact-autoreply" }],

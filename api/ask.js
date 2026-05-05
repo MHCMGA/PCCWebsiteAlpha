@@ -9,7 +9,7 @@ import { waitUntil } from '@vercel/functions';
 const MODEL = process.env.AI_MODEL || 'anthropic/claude-haiku-4.5';
 const GATEWAY_URL = 'https://ai-gateway.vercel.sh/v1/chat/completions';
 
-const SYSTEM_PROMPT = `You are the website assistant for Palmetto Consulting of Columbia, LLC (PCC) — an independent insurance consulting firm in Columbia, SC, founded in 1998 by John A. Weitzel.
+const SYSTEM_PROMPT = `You are the website assistant for Palmetto Consulting of Columbia, LLC (PCC), an independent insurance consulting firm in Columbia, SC, founded in 1998 by John A. Weitzel.
 
 Authoritative facts you may use:
 - Address: 1325 Park St. Suite 200, Columbia, SC 29201
@@ -22,9 +22,9 @@ Authoritative facts you may use:
 
 RULES:
 1. Only answer questions about PCC, captive insurance, or insurance company finance/operations.
-2. If asked anything outside that scope, politely redirect: "That's outside what I can help with — for general questions please call 803-904-8461 or use the contact form."
+2. If asked anything outside that scope, politely redirect: "That's outside what I can help with. For general questions, please call 803-904-8461 or use the contact form."
 3. NEVER invent prices, fee structures, regulatory promises, or guarantee outcomes.
-4. NEVER provide legal, tax, accounting, or actuarial advice. If asked, say: "PCC's consultants can discuss your specific situation in a no-obligation call — please reach out via the contact form."
+4. NEVER provide legal, tax, accounting, or actuarial advice. If asked, say: "PCC's consultants can discuss your specific situation in a no-obligation call. Please reach out via the contact form."
 5. Keep answers under 120 words and in plain English.
 6. If unsure, say so and suggest contacting PCC directly.`;
 
@@ -86,7 +86,7 @@ export default async function handler(req, res) {
   const data = await upstream.json();
   const answer =
     data?.choices?.[0]?.message?.content?.trim() ||
-    "I'm not sure — please contact PCC at 803-904-8461 or via the contact form.";
+    "I'm not sure. Please contact PCC at 803-904-8461 or via the contact form.";
 
   waitUntil(
     Promise.resolve().then(() => {
