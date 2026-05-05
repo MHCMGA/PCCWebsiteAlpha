@@ -28,7 +28,7 @@ function StatItem({ value, suffix, label }) {
       { threshold: 0.4 }
     );
     io.observe(el);
-    const t = setTimeout(() => setSeen(true), 800);
+    const t = setTimeout(() => setSeen(true), 150);
     return () => {
       io.disconnect();
       clearTimeout(t);
