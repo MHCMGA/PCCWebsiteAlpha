@@ -121,6 +121,9 @@ async function main() {
   console.log('[prerender] puppeteer up — chrome version:', await browser.version());
 
   try {
+    // First pass: snap every route into memory while the static server still
+    // serves the original Vite shell (with <link rel=stylesheet>).
+    const snapshots = [];
     for (const route of ROUTES) {
       const page = await browser.newPage();
       await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 });
@@ -128,8 +131,30 @@ async function main() {
       console.log(`[prerender] → ${url}`);
       await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
       await page.waitForSelector(READY_SELECTOR, { timeout: 10000 });
+      snapshots.push({ route, html: await page.content() });
+      await page.close();
+    }
 
-      const html = await page.content();
+    // Second pass: inline the critical CSS into every snapshot, then write
+    // them out. This avoids cross-route contamination — once we modify
+    // dist/index.html the SPA fallback would feed already-modified HTML to
+    // subsequent puppeteer fetches.
+    for (const { route, html: rawHtml } of snapshots) {
+      let html = rawHtml;
+      const cssLinkMatch = html.match(/<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/);
+      if (cssLinkMatch) {
+        const cssHref = cssLinkMatch[1];
+        try {
+          const cssContent = await readFile(join(DIST, cssHref), 'utf8');
+          html = html.replace(
+            cssLinkMatch[0],
+            `<style data-inline-critical>${cssContent}</style><link rel="preload" as="style" href="${cssHref}">`,
+          );
+          console.log(`[prerender]   inlined ${cssHref} into ${route} (${cssContent.length} bytes)`);
+        } catch (err) {
+          console.warn(`[prerender]   could not inline ${cssHref}:`, err.message);
+        }
+      }
 
       const outPath =
         route === '/' ? join(DIST, 'index.html') : join(DIST, route.slice(1), 'index.html');
@@ -139,7 +164,6 @@ async function main() {
       const bytes = Buffer.byteLength(html);
       const titleMatch = html.match(/<title>([^<]+)<\/title>/);
       console.log(`[prerender]   saved ${outPath}  (${bytes} bytes, title="${titleMatch?.[1] ?? ''}")`);
-      await page.close();
     }
   } finally {
     await browser.close();
