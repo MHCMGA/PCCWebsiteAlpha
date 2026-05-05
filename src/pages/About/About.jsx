@@ -84,7 +84,7 @@ function Banner({ eyebrow, heading }) {
       className="relative isolate flex min-h-[42vh] items-center text-white"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-bg.jpg')",
+          "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -219,8 +219,7 @@ export default function About() {
                       width={144}
                       height={144}
                       loading="lazy"
-                      className="mb-5 size-36 rounded-full border-[3px] border-[var(--color-teal)] object-cover shadow-md"
-                      style={{ objectPosition: '50% 18%' }}
+                      className="mb-5 size-36 rounded-full border-[3px] border-[var(--color-teal)] object-cover object-center shadow-md"
                     />
                   ) : (
                     <div className="mb-5 flex size-36 items-center justify-center rounded-full border-[3px] border-[var(--color-teal)] bg-[var(--color-bg)] text-3xl font-extrabold text-[var(--color-navy)]">

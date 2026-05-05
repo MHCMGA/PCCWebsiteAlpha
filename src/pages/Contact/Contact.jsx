@@ -101,7 +101,7 @@ export default function Contact() {
         className="relative isolate flex min-h-[42vh] items-center text-white"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-bg.jpg')",
+            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
