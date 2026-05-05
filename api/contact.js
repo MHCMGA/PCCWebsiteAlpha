@@ -1,22 +1,18 @@
 import { Resend } from 'resend';
 import { checkBotId } from 'botid/server';
 import { waitUntil } from '@vercel/functions';
+import { render } from '@react-email/render';
+import ContactNotification from '../emails/contact-notification.js';
+import ContactAutoReply from '../emails/contact-autoreply.js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+const REPLY_TO_PCC = process.env.RESEND_REPLY_TO || 'info@palmettoconsulting.us';
 const TO_EMAIL = (process.env.RESEND_TO_EMAIL || '')
   .split(',')
   .map((e) => e.trim())
   .filter(Boolean);
-
-const escapeHtml = (str) =>
-  String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
 
 const isValidEmail = (email) =>
   typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
@@ -33,7 +29,6 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: 'Request blocked.' });
     }
   } catch {
-    // checkBotId() throws on misconfig; fail closed in production, open locally
     if (process.env.VERCEL_ENV === 'production') {
       return res.status(503).json({ error: 'Verification temporarily unavailable.' });
     }
@@ -58,49 +53,65 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Please provide a valid email address.' });
   }
 
-  const safeName = escapeHtml(name.trim());
-  const safeEmail = escapeHtml(email.trim());
-  const safeMessage = escapeHtml(message.trim()).replace(/\n/g, '<br />');
+  const cleanName = name.trim();
+  const cleanEmail = email.trim();
+  const cleanMessage = message.trim();
+  const meta = {
+    country: req.headers['x-vercel-ip-country'] || null,
+    region: req.headers['x-vercel-ip-country-region'] || null,
+    city: req.headers['x-vercel-ip-city'] || null,
+  };
 
   try {
+    const notifProps = { name: cleanName, email: cleanEmail, message: cleanMessage, meta };
+    const [notifHtml, notifText] = await Promise.all([
+      render(ContactNotification(notifProps)),
+      render(ContactNotification(notifProps), { plainText: true }),
+    ]);
+
     const { error } = await resend.emails.send({
       from: `Palmetto Consulting Website <${FROM_EMAIL}>`,
       to: TO_EMAIL,
-      replyTo: email.trim(),
-      subject: `New contact form submission from ${name.trim()}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #0a3a5c;">New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
-          <p><strong>Message:</strong></p>
-          <div style="padding: 12px; background: #f5f5f5; border-left: 4px solid #0a3a5c;">
-            ${safeMessage}
-          </div>
-        </div>
-      `,
-      text: `New Contact Form Submission\n\nName: ${name.trim()}\nEmail: ${email.trim()}\n\nMessage:\n${message.trim()}`,
+      replyTo: cleanEmail,
+      subject: `New contact form submission from ${cleanName}`,
+      html: notifHtml,
+      text: notifText,
+      tags: [{ name: 'template', value: 'contact-notification' }],
     });
 
     if (error) {
-      console.error('Resend error:', error);
+      console.error('Resend notification error:', error);
       return res.status(502).json({ error: 'Failed to send message. Please try again later.' });
     }
 
-    // Background-log forensic context (geo / UA / IP) without blocking the response.
-    waitUntil(
-      Promise.resolve().then(() => {
+    waitUntil((async () => {
+      try {
+        const replyProps = { name: cleanName, message: cleanMessage };
+        const [replyHtml, replyText] = await Promise.all([
+          render(ContactAutoReply(replyProps)),
+          render(ContactAutoReply(replyProps), { plainText: true }),
+        ]);
+        const ar = await resend.emails.send({
+          from: `Palmetto Consulting <${FROM_EMAIL}>`,
+          to: [cleanEmail],
+          replyTo: REPLY_TO_PCC,
+          subject: 'We received your message — Palmetto Consulting',
+          html: replyHtml,
+          text: replyText,
+          tags: [{ name: 'template', value: 'contact-autoreply' }],
+        });
+        if (ar.error) console.error('Resend autoreply error:', ar.error);
         console.log('[contact:ok]', {
-          name_len: name.trim().length,
-          msg_len: message.trim().length,
-          country: req.headers['x-vercel-ip-country'] || null,
-          region: req.headers['x-vercel-ip-country-region'] || null,
-          city: req.headers['x-vercel-ip-city'] || null,
+          name_len: cleanName.length,
+          msg_len: cleanMessage.length,
+          ...meta,
           ip: req.headers['x-forwarded-for'] || null,
           ua: (req.headers['user-agent'] || '').slice(0, 200),
         });
-      }),
-    );
+      } catch (e) {
+        console.error('autoreply dispatch failed:', e);
+      }
+    })());
 
     return res.status(200).json({ ok: true });
   } catch (err) {
