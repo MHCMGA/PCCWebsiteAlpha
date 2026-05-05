@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Analytics } from '@vercel/analytics/react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
@@ -34,6 +35,7 @@ function NotFound() {
 export default function App() {
   return (
     <ErrorBoundary>
+      <Helmet htmlAttributes={{ lang: 'en' }} />
       <ScrollToTop />
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />

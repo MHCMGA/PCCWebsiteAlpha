@@ -1,0 +1,38 @@
+[
+  {
+    "url": "http://localhost:4173/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost--2026_05_05_04_18_29.report.html",
+    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost--2026_05_05_04_18_29.report.json",
+    "summary": {
+      "performance": 0.83,
+      "accessibility": 0.98,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://localhost:4173/about",
+    "isRepresentativeRun": true,
+    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-about-2026_05_05_04_18_43.report.html",
+    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-about-2026_05_05_04_18_43.report.json",
+    "summary": {
+      "performance": 0.83,
+      "accessibility": 0.98,
+      "best-practices": 1,
+      "seo": 0.92
+    }
+  },
+  {
+    "url": "http://localhost:4173/contact",
+    "isRepresentativeRun": true,
+    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-contact-2026_05_05_04_18_55.report.html",
+    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-contact-2026_05_05_04_18_55.report.json",
+    "summary": {
+      "performance": 0.96,
+      "accessibility": 0.98,
+      "best-practices": 1,
+      "seo": 0.92
+    }
+  }
+]

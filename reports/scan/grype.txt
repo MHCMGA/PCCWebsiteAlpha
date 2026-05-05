@@ -1,0 +1,3 @@
+[0000]  WARN no explicit name and version provided for directory source, deriving artifact ID from the given path (which is not ideal) from=syft
+NAME  INSTALLED  FIXED IN  TYPE  VULNERABILITY        SEVERITY  EPSS  RISK  
+uuid  10.0.0     14.0.0    npm   GHSA-w5hq-g745-h8pq  Medium    N/A   N/A

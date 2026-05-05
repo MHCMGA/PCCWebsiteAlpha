@@ -1,0 +1,12 @@
+output: "table"
+fail-on-severity: "high"
+ignore:
+  - vulnerability: "GHSA-67mh-4wv8-2f99"   # esbuild dev-server, not deployed
+db:
+  auto-update: true
+match:
+  java:
+    using-cpes: false
+exclude:
+  - "**/dist/**"
+  - "**/reports/**"

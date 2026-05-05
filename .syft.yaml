@@ -1,0 +1,12 @@
+output:
+  - "spdx-json=reports/sbom/sbom.spdx.json"
+  - "cyclonedx-json=reports/sbom/sbom.cdx.json"
+  - "syft-json=reports/sbom/sbom.syft.json"
+  - "table"
+package:
+  cataloger:
+    enabled: true
+exclude:
+  - "./dist"
+  - "./reports"
+  - "./node_modules/.cache"

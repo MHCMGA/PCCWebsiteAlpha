@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 1500,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-dev-shm-usage"]
+    },
+    "viewport": { "width": 1280, "height": 1024 },
+    "ignore": [
+      "warning",
+      "notice"
+    ]
+  },
+  "urls": [
+    "http://localhost:4173/",
+    "http://localhost:4173/about",
+    "http://localhost:4173/contact"
+  ]
+}
