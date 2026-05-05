@@ -3,15 +3,11 @@ import { cn } from '@/lib/utils';
 
 export default function AnimatedSection({ children, className = '', delay = 0 }) {
   const ref = useRef(null);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(() => typeof IntersectionObserver === 'undefined');
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === 'undefined') {
-      setShow(true);
-      return;
-    }
+    if (!el || typeof IntersectionObserver === 'undefined') return;
     const io = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
