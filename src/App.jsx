@@ -1,8 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
@@ -10,8 +8,14 @@ import { Toaster } from '@/components/ui/sonner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Home from '@/pages/Home/Home';
 
-const About   = lazy(() => import('@/pages/About/About'));
-const Contact = lazy(() => import('@/pages/Contact/Contact'));
+const About    = lazy(() => import('@/pages/About/About'));
+const Contact  = lazy(() => import('@/pages/Contact/Contact'));
+const Analytics    = lazy(() =>
+  import('@vercel/analytics/react').then((m) => ({ default: m.Analytics }))
+);
+const SpeedInsights = lazy(() =>
+  import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights }))
+);
 
 function PageLoader() {
   return <div className="min-h-[140vh]" aria-hidden="true" />;
@@ -52,8 +56,10 @@ export default function App() {
       </main>
       <Footer />
       <Toaster />
-      <Analytics />
-      <SpeedInsights />
+      <Suspense fallback={null}>
+        <Analytics />
+        <SpeedInsights />
+      </Suspense>
     </ErrorBoundary>
   );
 }
