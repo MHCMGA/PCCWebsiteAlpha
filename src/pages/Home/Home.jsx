@@ -82,7 +82,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Palmetto Consulting of Columbia | Captive Insurance Consultants in Columbia, SC</title>
+        <title>Captive Insurance Consultants in Columbia, SC | Palmetto Consulting</title>
         <meta name="description" content="Palmetto Consulting of Columbia, LLC are independent insurance consultants in Columbia, SC specializing in captive insurance design, growth management, and CFO services since 1998." />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <link rel="canonical" href={`${DOMAIN}/`} />
@@ -90,15 +90,8 @@ export default function Home() {
         <meta property="og:url" content={`${DOMAIN}/`} />
         <meta property="og:title" content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
         <meta property="og:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998." />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Palmetto Consulting of Columbia" />
-        <meta property="og:locale" content="en_US" />
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
         <meta name="twitter:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998." />
-        <meta name="twitter:image" content={OG_IMAGE} />
         <script type="application/ld+json">{JSON.stringify(homeJsonLd)}</script>
       </Helmet>
 

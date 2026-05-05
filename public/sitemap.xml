@@ -9,6 +9,7 @@
     <image:image>
       <image:loc>https://palmettoconsulting.us/og.png</image:loc>
       <image:title>Palmetto Consulting of Columbia</image:title>
+      <image:caption>Independent captive insurance consultants in Columbia, SC since 1998</image:caption>
     </image:image>
   </url>
   <url>
@@ -16,6 +17,11 @@
     <lastmod>2026-05-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://palmettoconsulting.us/team/michael-hunter-v4.webp</image:loc>
+      <image:title>Michael D. Hunter, CPA — Palmetto Consulting of Columbia</image:title>
+      <image:caption>Michael D. Hunter, CPA, Member at Palmetto Consulting of Columbia</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://palmettoconsulting.us/contact</loc>

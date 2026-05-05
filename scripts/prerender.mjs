@@ -74,22 +74,37 @@ const MIME = {
   '.xml':  'application/xml; charset=utf-8',
 };
 
-function startStaticServer(rootDir, port) {
+function startStaticServer(rootDir, port, fallbackHtml) {
   return new Promise((resolve, reject) => {
     const server = createServer(async (req, res) => {
       try {
         const url = new URL(req.url, 'http://x');
         let pathname = decodeURIComponent(url.pathname);
-        // SPA fallback — any non-asset path serves index.html so the SPA can
-        // route client-side. Asset paths must have a real file extension.
+        // SPA fallback - any non-asset path serves the ORIGINAL (pre-prerender)
+        // index.html. We must NOT serve prerendered route HTML as the SPA shell,
+        // or Helmet's per-page tags get duplicated against the static SEO tags
+        // that were baked into a prior route's prerender output.
         let filePath = join(rootDir, pathname);
+        let useFallback = false;
         try {
           const s = await stat(filePath);
-          if (s.isDirectory()) filePath = join(filePath, 'index.html');
+          if (s.isDirectory()) {
+            // Directory request (e.g. /about/) -> serve SPA fallback shell, not
+            // any prerendered index.html that may already exist there.
+            useFallback = true;
+          }
         } catch {
           if (!extname(pathname)) {
-            filePath = join(rootDir, 'index.html');
+            useFallback = true;
           }
+        }
+        if (useFallback) {
+          res.writeHead(200, {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-store',
+          });
+          res.end(fallbackHtml);
+          return;
         }
         const buf = await readFile(filePath);
         res.writeHead(200, {
@@ -109,7 +124,11 @@ function startStaticServer(rootDir, port) {
 
 async function main() {
   console.log(`[prerender] static server starting on ${ORIGIN}`);
-  const server = await startStaticServer(DIST, PORT);
+  // Snapshot the original SPA shell BEFORE we start overwriting it with
+  // prerendered route HTML. This is what the static server returns for any
+  // SPA fallback request, ensuring each route renders against a clean shell.
+  const fallbackHtml = await readFile(join(DIST, 'index.html'), 'utf8');
+  const server = await startStaticServer(DIST, PORT, fallbackHtml);
 
   const chrome = await resolveChrome();
   console.log(`[prerender] chrome: ${chrome.executablePath}`);

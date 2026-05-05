@@ -125,14 +125,8 @@ export default function About() {
         <meta property="og:url" content={`${DOMAIN}/about`} />
         <meta property="og:title" content="About Us | Palmetto Consulting of Columbia" />
         <meta property="og:description" content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States." />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Palmetto Consulting of Columbia" />
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
         <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC." />
-        <meta name="twitter:image" content={OG_IMAGE} />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

@@ -21,10 +21,12 @@
     <meta name="msapplication-TileColor" content="#003057" />
     <meta name="msapplication-TileImage" content="/icons/android-chrome-192.png" />
 
-    <!-- Default SEO (overridden per-page by react-helmet-async) -->
-    <title>Palmetto Consulting of Columbia | Captive Insurance Consultants in Columbia, SC</title>
-    <meta name="description" content="Independent insurance consultants in Columbia, SC specializing in captive insurance company design, growth management, and CFO services since 1998. All business by referral." />
-    <meta name="keywords" content="captive insurance, captive insurance consultant, insurance CFO services, insurance company formation, reinsurance, captive manager, insurance consulting Columbia SC, South Carolina captive insurance, Palmetto Consulting" />
+    <!--
+      Per-page SEO tags (title, description, canonical, og:*, twitter:*) are
+      injected by react-helmet-async to avoid duplicate / conflicting tags in
+      prerendered output. See src/App.jsx for site-wide defaults applied to
+      404 / non-prerendered routes, and src/pages/*/*.jsx for per-page overrides.
+    -->
     <meta name="author" content="Palmetto Consulting of Columbia, LLC" />
     <meta name="publisher" content="Palmetto Consulting of Columbia, LLC" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -39,8 +41,6 @@
     <meta name="geo.placename" content="Columbia, South Carolina" />
     <meta name="geo.position" content="34.0007;-81.0348" />
     <meta name="ICBM" content="34.0007, -81.0348" />
-
-    <link rel="canonical" href="https://palmettoconsulting.us/" />
 
     <!-- LCP hero preload (responsive) -->
     <link
@@ -57,25 +57,7 @@
     <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Palmetto Consulting of Columbia" />
-    <meta property="og:url" content="https://palmettoconsulting.us/" />
-    <meta property="og:title" content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
-    <meta property="og:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998." />
-    <meta property="og:image" content="https://palmettoconsulting.us/og.png" />
-    <meta property="og:image:secure_url" content="https://palmettoconsulting.us/og.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
-    <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
-    <meta name="twitter:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998." />
-    <meta name="twitter:image" content="https://palmettoconsulting.us/og.png" />
-    <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
+    <!-- og:* and twitter:* tags injected per-page by react-helmet-async -->
 
     <!-- Sitemap discovery -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
