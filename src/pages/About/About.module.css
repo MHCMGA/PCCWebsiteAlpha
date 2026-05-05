@@ -225,7 +225,7 @@
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center;
   display: block;
   margin: 0 auto 1.25rem;
   border: 3px solid var(--color-teal);
