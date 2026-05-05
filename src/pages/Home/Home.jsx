@@ -115,7 +115,7 @@ export default function Home() {
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-10"
-          style={{ background: 'linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78))' }}
+          style={{ backgroundImage: 'linear-gradient(rgba(0, 48, 87, 0.55), rgba(0, 48, 87, 0.78))' }}
         />
         <div className="container-x relative z-10 max-w-3xl">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)] animate-fade-up">
@@ -125,8 +125,7 @@ export default function Home() {
             Palmetto Consulting<br />of Columbia
           </h1>
           <p className="mb-10 text-lg md:text-xl text-white/85 animate-fade-up" data-speakable>
-            Focused on the intersection of captive insurance<br className="hidden md:inline" />
-            {' '}and the traditional insurance marketplace.
+            Focused on the intersection of captive insurance<br className="hidden md:inline" /> and the traditional insurance marketplace.
           </p>
           <Button asChild size="lg" className="animate-fade-up">
             <Link to="/contact">Let&apos;s Work Together</Link>

@@ -8,55 +8,48 @@ const stats = [
 
 function StatItem({ value, suffix, label }) {
   const ref = useRef(null);
-  const [n, setN] = useState(0);
-  const [seen, setSeen] = useState(false);
+  // Render the final value on first paint to match the prerendered HTML and
+  // avoid a hydration mismatch. Once the section scrolls into view we replay
+  // a quick count-up for visual flair (purely cosmetic, runs once).
+  const [n, setN] = useState(value);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || seen) return;
-    if (typeof IntersectionObserver === 'undefined') {
-      setSeen(true);
-      return;
-    }
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    let raf;
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          setSeen(true);
-          io.disconnect();
-        }
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        // Brief count-up: snap to 0 then ease to value over ~900ms.
+        setN(0);
+        const start = performance.now();
+        const dur = 900;
+        const tick = (t) => {
+          const p = Math.min(1, (t - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          setN(Math.round(value * eased));
+          if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
       },
       { threshold: 0.4 }
     );
     io.observe(el);
-    const t = setTimeout(() => setSeen(true), 150);
     return () => {
       io.disconnect();
-      clearTimeout(t);
+      if (raf) cancelAnimationFrame(raf);
     };
-  }, [seen]);
-
-  useEffect(() => {
-    if (!seen) return;
-    const start = performance.now();
-    const dur = 1500;
-    let raf;
-    const tick = (t) => {
-      const p = Math.min(1, (t - start) / dur);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setN(Math.round(value * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [seen, value]);
+  }, [value]);
 
   return (
     <div ref={ref} className="flex flex-col items-center text-center">
       <span
         className="text-5xl md:text-6xl font-extrabold tracking-tight text-[var(--color-cyan)] tabular-nums"
         aria-live="polite"
+        suppressHydrationWarning
       >
-        {n}{suffix}
+        {`${n}${suffix}`}
       </span>
       <span className="mt-2 text-xs md:text-sm font-bold uppercase tracking-[0.14em] text-white/85">
         {label}

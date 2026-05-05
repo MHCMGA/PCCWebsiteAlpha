@@ -50,9 +50,28 @@ const server = createServer(async (req, res) => {
     const pathname = decodeURIComponent(url.pathname);
     let filePath = null;
 
+    if (pathname.startsWith('/_vercel/') || pathname.startsWith('/api/')) {
+      // Vercel runtime endpoints don't exist locally. Serve an empty 200 JS
+      // response so the browser doesn't log a network error or syntax error
+      // for the analytics/speed-insights scripts that the @vercel/* React
+      // components inject after hydration. In production these are served
+      // by the Vercel edge - this only affects local preview / Lighthouse.
+      res.writeHead(200, {
+        'Content-Type': 'application/javascript; charset=utf-8',
+        'Cache-Control': 'no-store',
+      });
+      res.end('// vercel runtime stub (local preview)\n');
+      return;
+    }
+
     if (extname(pathname)) {
-      // explicit asset request
+      // explicit asset request — if missing, return 404 (don't SPA-fallback assets)
       filePath = await tryFile(join(DIST, pathname));
+      if (!filePath) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('not found');
+        return;
+      }
     } else {
       // clean URL -> dir/index.html (Vercel behaviour)
       const candidate = join(DIST, pathname, 'index.html');

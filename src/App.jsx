@@ -1,26 +1,16 @@
-import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
 import { Toaster } from '@/components/ui/sonner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Home from '@/pages/Home/Home';
+import About from '@/pages/About/About';
+import Contact from '@/pages/Contact/Contact';
 import { SITE } from '@/lib/site';
-
-const About    = lazy(() => import('@/pages/About/About'));
-const Contact  = lazy(() => import('@/pages/Contact/Contact'));
-const Analytics    = lazy(() =>
-  import('@vercel/analytics/react').then((m) => ({ default: m.Analytics }))
-);
-const SpeedInsights = lazy(() =>
-  import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights }))
-);
-
-function PageLoader() {
-  return <div className="min-h-[140vh]" aria-hidden="true" />;
-}
 
 function NotFound() {
   return (
@@ -64,21 +54,17 @@ export default function App() {
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
       <main id="main-content">
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/"        element={<Home />} />
-            <Route path="/about"   element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*"        element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route path="/"        element={<Home />} />
+          <Route path="/about"   element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*"        element={<NotFound />} />
+        </Routes>
       </main>
       <Footer />
       <Toaster />
-      <Suspense fallback={null}>
-        <Analytics />
-        <SpeedInsights />
-      </Suspense>
+      <Analytics />
+      <SpeedInsights />
     </ErrorBoundary>
   );
 }

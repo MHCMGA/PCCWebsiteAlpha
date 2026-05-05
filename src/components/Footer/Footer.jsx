@@ -57,7 +57,7 @@ export default function Footer() {
       <Separator className="bg-white/10" />
 
       <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-xs text-white/60 md:flex-row">
-        <p>&copy; {year} Palmetto Consulting of Columbia, LLC. All rights reserved.</p>
+        <p>&copy; <span suppressHydrationWarning>{year}</span> Palmetto Consulting of Columbia, LLC. All rights reserved.</p>
         <p>Independent Insurance Consultants in Columbia, SC</p>
       </div>
     </footer>

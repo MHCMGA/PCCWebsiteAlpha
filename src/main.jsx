@@ -16,7 +16,7 @@ const tree = (
   </StrictMode>
 )
 
-// Prerendered routes (see scripts/prerender.mjs) ship rendered HTML — hydrate
+// Prerendered routes (see scripts/prerender.mjs) ship rendered HTML - hydrate
 // to attach event handlers without a re-paint. SPA fallback routes get the
 // empty shell, so createRoot for those.
 if (rootEl.firstElementChild) {

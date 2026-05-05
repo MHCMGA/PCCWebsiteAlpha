@@ -149,14 +149,24 @@ async function main() {
       await page.waitForSelector(READY_SELECTOR, { timeout: 10000 });
 
       const html = await page.content();
+      // Strip Vercel runtime scripts (Analytics + Speed Insights) from the
+      // prerendered HTML. The /_vercel/* endpoints only exist on the Vercel
+      // edge - they 404 in any other environment. The @vercel/* React
+      // components re-inject these script tags on hydration, so production
+      // behaviour is unchanged. Removing them prevents console-error noise
+      // when serving prerendered HTML from any non-Vercel host.
+      const cleanedHtml = html.replace(
+        /<script[^>]*src="\/_vercel\/[^"]*"[^>]*><\/script>/g,
+        ''
+      );
 
       const outPath =
         route === '/' ? join(DIST, 'index.html') : join(DIST, route.slice(1), 'index.html');
       await mkdir(dirname(outPath), { recursive: true });
-      await writeFile(outPath, html, 'utf8');
+      await writeFile(outPath, cleanedHtml, 'utf8');
 
-      const bytes = Buffer.byteLength(html);
-      const titleMatch = html.match(/<title>([^<]+)<\/title>/);
+      const bytes = Buffer.byteLength(cleanedHtml);
+      const titleMatch = cleanedHtml.match(/<title>([^<]+)<\/title>/);
       console.log(`[prerender]   saved ${outPath}  (${bytes} bytes, title="${titleMatch?.[1] ?? ''}")`);
       await page.close();
     }
