@@ -1,54 +1,96 @@
-import { Helmet } from 'react-helmet-async';
-import { Briefcase, ClipboardList as ClipboardText } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
-import HeroBanner from '@/components/HeroBanner/HeroBanner';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Section, Eyebrow, SectionHeading } from '@/components/ui/section';
-import { SITE } from '@/lib/site';
-import { graph, webPage, breadcrumb, person, service } from '@/lib/schema';
+import { Helmet } from "react-helmet-async";
+import {
+  Briefcase,
+  CalendarDays,
+  ClipboardList as ClipboardText,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import AnimatedSection from "@/components/AnimatedSection/AnimatedSection";
+import FeatureCard from "@/components/FeatureCard/FeatureCard";
+import HeroBanner from "@/components/HeroBanner/HeroBanner";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Section, Eyebrow, SectionHeading } from "@/components/ui/section";
+import { SITE } from "@/lib/site";
+import { graph, webPage, breadcrumb, person, service } from "@/lib/schema";
 
 const DOMAIN = SITE.domain;
 
 const team = [
   {
-    name: 'John A. Weitzel',
-    role: 'Founder & Principal',
-    bio: 'John founded Palmetto Consulting of Columbia in 1998 following a nearly 50-year career in the insurance industry, primarily serving as Chief Financial Officer. His deep expertise in both the captive and traditional insurance marketplace forms the cornerstone of the firm.',
+    name: "John A. Weitzel",
+    role: "Founder & Principal",
+    bio: "John founded Palmetto Consulting of Columbia in 1998 following a nearly 50-year career in the insurance industry, primarily serving as Chief Financial Officer. His deep expertise in both the captive and traditional insurance marketplace forms the cornerstone of the firm.",
   },
   {
-    name: 'Matthew A. Holycross, CPA',
-    role: 'Member',
+    name: "Matthew A. Holycross, CPA",
+    role: "Member",
     bio: "Matthew joined Palmetto in 2015, bringing a background in traditional Property & Casualty carrier management as well as extensive experience in the Alternative Risk and Captive market. His perspectives have expanded the firm's capabilities and value to clients.",
   },
   {
-    name: 'Michael D. Hunter, CPA',
-    role: 'Member',
+    name: "Michael D. Hunter, CPA",
+    role: "Member",
     bio: "Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team's financial leadership.",
-    initials: 'MH',
-    photo: '/team/michael-hunter-v4.webp',
+    initials: "MH",
+    photo: "/team/michael-hunter-v4.webp",
+  },
+];
+
+const milestones = [
+  { icon: CalendarDays, label: "Founded", value: "1998" },
+  { icon: ShieldCheck, label: "Captive focus", value: "Since 2003" },
+  { icon: Users, label: "Consultants", value: "3 principals" },
+];
+
+const expertise = [
+  {
+    icon: ClipboardText,
+    title: "Controllership Services",
+    badge: "Control",
+    body: "Palmetto fills a void in the marketplace based on the premise that many captive managers provide adequate service fulfilling the Controllership function, including general ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting.",
+  },
+  {
+    icon: Briefcase,
+    title: "Full CFO Services",
+    badge: "CFO",
+    body: "Relatively few captive managers provide the full menu of Chief Financial Officer functions. Palmetto specializes in Treasury, Investment monitoring, Tax planning, Budget analysis, Reinsurance negotiations, Rating agency relationships, and Internal audit, delivering a proactive approach that advances clients from compliance to best practices.",
   },
 ];
 
 const aboutJsonLd = graph([
-  webPage({ id: 'webpage', url: '/about', name: 'About Palmetto Consulting of Columbia', type: 'AboutPage' }),
-  ...team.map((m) => person({ ...m, isCpa: m.name.includes('CPA') })),
+  webPage({
+    id: "webpage",
+    url: "/about",
+    name: "About Palmetto Consulting of Columbia",
+    type: "AboutPage",
+  }),
+  ...team.map((m) => person({ ...m, isCpa: m.name.includes("CPA") })),
   service({
-    name: 'Controllership Services',
-    serviceType: 'Insurance Controllership',
-    category: 'Insurance Consulting',
-    description: 'General ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting for captive insurance companies.',
+    name: "Controllership Services",
+    serviceType: "Insurance Controllership",
+    category: "Insurance Consulting",
+    description:
+      "General ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting for captive insurance companies.",
   }),
   service({
-    name: 'Full CFO Services',
-    serviceType: 'Insurance CFO Services',
-    category: 'Insurance Consulting',
-    description: 'Treasury, investment monitoring, tax planning, budget analysis, reinsurance negotiations, rating agency relationships, and internal audit for captive and traditional insurance companies.',
+    name: "Full CFO Services",
+    serviceType: "Insurance CFO Services",
+    category: "Insurance Consulting",
+    description:
+      "Treasury, investment monitoring, tax planning, budget analysis, reinsurance negotiations, rating agency relationships, and internal audit for captive and traditional insurance companies.",
   }),
   breadcrumb([
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
   ]),
 ]);
 
@@ -57,19 +99,40 @@ export default function About() {
     <>
       <Helmet>
         <title>About Us | Palmetto Consulting of Columbia | Columbia, SC</title>
-        <meta name="description" content="Learn about Palmetto Consulting of Columbia, LLC, an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists." />
+        <meta
+          name="description"
+          content="Learn about Palmetto Consulting of Columbia, LLC, an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists."
+        />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <link rel="canonical" href={`${DOMAIN}/about`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${DOMAIN}/about`} />
-        <meta property="og:title" content="About Us | Palmetto Consulting of Columbia" />
-        <meta property="og:description" content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States." />
-        <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
-        <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC." />
-        <script type="application/ld+json">{JSON.stringify(aboutJsonLd)}</script>
+        <meta
+          property="og:title"
+          content="About Us | Palmetto Consulting of Columbia"
+        />
+        <meta
+          property="og:description"
+          content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States."
+        />
+        <meta
+          name="twitter:title"
+          content="About Us | Palmetto Consulting of Columbia"
+        />
+        <meta
+          name="twitter:description"
+          content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC."
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(aboutJsonLd)}
+        </script>
       </Helmet>
 
-      <HeroBanner image="/hero-about.webp" eyebrow="Our Story" heading="About Us" />
+      <HeroBanner
+        image="/hero-about.webp"
+        eyebrow="Our Story"
+        heading="About Us"
+      />
 
       {/* History */}
       <Section>
@@ -77,18 +140,41 @@ export default function About() {
           <AnimatedSection>
             <Eyebrow>Founded 1998</Eyebrow>
             <SectionHeading className="mb-0">Who We Are</SectionHeading>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
+              {milestones.map(({ icon: Icon, label, value }) => (
+                <Card key={label} className="hover:translate-y-0">
+                  <CardContent className="p-4">
+                    <Icon
+                      className="mb-3 size-5 text-[var(--color-teal)]"
+                      aria-hidden="true"
+                    />
+                    <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+                      {label}
+                    </p>
+                    <p className="mt-1 font-extrabold text-[var(--color-navy)]">
+                      {value}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </AnimatedSection>
-          <AnimatedSection delay={120} className="space-y-5 text-base leading-7 text-[var(--color-ink)]">
+          <AnimatedSection
+            delay={120}
+            className="space-y-5 text-base leading-7 text-[var(--color-ink)]"
+          >
             <p data-speakable>
-              Palmetto Consulting of Columbia, LLC was founded in 1998 by John A. Weitzel, an insurance
-              executive whose career spanned nearly 50 years working for, or consulting with, insurance
-              companies, primarily as a Chief Financial Officer. Our offices are located in Columbia,
-              South Carolina, at the heart of the Palmetto State.
+              Palmetto Consulting of Columbia, LLC was founded in 1998 by John
+              A. Weitzel, an insurance executive whose career spanned nearly 50
+              years working for, or consulting with, insurance companies,
+              primarily as a Chief Financial Officer. Our offices are located in
+              Columbia, South Carolina, at the heart of the Palmetto State.
             </p>
             <p>
-              Since 2003, Palmetto&apos;s services have been focused almost exclusively on the captive
-              insurance industry. Clients have included prospective and established captive insurance
-              companies and captive managers across the United States.
+              Since 2003, Palmetto&apos;s services have been focused almost
+              exclusively on the captive insurance industry. Clients have
+              included prospective and established captive insurance companies
+              and captive managers across the United States.
             </p>
           </AnimatedSection>
         </div>
@@ -101,20 +187,9 @@ export default function About() {
           <SectionHeading>What We Do</SectionHeading>
         </AnimatedSection>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {[
-            { Icon: ClipboardText, title: 'Controllership Services', body: 'Palmetto fills a void in the marketplace based on the premise that many captive managers provide adequate service fulfilling the Controllership function, including general ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting.' },
-            { Icon: Briefcase, title: 'Full CFO Services', body: 'Relatively few captive managers provide the full menu of Chief Financial Officer functions. Palmetto specializes in Treasury, Investment monitoring, Tax planning, Budget analysis, Reinsurance negotiations, Rating agency relationships, and Internal audit, delivering a proactive approach that advances clients from compliance to best practices.' },
-          ].map(({ Icon, title, body }, i) => (
-            <AnimatedSection key={title} delay={(i + 1) * 100}>
-              <Card className="h-full">
-                <CardContent className="p-8">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
-                    <Icon size={28} aria-hidden="true" />
-                  </div>
-                  <h3 className="mb-3 text-lg font-bold text-[var(--color-navy)]">{title}</h3>
-                  <p className="text-sm leading-7 text-[var(--color-muted)]">{body}</p>
-                </CardContent>
-              </Card>
+          {expertise.map((item, i) => (
+            <AnimatedSection key={item.title} delay={(i + 1) * 100}>
+              <FeatureCard {...item} />
             </AnimatedSection>
           ))}
         </div>
@@ -122,26 +197,60 @@ export default function About() {
 
       {/* Approach */}
       <Section className="bg-[var(--color-navy)] text-white">
-        <AnimatedSection className="mx-auto max-w-3xl text-center">
+        <AnimatedSection className="mx-auto max-w-4xl">
           <Eyebrow light>How We Work</Eyebrow>
-          <h2 className="mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">From Compliance to Best Practices</h2>
-          <p className="mb-5 text-base md:text-lg leading-8 text-white/85">
-            Palmetto assists clients in assembling teams of top-notch insurance management, underwriting,
-            claims, investment management, actuary, audit, and legal experts during the formation stage of
-            a new captive. We are uniquely equipped to serve as a client&apos;s captive manager or guide a
-            selected captive manager, assuring the team selects appropriate domiciles, develops business
-            plans, projects financial results, and walks a captive application to regulators from
-            submission to approval.
-          </p>
-          <p className="mb-8 text-base md:text-lg leading-8 text-white/85">
-            Once a client is fully operational, we act as team captain to ensure all team members are
-            achieving their individual benchmarks and properly contributing toward the collective success
-            of the client. Long-term relationships with regulators, based on mutual respect, facilitate
-            this process.
-          </p>
-          <p className="border-l-4 border-[var(--color-cyan)] pl-6 text-left text-lg italic text-white/95">
-            &quot;There is a reason we do not advertise, all our business is generated by referral.&quot;
-          </p>
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-start">
+            <div>
+              <h2 className="mb-5 text-3xl font-extrabold tracking-tight md:text-4xl">
+                From Compliance to Best Practices
+              </h2>
+              <p className="text-base leading-8 text-white/85 md:text-lg">
+                Palmetto helps clients assemble the right team, navigate
+                formation, and keep every specialist aligned after launch.
+              </p>
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue="formation"
+                className="mt-6 rounded-sm border border-white/10 bg-white/5 px-5"
+              >
+                <AccordionItem value="formation" className="border-white/10">
+                  <AccordionTrigger className="text-white hover:text-[var(--color-cyan)]">
+                    Formation stage guidance
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/75">
+                    We help assemble insurance management, underwriting, claims,
+                    investment management, actuary, audit, and legal experts;
+                    select appropriate domiciles; develop business plans;
+                    project financial results; and walk captive applications
+                    from submission to approval.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="operations" className="border-white/10">
+                  <AccordionTrigger className="text-white hover:text-[var(--color-cyan)]">
+                    Operational team captain
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/75">
+                    Once a client is operational, we help ensure team members
+                    meet their benchmarks and contribute toward the collective
+                    success of the client. Long-term regulator relationships,
+                    based on mutual respect, facilitate this process.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+            <Card className="border-white/15 bg-white/10 text-white shadow-none">
+              <CardContent className="p-8">
+                <Badge variant="light" className="mb-5">
+                  Referral only
+                </Badge>
+                <p className="text-xl font-extrabold leading-8 tracking-tight">
+                  &quot;There is a reason we do not advertise, all our business
+                  is generated by referral.&quot;
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </AnimatedSection>
       </Section>
 
@@ -167,12 +276,26 @@ export default function About() {
                     />
                   ) : (
                     <div className="mb-5 flex size-36 items-center justify-center rounded-full border-[3px] border-[var(--color-teal)] bg-[var(--color-bg)] text-3xl font-extrabold text-[var(--color-navy)]">
-                      {m.initials || m.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
+                      {m.initials ||
+                        m.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .slice(0, 2)
+                          .join("")}
                     </div>
                   )}
-                  <h3 className="text-lg font-bold text-[var(--color-navy)]">{m.name}</h3>
-                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-teal)]">{m.role}</p>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{m.bio}</p>
+                  <h3 className="text-lg font-bold text-[var(--color-navy)]">
+                    {m.name}
+                  </h3>
+                  <Badge
+                    variant={m.name.includes("CPA") ? "default" : "navy"}
+                    className="mt-3"
+                  >
+                    {m.role}
+                  </Badge>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+                    {m.bio}
+                  </p>
                 </CardContent>
               </Card>
             </AnimatedSection>

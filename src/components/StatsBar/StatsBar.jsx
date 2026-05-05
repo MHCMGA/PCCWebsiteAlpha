@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 50, suffix: '+', label: 'Years of Industry Experience' },
-  { value: 3,  suffix: '',  label: 'Expert Consultants' },
-  { value: 20, suffix: '+', label: 'Years in the Captive Market' },
+  { value: 50, suffix: "+", label: "Years of Industry Experience" },
+  { value: 3, suffix: "", label: "Expert Consultants" },
+  { value: 20, suffix: "+", label: "Years in the Captive Market" },
 ];
 
 function StatItem({ value, suffix, label }) {
@@ -15,7 +15,15 @@ function StatItem({ value, suffix, label }) {
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const prefersReducedMotion = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (
+      !el ||
+      prefersReducedMotion ||
+      typeof IntersectionObserver === "undefined"
+    )
+      return;
     let raf;
     const io = new IntersectionObserver(
       (entries) => {
@@ -33,7 +41,7 @@ function StatItem({ value, suffix, label }) {
         };
         raf = requestAnimationFrame(tick);
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
     io.observe(el);
     return () => {
