@@ -17,14 +17,15 @@ export default function Logo({ size = 48, variant = 'default' }) {
         style={{ height: size, width: size }}
       />
       <span
-        className="font-extrabold leading-none tracking-tight"
+        className="font-extrabold leading-tight tracking-tight"
         style={{
-          fontSize: size * 0.55,
+          fontSize: size * 0.34,
           color: isLight ? '#ffffff' : 'var(--color-navy)',
           letterSpacing: '-0.01em',
+          maxWidth: size * 5.5,
         }}
       >
-        PCC
+        Palmetto Consulting of Columbia
       </span>
     </span>
   );
