@@ -1,6 +1,6 @@
-import { Component } from 'react';
+import * as React from 'react';
 
-export class ErrorBoundary extends Component {
+export class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -9,21 +9,19 @@ export class ErrorBoundary extends Component {
     return { hasError: true };
   }
   componentDidCatch(error, info) {
-    console.error('ErrorBoundary caught', error, info);
+     
+    console.error('App error:', error, info);
   }
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
-          <h1 className="text-2xl font-extrabold text-[var(--color-navy)] mb-4">
-            Something went wrong.
-          </h1>
-          <p className="text-[var(--color-muted)] mb-6">
-            Please refresh the page. If the problem persists, contact us.
-          </p>
+        <div className="container-x py-24 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-teal)]">Error</p>
+          <h1 className="mt-2 text-3xl font-extrabold text-[var(--color-navy)]">Something went wrong</h1>
+          <p className="mt-4 text-[var(--color-muted)]">Please refresh the page or call 803-904-8461.</p>
           <a
             href="/"
-            className="inline-flex h-11 items-center px-6 bg-[var(--color-teal)] text-white font-bold uppercase tracking-wider rounded-sm"
+            className="mt-8 inline-flex h-11 items-center rounded-sm bg-[var(--color-teal)] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white"
           >
             Return Home
           </a>

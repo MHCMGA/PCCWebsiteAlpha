@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\""
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

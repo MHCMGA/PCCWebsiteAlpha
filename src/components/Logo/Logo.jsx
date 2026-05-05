@@ -1,21 +1,31 @@
-import iconSrc from '../../assets/pcc-icon.png';
-import textSrc from '../../assets/pcc-text.png';
+import iconSrc from '@/assets/pcc-icon.png';
 
 export default function Logo({ size = 48, variant = 'default' }) {
-  const textFilter = variant === 'light' ? 'brightness(0) invert(1)' : 'none';
+  const isLight = variant === 'light';
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: size * 0.08 }}>
+    <span
+      className="inline-flex items-center"
+      style={{ gap: size * 0.32 }}
+      aria-label="Palmetto Consulting of Columbia"
+    >
       <img
         src={iconSrc}
         alt=""
         aria-hidden="true"
-        style={{ display: 'block', height: size * 0.9, width: 'auto' }}
+        width={size}
+        height={size}
+        style={{ height: size, width: size }}
       />
-      <img
-        src={textSrc}
-        alt="PCC — Palmetto Consulting of Columbia"
-        style={{ display: 'block', height: size, width: 'auto', filter: textFilter }}
-      />
+      <span
+        className="font-extrabold leading-none tracking-tight"
+        style={{
+          fontSize: size * 0.55,
+          color: isLight ? '#ffffff' : 'var(--color-navy)',
+          letterSpacing: '-0.01em',
+        }}
+      >
+        PCC
+      </span>
     </span>
   );
 }
