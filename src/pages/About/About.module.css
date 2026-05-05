@@ -213,6 +213,17 @@
   margin: 0 auto 1.25rem;
 }
 
+.teamPhoto {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  margin: 0 auto 1.25rem;
+  border: 3px solid var(--color-teal);
+}
+
 .teamName {
   font-size: 1rem;
   font-weight: 700;
