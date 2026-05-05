@@ -234,7 +234,7 @@ export default function About() {
                       width={144}
                       height={144}
                       loading="lazy"
-                      className="mb-5 size-36 rounded-full border-[3px] border-[var(--color-teal)] object-cover object-center shadow-md"
+                      className="mb-5 size-36 rounded-full border-[3px] border-[var(--color-teal)] object-cover object-[center_25%] shadow-md"
                     />
                   ) : (
                     <div className="mb-5 flex size-36 items-center justify-center rounded-full border-[3px] border-[var(--color-teal)] bg-[var(--color-bg)] text-3xl font-extrabold text-[var(--color-navy)]">
