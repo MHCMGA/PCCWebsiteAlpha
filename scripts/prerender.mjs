@@ -14,11 +14,38 @@
 //   PRERENDER_PORT  (default 4178)
 //   PRERENDER_ROUTES  comma-separated, default "/,/about,/contact"
 
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import { mkdir, writeFile, readFile, stat } from 'node:fs/promises';
 import { dirname, join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'node:http';
+import { platform } from 'node:os';
+
+// Resolve a chrome executable. On Vercel/Linux CI we use @sparticuz/chromium
+// (lambda-friendly, no system libs needed). Locally we just pick whatever
+// chrome the OS already has installed.
+async function resolveChrome() {
+  if (process.env.PRERENDER_CHROME_PATH) {
+    return { executablePath: process.env.PRERENDER_CHROME_PATH, args: [], headless: true };
+  }
+  if (process.env.VERCEL || process.env.CI || platform() === 'linux') {
+    const { default: chromium } = await import('@sparticuz/chromium');
+    return {
+      executablePath: await chromium.executablePath(),
+      args: chromium.args,
+      headless: true,
+    };
+  }
+  // macOS / dev — try common paths
+  const candidates = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  ];
+  for (const p of candidates) {
+    try { await stat(p); return { executablePath: p, args: [], headless: true }; } catch {}
+  }
+  throw new Error('No chrome executable found. Set PRERENDER_CHROME_PATH or install Chrome.');
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -84,9 +111,12 @@ async function main() {
   console.log(`[prerender] static server starting on ${ORIGIN}`);
   const server = await startStaticServer(DIST, PORT);
 
+  const chrome = await resolveChrome();
+  console.log(`[prerender] chrome: ${chrome.executablePath}`);
   const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+    executablePath: chrome.executablePath,
+    headless: chrome.headless,
+    args: [...chrome.args, '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   });
   console.log('[prerender] puppeteer up — chrome version:', await browser.version());
 
