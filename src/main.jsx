@@ -1,19 +1,29 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+const rootEl = document.getElementById('root')
+const tree = (
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
         <App />
       </BrowserRouter>
     </HelmetProvider>
-  </StrictMode>,
+  </StrictMode>
 )
+
+// Prerendered routes (see scripts/prerender.mjs) ship rendered HTML — hydrate
+// to attach event handlers without a re-paint. SPA fallback routes get the
+// empty shell, so createRoot for those.
+if (rootEl.firstElementChild) {
+  hydrateRoot(rootEl, tree)
+} else {
+  createRoot(rootEl).render(tree)
+}
 
 const initBot = () =>
   import('botid/client/core').then(({ initBotId }) =>
