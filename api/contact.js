@@ -4,7 +4,10 @@ import { checkBotId } from 'botid/server';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-const TO_EMAIL = process.env.RESEND_TO_EMAIL;
+const TO_EMAIL = (process.env.RESEND_TO_EMAIL || '')
+  .split(',')
+  .map((e) => e.trim())
+  .filter(Boolean);
 
 const escapeHtml = (str) =>
   String(str)
@@ -61,7 +64,7 @@ export default async function handler(req, res) {
   try {
     const { error } = await resend.emails.send({
       from: `Palmetto Consulting Website <${FROM_EMAIL}>`,
-      to: [TO_EMAIL],
+      to: TO_EMAIL,
       replyTo: email.trim(),
       subject: `New contact form submission from ${name.trim()}`,
       html: `
