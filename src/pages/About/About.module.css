@@ -183,9 +183,16 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  align-items: stretch;
+}
+
+.teamGrid > * {
+  display: flex;
+  flex-direction: column;
 }
 
 .teamCard {
+  flex: 1;
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: 4px;
@@ -200,12 +207,12 @@
 }
 
 .teamAvatar {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: var(--color-teal);
   color: var(--color-white);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -214,11 +221,11 @@
 }
 
 .teamPhoto {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 20%;
   display: block;
   margin: 0 auto 1.25rem;
   border: 3px solid var(--color-teal);
@@ -263,6 +270,7 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .teamGrid { grid-template-columns: repeat(2, 1fr); }
+  .teamGrid > * { display: flex; flex-direction: column; }
 }
 
 @media (max-width: 768px) {
