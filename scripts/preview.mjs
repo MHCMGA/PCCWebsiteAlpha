@@ -5,12 +5,18 @@
 // then the page's Helmet adds tags on top, resulting in duplicate
 // canonical / title elements that LH counts as conflicting).
 //
+// Also mirrors Vercel's edge for Lighthouse PERF parity:
+//   - brotli / gzip negotiation via Accept-Encoding
+//   - long `Cache-Control: immutable` for hashed /assets/*
+//   - no `no-store` on HTML (so back/forward cache can cache it)
+//
 // Usage: node scripts/preview.mjs   (PORT env var, default 4173)
 
 import { readFile, stat } from 'node:fs/promises';
 import { dirname, join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'node:http';
+import { gzipSync, brotliCompressSync, constants as zlibConstants } from 'node:zlib';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -35,6 +41,56 @@ const MIME = {
   '.xml':  'application/xml; charset=utf-8',
 };
 
+// MIME types that compress well. Images / fonts are already compressed.
+const COMPRESSIBLE = new Set(['.html', '.js', '.mjs', '.css', '.json', '.svg', '.txt', '.xml']);
+
+// Tiny LRU for compressed payloads so we don't recompress every request.
+const cache = new Map(); // key: filePath + '|' + encoding -> Buffer
+function cacheGet(key) {
+  if (!cache.has(key)) return null;
+  const v = cache.get(key);
+  cache.delete(key); cache.set(key, v); // bump
+  return v;
+}
+function cacheSet(key, val) {
+  cache.set(key, val);
+  if (cache.size > 64) cache.delete(cache.keys().next().value);
+}
+
+function pickEncoding(req, ext) {
+  if (!COMPRESSIBLE.has(ext)) return null;
+  const ae = String(req.headers['accept-encoding'] || '');
+  if (/\bbr\b/.test(ae)) return 'br';
+  if (/\bgzip\b/.test(ae)) return 'gzip';
+  return null;
+}
+
+function compress(buf, encoding) {
+  if (encoding === 'br') {
+    return brotliCompressSync(buf, {
+      params: {
+        [zlibConstants.BROTLI_PARAM_QUALITY]: 5,
+        [zlibConstants.BROTLI_PARAM_SIZE_HINT]: buf.length,
+      },
+    });
+  }
+  if (encoding === 'gzip') return gzipSync(buf, { level: 6 });
+  return buf;
+}
+
+function cacheControlFor(pathname) {
+  // hashed assets — immutable, 1y
+  if (pathname.startsWith('/assets/') || pathname.startsWith('/icons/')) {
+    return 'public, max-age=31536000, immutable';
+  }
+  // images we treat as moderately stable
+  if (pathname.startsWith('/team/') || pathname === '/og.png') {
+    return 'public, max-age=2592000';
+  }
+  // HTML and everything else: short, but cacheable so bf-cache works
+  return 'public, max-age=0, must-revalidate';
+}
+
 async function tryFile(p) {
   try {
     const s = await stat(p);
@@ -58,7 +114,7 @@ const server = createServer(async (req, res) => {
       // by the Vercel edge - this only affects local preview / Lighthouse.
       res.writeHead(200, {
         'Content-Type': 'application/javascript; charset=utf-8',
-        'Cache-Control': 'no-store',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
       });
       res.end('// vercel runtime stub (local preview)\n');
       return;
@@ -83,12 +139,25 @@ const server = createServer(async (req, res) => {
       filePath = join(DIST, 'index.html');
     }
 
-    const buf = await readFile(filePath);
-    res.writeHead(200, {
-      'Content-Type': MIME[extname(filePath).toLowerCase()] || 'application/octet-stream',
-      'Cache-Control': 'no-store',
-    });
-    res.end(buf);
+    const ext = extname(filePath).toLowerCase();
+    const encoding = pickEncoding(req, ext);
+    const cacheKey = filePath + '|' + (encoding || 'raw');
+
+    let body = cacheGet(cacheKey);
+    if (!body) {
+      const raw = await readFile(filePath);
+      body = encoding ? compress(raw, encoding) : raw;
+      cacheSet(cacheKey, body);
+    }
+
+    const headers = {
+      'Content-Type': MIME[ext] || 'application/octet-stream',
+      'Cache-Control': cacheControlFor(pathname),
+      'Vary': 'Accept-Encoding',
+    };
+    if (encoding) headers['Content-Encoding'] = encoding;
+    res.writeHead(200, headers);
+    res.end(body);
   } catch {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('not found');
