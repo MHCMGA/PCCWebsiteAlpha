@@ -104,15 +104,26 @@ export default function Home() {
 
       {/* Hero */}
       <section
-        className="relative isolate flex min-h-[78vh] items-center text-white"
-        style={{
-          minHeight: '78vh',
-          backgroundImage:
-            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className="relative isolate flex min-h-[78vh] items-center overflow-hidden text-white"
+        style={{ minHeight: '78vh' }}
       >
+        <img
+          src="/hero-buildings-1400.webp"
+          srcSet="/hero-buildings-600.webp 600w, /hero-buildings-900.webp 900w, /hero-buildings-1400.webp 1400w"
+          sizes="100vw"
+          alt=""
+          aria-hidden="true"
+          width="1400"
+          height="934"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10"
+          style={{ background: 'linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78))' }}
+        />
         <div className="container-x relative z-10 max-w-3xl">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)] animate-fade-up">
             Independent Insurance Consultants in Columbia, SC

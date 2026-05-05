@@ -42,8 +42,16 @@
 
     <link rel="canonical" href="https://palmettoconsulting.us/" />
 
-    <!-- LCP hero preload -->
-    <link rel="preload" as="image" href="/hero-buildings.webp" type="image/webp" fetchpriority="high" />
+    <!-- LCP hero preload (responsive) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/hero-buildings-1400.webp"
+      imagesrcset="/hero-buildings-600.webp 600w, /hero-buildings-900.webp 900w, /hero-buildings-1400.webp 1400w"
+      imagesizes="100vw"
+      type="image/webp"
+      fetchpriority="high"
+    />
     <!-- 3rd-party perf -->
     <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
     <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
