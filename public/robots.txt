@@ -1,9 +1,9 @@
-# Palmetto Consulting of Columbia — robots.txt
+# Palmetto Consulting of Columbia, robots.txt
 User-agent: *
 Allow: /
 Disallow: /api/
 
-# Block AI scrapers if you prefer (commented out — leave open by default)
+# Block AI scrapers if you prefer (commented out, leave open by default)
 # User-agent: GPTBot
 # Disallow: /
 # User-agent: CCBot

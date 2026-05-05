@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 h-16 w-full border-b border-[var(--color-border-soft)] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container-x flex h-full items-center justify-between">
-        <Link to="/" className="shrink-0" aria-label="Palmetto Consulting of Columbia — Home">
+        <Link to="/" className="shrink-0" aria-label="Palmetto Consulting of Columbia, Home">
           <Logo size={36} />
         </Link>
 

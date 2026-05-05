@@ -10,11 +10,11 @@ export default function Footer() {
     <footer className="bg-[var(--color-navy)] text-white">
       <div className="container-x grid gap-10 py-16 md:grid-cols-3 md:gap-12">
         <div>
-          <Link to="/" className="inline-flex" aria-label="Palmetto Consulting of Columbia — Home">
+          <Link to="/" className="inline-flex" aria-label="Palmetto Consulting of Columbia, Home">
             <Logo size={44} variant="light" />
           </Link>
           <p className="mt-4 text-sm leading-7 text-white/75">
-            Independent insurance consultants — based in Columbia, SC since 1998.
+            Independent insurance consultants, based in Columbia, SC since 1998.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function Footer() {
 
       <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-xs text-white/60 md:flex-row">
         <p>&copy; {year} Palmetto Consulting of Columbia, LLC. All rights reserved.</p>
-        <p>Independent Insurance Consultants — Columbia, SC</p>
+        <p>Independent Insurance Consultants in Columbia, SC</p>
       </div>
     </footer>
   );

@@ -101,8 +101,8 @@ export default function About() {
   return (
     <>
       <Helmet>
-        <title>About Us | Palmetto Consulting of Columbia — Columbia, SC</title>
-        <meta name="description" content="Learn about Palmetto Consulting of Columbia, LLC — an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists." />
+        <title>About Us | Palmetto Consulting of Columbia | Columbia, SC</title>
+        <meta name="description" content="Learn about Palmetto Consulting of Columbia, LLC, an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists." />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <link rel="canonical" href={`${DOMAIN}/about`} />
         <meta property="og:type" content="website" />
@@ -115,7 +115,7 @@ export default function About() {
         <meta property="og:site_name" content="Palmetto Consulting of Columbia" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
-        <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia — independent insurance consultants serving clients since 1998 from Columbia, SC." />
+        <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC." />
         <meta name="twitter:image" content={OG_IMAGE} />
         <script type="application/ld+json">
           {JSON.stringify({
@@ -138,7 +138,7 @@ export default function About() {
             <p data-speakable>
               Palmetto Consulting of Columbia, LLC was founded in 1998 by John A. Weitzel, an insurance
               executive whose career spanned nearly 50 years working for, or consulting with, insurance
-              companies — primarily as a Chief Financial Officer. Our offices are located in Columbia,
+              companies, primarily as a Chief Financial Officer. Our offices are located in Columbia,
               South Carolina, at the heart of the Palmetto State.
             </p>
             <p>
@@ -158,8 +158,8 @@ export default function About() {
         </AnimatedSection>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {[
-            { Icon: ClipboardText, title: 'Controllership Services', body: 'Palmetto fills a void in the marketplace based on the premise that many captive managers provide adequate service fulfilling the Controllership function — including general ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting.' },
-            { Icon: Briefcase, title: 'Full CFO Services', body: 'Relatively few captive managers provide the full menu of Chief Financial Officer functions. Palmetto specializes in Treasury, Investment monitoring, Tax planning, Budget analysis, Reinsurance negotiations, Rating agency relationships, and Internal audit — delivering a proactive approach that advances clients from compliance to best practices.' },
+            { Icon: ClipboardText, title: 'Controllership Services', body: 'Palmetto fills a void in the marketplace based on the premise that many captive managers provide adequate service fulfilling the Controllership function, including general ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting.' },
+            { Icon: Briefcase, title: 'Full CFO Services', body: 'Relatively few captive managers provide the full menu of Chief Financial Officer functions. Palmetto specializes in Treasury, Investment monitoring, Tax planning, Budget analysis, Reinsurance negotiations, Rating agency relationships, and Internal audit, delivering a proactive approach that advances clients from compliance to best practices.' },
           ].map(({ Icon, title, body }, i) => (
             <AnimatedSection key={title} delay={(i + 1) * 100}>
               <Card className="h-full">
@@ -185,7 +185,7 @@ export default function About() {
             Palmetto assists clients in assembling teams of top-notch insurance management, underwriting,
             claims, investment management, actuary, audit, and legal experts during the formation stage of
             a new captive. We are uniquely equipped to serve as a client&apos;s captive manager or guide a
-            selected captive manager — assuring the team selects appropriate domiciles, develops business
+            selected captive manager, assuring the team selects appropriate domiciles, develops business
             plans, projects financial results, and walks a captive application to regulators from
             submission to approval.
           </p>
@@ -196,7 +196,7 @@ export default function About() {
             this process.
           </p>
           <p className="border-l-4 border-[var(--color-cyan)] pl-6 text-left text-lg italic text-white/95">
-            &quot;There is a reason we do not advertise — all our business is generated by referral.&quot;
+            &quot;There is a reason we do not advertise, all our business is generated by referral.&quot;
           </p>
         </AnimatedSection>
       </Section>

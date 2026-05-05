@@ -15,7 +15,7 @@ const services = [
   {
     icon: Buildings,
     title: 'Insurance Company Design & Structure',
-    body: 'Whether you need a captive to insure your commercially un-insurable risks, are an agency seeking a reinsurance vehicle, or want to build a new commercial carrier from the ground up — we can help.',
+    body: 'Whether you need a captive to insure your commercially un-insurable risks, are an agency seeking a reinsurance vehicle, or want to build a new commercial carrier from the ground up, we can help.',
   },
   {
     icon: Handshake,
@@ -30,7 +30,7 @@ const services = [
   {
     icon: Target,
     title: 'Deliberately Not "One-Size Fits All"',
-    body: 'Unlike large firms, we are not beholden to outside ownership, Wall Street, or sales targets. We are relationship-builders as much as we are insurance-company-builders. Sometimes the right solution is to do nothing at all — and we are always okay with that.',
+    body: 'Unlike large firms, we are not beholden to outside ownership, Wall Street, or sales targets. We are relationship-builders as much as we are insurance-company-builders. Sometimes the right solution is to do nothing at all, and we are always okay with that.',
   },
 ];
 
@@ -88,7 +88,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Palmetto Consulting of Columbia | Captive Insurance Consultants — Columbia, SC</title>
+        <title>Palmetto Consulting of Columbia | Captive Insurance Consultants in Columbia, SC</title>
         <meta name="description" content="Palmetto Consulting of Columbia, LLC are independent insurance consultants in Columbia, SC specializing in captive insurance design, growth management, and CFO services since 1998." />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <link rel="canonical" href={`${DOMAIN}/`} />
@@ -120,7 +120,7 @@ export default function Home() {
       >
         <div className="container-x relative z-10 max-w-3xl">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)] animate-fade-up">
-            Independent Insurance Consultants — Columbia, SC
+            Independent Insurance Consultants in Columbia, SC
           </p>
           <h1 className="mb-6 text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight animate-fade-up">
             Palmetto Consulting<br />of Columbia
@@ -142,7 +142,7 @@ export default function Home() {
         <AnimatedSection className="mx-auto max-w-3xl text-center">
           <p className="text-lg md:text-xl leading-8 text-[var(--color-navy)]" data-speakable>
             Based in Columbia, South Carolina, Palmetto remains uniquely focused on the intersection
-            of captive insurance and the traditional insurance marketplace — primarily on those
+            of captive insurance and the traditional insurance marketplace, primarily on those
             opportunities where our backgrounds can add the most value to our clients and partners.
           </p>
         </AnimatedSection>
