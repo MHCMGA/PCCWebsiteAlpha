@@ -25,7 +25,7 @@ const team = [
     name: 'Michael D. Hunter, CPA',
     role: 'Member',
     bio: "Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team's financial leadership.",
-    photo: '/team/michael-hunter-v2.jpg',
+    photo: '/team/michael-hunter-v3.jpg',
   },
 ];
 
@@ -234,8 +234,7 @@ export default function About() {
                       width={144}
                       height={144}
                       loading="lazy"
-                      style={{ objectPosition: '50% 22%' }}
-                      className="mb-5 size-36 rounded-full border-[3px] border-[var(--color-teal)] object-cover shadow-md"
+                      className="mb-5 size-36 rounded-full border-[3px] border-[var(--color-teal)] object-cover object-center shadow-md"
                     />
                   ) : (
                     <div className="mb-5 flex size-36 items-center justify-center rounded-full border-[3px] border-[var(--color-teal)] bg-[var(--color-bg)] text-3xl font-extrabold text-[var(--color-navy)]">
