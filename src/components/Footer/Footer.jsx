@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Envelope } from '@phosphor-icons/react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import Logo from '@/components/Logo/Logo';
 import { Separator } from '@/components/ui/separator';
 import { SITE } from '@/lib/site';
@@ -35,17 +35,17 @@ export default function Footer() {
           </h3>
           <address className="not-italic space-y-3 text-sm leading-6 text-white/85">
             <p className="flex items-start gap-2">
-              <MapPin size={18} weight="duotone" className="mt-0.5 shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />
+              <MapPin size={18} className="mt-0.5 shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />
               <span>1325 Park St. Suite 200<br />Columbia, SC 29201</span>
             </p>
             <p className="flex items-center gap-2">
-              <Phone size={18} weight="duotone" className="shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />
+              <Phone size={18} className="shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />
               <a href={`tel:${SITE.phoneE164}`} className="font-bold text-white hover:text-[var(--color-cyan)]">
                 803-904-8461
               </a>
             </p>
             <p className="flex items-center gap-2">
-              <Envelope size={18} weight="duotone" className="shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />
+              <Mail size={18} className="shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />
               <a href="mailto:info@palmettoconsulting.us" className="text-white/90 hover:text-[var(--color-cyan)]">
                 info@palmettoconsulting.us
               </a>

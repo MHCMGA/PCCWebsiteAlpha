@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { MapPin, Phone } from '@phosphor-icons/react';
+import { MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
@@ -178,7 +178,7 @@ export default function Contact() {
             <ul className="space-y-5">
               <li className="flex gap-4">
                 <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
-                  <MapPin size={24} weight="duotone" aria-hidden="true" />
+                  <MapPin size={24} aria-hidden="true" />
                 </span>
                 <div className="text-sm leading-7 text-[var(--color-ink)]">
                   <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">Office Address</p>
@@ -188,7 +188,7 @@ export default function Contact() {
               </li>
               <li className="flex gap-4">
                 <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
-                  <Phone size={24} weight="duotone" aria-hidden="true" />
+                  <Phone size={24} aria-hidden="true" />
                 </span>
                 <div className="text-sm leading-7">
                   <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">Phone</p>

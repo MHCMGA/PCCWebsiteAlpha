@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Buildings, ChartLineUp, Handshake, Target } from '@phosphor-icons/react';
+import { Building2 as Buildings, TrendingUp as ChartLineUp, Handshake, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
 import StatsBar from '@/components/StatsBar/StatsBar';
@@ -168,7 +168,7 @@ export default function Home() {
                 <Card className="h-full">
                   <CardContent className="flex h-full flex-col p-8">
                     <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
-                      <Icon size={28} weight="duotone" aria-hidden="true" />
+                      <Icon size={28} aria-hidden="true" />
                     </div>
                     <h3 className="mb-3 text-lg font-bold text-[var(--color-navy)]">{s.title}</h3>
                     <p className="text-sm leading-7 text-[var(--color-muted)]">{s.body}</p>

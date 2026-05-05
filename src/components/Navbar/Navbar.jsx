@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { List } from '@phosphor-icons/react';
+import { Menu } from 'lucide-react';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/ui/button';
 import {
@@ -56,7 +56,7 @@ export default function Navbar() {
               className="md:hidden text-[var(--color-navy)] hover:bg-[var(--color-bg)]"
               aria-label="Open menu"
             >
-              <List size={24} weight="bold" />
+              <Menu size={24} strokeWidth={2.25} />
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[78vw] max-w-sm bg-white p-0">

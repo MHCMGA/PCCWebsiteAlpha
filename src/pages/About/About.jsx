@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Briefcase, ClipboardText } from '@phosphor-icons/react';
+import { Briefcase, ClipboardList as ClipboardText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
 import { Button } from '@/components/ui/button';
@@ -180,7 +180,7 @@ export default function About() {
               <Card className="h-full">
                 <CardContent className="p-8">
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
-                    <Icon size={28} weight="duotone" aria-hidden="true" />
+                    <Icon size={28} aria-hidden="true" />
                   </div>
                   <h3 className="mb-3 text-lg font-bold text-[var(--color-navy)]">{title}</h3>
                   <p className="text-sm leading-7 text-[var(--color-muted)]">{body}</p>
