@@ -8,13 +8,13 @@ import Footer from '@/components/Footer/Footer';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
 import { Toaster } from '@/components/ui/sonner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import Home from '@/pages/Home/Home';
 
-const Home    = lazy(() => import('@/pages/Home/Home'));
 const About   = lazy(() => import('@/pages/About/About'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
 
 function PageLoader() {
-  return <div className="min-h-[60vh]" aria-hidden="true" />;
+  return <div className="min-h-[140vh]" aria-hidden="true" />;
 }
 
 function NotFound() {
