@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/((?!api/|assets/|icons/|team/|_vercel/|\\.well-known/|about(/|$)|contact(/|$)|index\\.html$).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|assets/|icons/|team/|_vercel/|\\.well-known/|about|contact|index\\.html).*)", "destination": "/index.html" }
   ],
   "crons": [
     { "path": "/api/cron/ping-sitemap", "schedule": "0 12 * * 1" }
