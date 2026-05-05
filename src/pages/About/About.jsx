@@ -25,7 +25,7 @@ const team = [
     name: 'Michael D. Hunter, CPA',
     role: 'Member',
     bio: "Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team's financial leadership.",
-    photo: '/team/michael-hunter-v3.jpg',
+    initials: 'MH',
   },
 ];
 
@@ -238,7 +238,7 @@ export default function About() {
                     />
                   ) : (
                     <div className="mb-5 flex size-36 items-center justify-center rounded-full border-[3px] border-[var(--color-teal)] bg-[var(--color-bg)] text-3xl font-extrabold text-[var(--color-navy)]">
-                      {m.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
+                      {m.initials || m.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
                     </div>
                   )}
                   <h3 className="text-lg font-bold text-[var(--color-navy)]">{m.name}</h3>
