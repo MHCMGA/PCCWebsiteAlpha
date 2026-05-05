@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
@@ -48,6 +49,7 @@ export default function App() {
       </main>
       <Footer />
       <Toaster />
+      <Analytics />
     </ErrorBoundary>
   );
 }
