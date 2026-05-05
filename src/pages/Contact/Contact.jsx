@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -203,53 +204,53 @@ export default function Contact() {
           </AnimatedSection>
 
           <AnimatedSection delay={150}>
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              className="rounded-sm border border-[var(--color-border-soft)] bg-white p-8 shadow-sm space-y-5"
-            >
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="John Smith"
-                  required
-                  autoComplete="name"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  required
-                  autoComplete="email"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Tell us how we can help..."
-                  required
-                />
-              </div>
-              <Button type="submit" disabled={submitting} className="w-full">
-                {submitting ? 'Sending…' : 'Send Message'}
-              </Button>
-            </form>
+            <Card>
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Full Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="John Smith"
+                      required
+                      autoComplete="name"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="john@example.com"
+                      required
+                      autoComplete="email"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      value={form.message}
+                      onChange={handleChange}
+                      placeholder="Tell us how we can help..."
+                      required
+                    />
+                  </div>
+                  <Button type="submit" disabled={submitting} className="w-full">
+                    {submitting ? 'Sending…' : 'Send Message'}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </AnimatedSection>
         </div>
       </Section>

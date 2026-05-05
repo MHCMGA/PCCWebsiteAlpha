@@ -50,12 +50,14 @@ export default function Navbar() {
         {/* Mobile sheet */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <button
-              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-sm text-[var(--color-navy)] hover:bg-[var(--color-bg)]"
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden text-[var(--color-navy)] hover:bg-[var(--color-bg)]"
               aria-label="Open menu"
             >
               <List size={24} weight="bold" />
-            </button>
+            </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[78vw] max-w-sm bg-white p-0">
             <div className="flex h-16 items-center px-6 border-b border-[var(--color-border-soft)]">
