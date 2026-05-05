@@ -126,6 +126,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.8.0
         version: 0.8.0(prettier@3.8.3)
+      puppeteer:
+        specifier: ^24.42.0
+        version: 24.42.0
       serve:
         specifier: ^14.2.6
         version: 14.2.6
