@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { checkBotId } from 'botid/server';
+import { waitUntil } from '@vercel/functions';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -38,7 +39,7 @@ export default async function handler(req, res) {
     }
   }
 
-  if (!process.env.RESEND_API_KEY || !TO_EMAIL) {
+  if (!process.env.RESEND_API_KEY || TO_EMAIL.length === 0) {
     return res.status(500).json({ error: 'Email service is not configured.' });
   }
 
@@ -85,6 +86,21 @@ export default async function handler(req, res) {
       console.error('Resend error:', error);
       return res.status(502).json({ error: 'Failed to send message. Please try again later.' });
     }
+
+    // Background-log forensic context (geo / UA / IP) without blocking the response.
+    waitUntil(
+      Promise.resolve().then(() => {
+        console.log('[contact:ok]', {
+          name_len: name.trim().length,
+          msg_len: message.trim().length,
+          country: req.headers['x-vercel-ip-country'] || null,
+          region: req.headers['x-vercel-ip-country-region'] || null,
+          city: req.headers['x-vercel-ip-city'] || null,
+          ip: req.headers['x-forwarded-for'] || null,
+          ua: (req.headers['user-agent'] || '').slice(0, 200),
+        });
+      }),
+    );
 
     return res.status(200).json({ ok: true });
   } catch (err) {

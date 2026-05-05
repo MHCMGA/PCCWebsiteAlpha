@@ -19,9 +19,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)]">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)]">
             Navigation
-          </h4>
+          </h3>
           <ul className="space-y-2 text-sm">
             <li><Link to="/" className="text-white/85 hover:text-[var(--color-cyan)]">Home</Link></li>
             <li><Link to="/about" className="text-white/85 hover:text-[var(--color-cyan)]">About Us</Link></li>
@@ -30,9 +30,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)]">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)]">
             Contact
-          </h4>
+          </h3>
           <address className="not-italic space-y-3 text-sm leading-6 text-white/85">
             <p className="flex items-start gap-2">
               <MapPin size={18} weight="duotone" className="mt-0.5 shrink-0 text-[var(--color-cyan)]" aria-hidden="true" />

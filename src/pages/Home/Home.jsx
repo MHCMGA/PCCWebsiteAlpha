@@ -106,6 +106,7 @@ export default function Home() {
       <section
         className="relative isolate flex min-h-[78vh] items-center text-white"
         style={{
+          minHeight: '78vh',
           backgroundImage:
             "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.webp')",
           backgroundSize: 'cover',

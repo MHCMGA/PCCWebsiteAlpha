@@ -69,12 +69,11 @@
     <meta name="twitter:image" content="https://palmettoconsulting.us/og.png" />
     <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
 
-    <!-- Performance hints -->
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
-
     <!-- Sitemap discovery -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- CLS guard: reserve viewport space until React mounts -->
+    <style>html,body{min-height:100vh;background:#fff}#root{min-height:100vh;display:block}</style>
 
     <!-- Structured Data: Organization + LocalBusiness + WebSite -->
     <script type="application/ld+json">
