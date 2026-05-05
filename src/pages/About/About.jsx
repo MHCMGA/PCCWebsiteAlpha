@@ -37,6 +37,21 @@ const personSchema = team.map((m) => ({
   worksFor: { '@id': `${DOMAIN}/#organization` },
   description: m.bio,
   ...(m.photo ? { image: `${DOMAIN}${m.photo}` } : {}),
+  ...(m.name.includes('CPA') ? {
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Professional Certification',
+      name: 'Certified Public Accountant (CPA)',
+    },
+    knowsAbout: [
+      'Captive Insurance',
+      'Property and Casualty Insurance',
+      'Insurance CFO Services',
+      'External Audit',
+      'AM Best Rated Insurers',
+      'Insurance Financial Reporting',
+    ],
+  } : {}),
 }));
 
 const aboutServiceSchema = [
