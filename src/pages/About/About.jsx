@@ -5,6 +5,7 @@ import CTAButton from '../../components/CTAButton/CTAButton';
 import styles from './About.module.css';
 
 const DOMAIN = 'https://palmettoconsulting.us';
+const OG_IMAGE = `${DOMAIN}/og.png`;
 
 const team = [
   {
@@ -27,14 +28,32 @@ const team = [
 
 const personSchema = team.map((member) => ({
   '@type': 'Person',
+  '@id': `${DOMAIN}/about#${member.name.toLowerCase().replace(/[^a-z]+/g, '-')}`,
   name: member.name,
   jobTitle: member.role,
-  worksFor: {
-    '@type': 'Organization',
-    name: 'Palmetto Consulting of Columbia, LLC',
-  },
+  worksFor: { '@id': `${DOMAIN}/#organization` },
   description: member.bio,
+  ...(member.photo ? { image: `${DOMAIN}${member.photo}` } : {}),
 }));
+
+const aboutServiceSchema = [
+  {
+    '@type': 'Service',
+    name: 'Controllership Services',
+    serviceType: 'Insurance Controllership',
+    provider: { '@id': `${DOMAIN}/#organization` },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    description: 'General ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting for captive insurance companies.',
+  },
+  {
+    '@type': 'Service',
+    name: 'Full CFO Services',
+    serviceType: 'Insurance CFO Services',
+    provider: { '@id': `${DOMAIN}/#organization` },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    description: 'Treasury, investment monitoring, tax planning, budget analysis, reinsurance negotiations, rating agency relationships, and internal audit for captive and traditional insurance companies.',
+  },
+];
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -43,6 +62,20 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 1, name: 'Home',     item: `${DOMAIN}/` },
     { '@type': 'ListItem', position: 2, name: 'About Us', item: `${DOMAIN}/about` },
   ],
+};
+
+const aboutWebPageSchema = {
+  '@type': 'AboutPage',
+  '@id': `${DOMAIN}/about#webpage`,
+  url: `${DOMAIN}/about`,
+  name: 'About Palmetto Consulting of Columbia',
+  isPartOf: { '@id': `${DOMAIN}/#website` },
+  about: { '@id': `${DOMAIN}/#organization` },
+  inLanguage: 'en-US',
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2', '[data-speakable]'],
+  },
 };
 
 export default function About() {
@@ -59,20 +92,20 @@ export default function About() {
         <meta property="og:url"         content={`${DOMAIN}/about`} />
         <meta property="og:title"       content="About Us | Palmetto Consulting of Columbia" />
         <meta property="og:description" content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States." />
-        <meta property="og:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+        <meta property="og:image"       content={OG_IMAGE} />
         <meta property="og:site_name"   content="Palmetto Consulting of Columbia" />
 
         {/* Twitter Card */}
         <meta name="twitter:card"        content="summary_large_image" />
         <meta name="twitter:title"       content="About Us | Palmetto Consulting of Columbia" />
         <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia — independent insurance consultants serving clients since 1998 from Columbia, SC." />
-        <meta name="twitter:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+        <meta name="twitter:image"       content={OG_IMAGE} />
 
         {/* Person + BreadcrumbList Schema */}
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
-            '@graph': [...personSchema, breadcrumbSchema],
+            '@graph': [aboutWebPageSchema, ...personSchema, ...aboutServiceSchema, breadcrumbSchema],
           })}
         </script>
       </Helmet>

@@ -2,40 +2,118 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="theme-color" content="#003057" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#003057" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light" />
 
-    <!-- Viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Favicons / App icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/icon-96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/icons/android-chrome-512.png" color="#008ed4" />
+    <meta name="apple-mobile-web-app-title" content="PCC" />
+    <meta name="application-name" content="Palmetto Consulting of Columbia" />
+    <meta name="msapplication-TileColor" content="#003057" />
+    <meta name="msapplication-TileImage" content="/icons/android-chrome-192.png" />
 
     <!-- Default SEO (overridden per-page by react-helmet-async) -->
-    <title>Palmetto Consulting of Columbia | Independent Insurance Consultants</title>
-    <meta name="description" content="Palmetto Consulting of Columbia, LLC — Independent insurance consultants focused on captive insurance and the traditional insurance marketplace. Based in Columbia, SC." />
-    <meta name="robots" content="index, follow" />
+    <title>Palmetto Consulting of Columbia | Captive Insurance Consultants — Columbia, SC</title>
+    <meta name="description" content="Independent insurance consultants in Columbia, SC specializing in captive insurance company design, growth management, and CFO services since 1998. All business by referral." />
+    <meta name="keywords" content="captive insurance, captive insurance consultant, insurance CFO services, insurance company formation, reinsurance, captive manager, insurance consulting Columbia SC, South Carolina captive insurance, Palmetto Consulting" />
+    <meta name="author" content="Palmetto Consulting of Columbia, LLC" />
+    <meta name="publisher" content="Palmetto Consulting of Columbia, LLC" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="rating" content="general" />
+    <meta name="distribution" content="global" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-    <!-- Preconnect to external origins -->
-    <link rel="preconnect" href="https://images.unsplash.com" />
+    <!-- Geo tagging -->
+    <meta name="geo.region" content="US-SC" />
+    <meta name="geo.placename" content="Columbia, South Carolina" />
+    <meta name="geo.position" content="34.0007;-81.0348" />
+    <meta name="ICBM" content="34.0007, -81.0348" />
 
-    <!-- Structured Data: Organization + LocalBusiness -->
+    <link rel="canonical" href="https://palmettoconsulting.us/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Palmetto Consulting of Columbia" />
+    <meta property="og:url" content="https://palmettoconsulting.us/" />
+    <meta property="og:title" content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
+    <meta property="og:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998." />
+    <meta property="og:image" content="https://palmettoconsulting.us/og.png" />
+    <meta property="og:image:secure_url" content="https://palmettoconsulting.us/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Palmetto Consulting of Columbia — PCC logo" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Palmetto Consulting of Columbia | Captive Insurance Consultants" />
+    <meta name="twitter:description" content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998." />
+    <meta name="twitter:image" content="https://palmettoconsulting.us/og.png" />
+    <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia — PCC logo" />
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- Sitemap discovery -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- Structured Data: Organization + LocalBusiness + WebSite -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "Organization",
+          "@type": ["Organization", "InsuranceAgency", "ProfessionalService"],
           "@id": "https://palmettoconsulting.us/#organization",
           "name": "Palmetto Consulting of Columbia, LLC",
+          "alternateName": "PCC",
           "url": "https://palmettoconsulting.us",
-          "logo": "https://palmettoconsulting.us/favicon.svg",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://palmettoconsulting.us/icons/android-chrome-512.png",
+            "width": 512,
+            "height": 512
+          },
+          "image": "https://palmettoconsulting.us/og.png",
           "foundingDate": "1998",
+          "founder": { "@type": "Person", "name": "John A. Weitzel" },
           "description": "Independent insurance consultants focused on the intersection of captive insurance and the traditional insurance marketplace.",
+          "knowsAbout": [
+            "Captive Insurance",
+            "Insurance Company Formation",
+            "CFO Services",
+            "Reinsurance",
+            "Rating Agency Relationships",
+            "Insurance Regulatory Compliance"
+          ],
+          "areaServed": { "@type": "Country", "name": "United States" },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1325 Park St. Suite 200",
+            "addressLocality": "Columbia",
+            "addressRegion": "SC",
+            "postalCode": "29201",
+            "addressCountry": "US"
+          },
           "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+1-803-904-8461",
             "contactType": "customer service",
-            "areaServed": "US"
+            "areaServed": "US",
+            "availableLanguage": ["en"]
           }
         },
         {
@@ -45,6 +123,8 @@
           "description": "Independent insurance consultants specializing in captive insurance company design, structure, growth management, and CFO services. Serving clients from Columbia, South Carolina since 1998.",
           "url": "https://palmettoconsulting.us",
           "telephone": "+1-803-904-8461",
+          "image": "https://palmettoconsulting.us/og.png",
+          "logo": "https://palmettoconsulting.us/icons/android-chrome-512.png",
           "foundingDate": "1998",
           "address": {
             "@type": "PostalAddress",
@@ -59,12 +139,22 @@
             "latitude": 34.0007,
             "longitude": -81.0348
           },
-          "areaServed": {
-            "@type": "Country",
-            "name": "United States"
-          },
+          "areaServed": { "@type": "Country", "name": "United States" },
           "priceRange": "$$$$",
-          "sameAs": []
+          "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "09:00",
+            "closes": "17:00"
+          }]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://palmettoconsulting.us/#website",
+          "url": "https://palmettoconsulting.us",
+          "name": "Palmetto Consulting of Columbia",
+          "publisher": { "@id": "https://palmettoconsulting.us/#organization" },
+          "inLanguage": "en-US"
         }
       ]
     }
@@ -72,6 +162,12 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding:2rem;font-family:system-ui,sans-serif;max-width:640px;margin:0 auto;text-align:center">
+        <h1 style="color:#003057">Palmetto Consulting of Columbia</h1>
+        <p>This site requires JavaScript. Please call <a href="tel:+18039048461">803-904-8461</a> to reach our team in Columbia, SC.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

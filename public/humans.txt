@@ -1,0 +1,12 @@
+/* TEAM */
+Founder & Principal: John A. Weitzel
+Member: Matthew A. Holycross, CPA
+Member: Michael D. Hunter, CPA
+Location: Columbia, South Carolina, USA
+Site: https://palmettoconsulting.us
+
+/* SITE */
+Last update: 2026/05/04
+Standards: HTML5, CSS3, JSON-LD
+Components: React 19, Vite, Tailwind v4, shadcn/ui (Radix)
+Hosting: Vercel (via Cloudflare proxy)

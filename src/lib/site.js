@@ -1,0 +1,32 @@
+export const SITE = {
+  name: 'Palmetto Consulting of Columbia',
+  shortName: 'Palmetto Consulting',
+  legalName: 'Palmetto Consulting of Columbia, LLC',
+  domain: 'https://palmettoconsulting.us',
+  founded: 1998,
+  email: 'info@palmettoconsulting.us',
+  phone: '803-904-8461',
+  phoneE164: '+1-803-904-8461',
+  address: {
+    streetAddress: '1325 Park St. Suite 200',
+    city: 'Columbia',
+    region: 'SC',
+    postalCode: '29201',
+    country: 'US',
+  },
+  geo: { latitude: 34.0007, longitude: -81.0348 },
+  ogImage: 'https://palmettoconsulting.us/og.png',
+  description:
+    'Independent insurance consultants focused on the intersection of captive insurance and the traditional insurance marketplace. Based in Columbia, SC. Serving clients since 1998.',
+  keywords: [
+    'captive insurance',
+    'captive insurance consultant',
+    'insurance CFO services',
+    'insurance company formation',
+    'reinsurance',
+    'captive manager',
+    'insurance consulting Columbia SC',
+    'South Carolina captive insurance',
+    'Palmetto Consulting',
+  ],
+};

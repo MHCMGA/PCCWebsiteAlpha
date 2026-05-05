@@ -1,4 +1,13 @@
+# Palmetto Consulting of Columbia — robots.txt
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://yourdomain.com/sitemap.xml
+# Block AI scrapers if you prefer (commented out — leave open by default)
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+
+Sitemap: https://palmettoconsulting.us/sitemap.xml
+Host: https://palmettoconsulting.us

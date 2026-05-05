@@ -5,6 +5,7 @@ import AnimatedSection from '../../components/AnimatedSection/AnimatedSection';
 import styles from './Contact.module.css';
 
 const DOMAIN = 'https://palmettoconsulting.us';
+const OG_IMAGE = `${DOMAIN}/og.png`;
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -12,6 +13,40 @@ const breadcrumbSchema = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home',       item: `${DOMAIN}/` },
     { '@type': 'ListItem', position: 2, name: 'Contact Us', item: `${DOMAIN}/contact` },
+  ],
+};
+
+const contactJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': `${DOMAIN}/contact#webpage`,
+      url: `${DOMAIN}/contact`,
+      name: 'Contact Palmetto Consulting of Columbia',
+      isPartOf: { '@id': `${DOMAIN}/#website` },
+      about: { '@id': `${DOMAIN}/#organization` },
+      inLanguage: 'en-US',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', 'h2', '[data-speakable]'],
+      },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${DOMAIN}/#organization`,
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: '+1-803-904-8461',
+          contactType: 'customer service',
+          areaServed: 'US',
+          availableLanguage: ['en'],
+          email: 'info@palmettoconsulting.us',
+        },
+      ],
+    },
+    breadcrumbSchema,
   ],
 };
 
@@ -61,18 +96,18 @@ export default function Contact() {
         <meta property="og:url"         content={`${DOMAIN}/contact`} />
         <meta property="og:title"       content="Contact Us | Palmetto Consulting of Columbia" />
         <meta property="og:description" content="Reach Palmetto Consulting of Columbia at our Columbia, SC office. Independent insurance consultants available by phone at 803-904-8461." />
-        <meta property="og:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+        <meta property="og:image"       content={OG_IMAGE} />
         <meta property="og:site_name"   content="Palmetto Consulting of Columbia" />
 
         {/* Twitter Card */}
         <meta name="twitter:card"        content="summary_large_image" />
         <meta name="twitter:title"       content="Contact Us | Palmetto Consulting of Columbia" />
         <meta name="twitter:description" content="Contact Palmetto Consulting of Columbia — independent insurance consultants in Columbia, SC. Call 803-904-8461 or send us a message." />
-        <meta name="twitter:image"       content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+        <meta name="twitter:image"       content={OG_IMAGE} />
 
-        {/* BreadcrumbList Schema */}
+        {/* ContactPage + ContactPoint + BreadcrumbList Schema */}
         <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
+          {JSON.stringify(contactJsonLd)}
         </script>
       </Helmet>
 
