@@ -26,6 +26,7 @@ const team = [
     role: 'Member',
     bio: "Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team's financial leadership.",
     initials: 'MH',
+    photo: '/team/michael-hunter-v4.webp',
   },
 ];
 
