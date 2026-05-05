@@ -98,8 +98,8 @@ function Banner({ eyebrow, heading }) {
     <section
       className="relative isolate flex min-h-[42vh] items-center text-white"
       style={{
-        backgroundImage:
-          "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.jpg')",
+          backgroundImage:
+            "linear-gradient(135deg, var(--color-navy) 0%, #00538f 60%, var(--color-teal) 100%)",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

@@ -125,7 +125,7 @@ export default function Home() {
         className="relative isolate flex min-h-[78vh] items-center text-white"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.jpg')",
+            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-buildings.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
