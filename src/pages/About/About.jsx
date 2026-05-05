@@ -2,13 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import { Briefcase, ClipboardList as ClipboardText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
+import HeroBanner from '@/components/HeroBanner/HeroBanner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Section, Eyebrow, SectionHeading } from '@/components/ui/section';
 import { SITE } from '@/lib/site';
+import { graph, webPage, breadcrumb, person, service } from '@/lib/schema';
 
 const DOMAIN = SITE.domain;
-const OG_IMAGE = SITE.ogImage;
 
 const team = [
   {
@@ -30,88 +31,26 @@ const team = [
   },
 ];
 
-const personSchema = team.map((m) => ({
-  '@type': 'Person',
-  '@id': `${DOMAIN}/about#${m.name.toLowerCase().replace(/[^a-z]+/g, '-')}`,
-  name: m.name,
-  jobTitle: m.role,
-  worksFor: { '@id': `${DOMAIN}/#organization` },
-  description: m.bio,
-  ...(m.photo ? { image: `${DOMAIN}${m.photo}` } : {}),
-  ...(m.name.includes('CPA') ? {
-    hasCredential: {
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: 'Professional Certification',
-      name: 'Certified Public Accountant (CPA)',
-    },
-    knowsAbout: [
-      'Captive Insurance',
-      'Property and Casualty Insurance',
-      'Insurance CFO Services',
-      'External Audit',
-      'AM Best Rated Insurers',
-      'Insurance Financial Reporting',
-    ],
-  } : {}),
-}));
-
-const aboutServiceSchema = [
-  {
-    '@type': 'Service',
+const aboutJsonLd = graph([
+  webPage({ id: 'webpage', url: '/about', name: 'About Palmetto Consulting of Columbia', type: 'AboutPage' }),
+  ...team.map((m) => person({ ...m, isCpa: m.name.includes('CPA') })),
+  service({
     name: 'Controllership Services',
     serviceType: 'Insurance Controllership',
-    provider: { '@id': `${DOMAIN}/#organization` },
-    areaServed: { '@type': 'Country', name: 'United States' },
+    category: 'Insurance Consulting',
     description: 'General ledger maintenance, cash receipt and disbursement operations, financial statement presentation, and regulatory reporting for captive insurance companies.',
-  },
-  {
-    '@type': 'Service',
+  }),
+  service({
     name: 'Full CFO Services',
     serviceType: 'Insurance CFO Services',
-    provider: { '@id': `${DOMAIN}/#organization` },
-    areaServed: { '@type': 'Country', name: 'United States' },
+    category: 'Insurance Consulting',
     description: 'Treasury, investment monitoring, tax planning, budget analysis, reinsurance negotiations, rating agency relationships, and internal audit for captive and traditional insurance companies.',
-  },
-];
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${DOMAIN}/` },
-    { '@type': 'ListItem', position: 2, name: 'About Us', item: `${DOMAIN}/about` },
-  ],
-};
-
-const aboutWebPageSchema = {
-  '@type': 'AboutPage',
-  '@id': `${DOMAIN}/about#webpage`,
-  url: `${DOMAIN}/about`,
-  name: 'About Palmetto Consulting of Columbia',
-  isPartOf: { '@id': `${DOMAIN}/#website` },
-  about: { '@id': `${DOMAIN}/#organization` },
-  inLanguage: 'en-US',
-  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', 'h2', '[data-speakable]'] },
-};
-
-function Banner({ eyebrow, heading }) {
-  return (
-    <section
-      className="relative isolate flex min-h-[42vh] items-center text-white"
-      style={{
-          backgroundImage:
-            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-about.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className="container-x relative z-10 text-center">
-        <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)]">{eyebrow}</p>
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">{heading}</h1>
-      </div>
-    </section>
-  );
-}
+  }),
+  breadcrumb([
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+  ]),
+]);
 
 export default function About() {
   return (
@@ -127,15 +66,10 @@ export default function About() {
         <meta property="og:description" content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States." />
         <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
         <meta name="twitter:description" content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC." />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@graph': [aboutWebPageSchema, ...personSchema, ...aboutServiceSchema, breadcrumbSchema],
-          })}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(aboutJsonLd)}</script>
       </Helmet>
 
-      <Banner eyebrow="Our Story" heading="About Us" />
+      <HeroBanner image="/hero-about.webp" eyebrow="Our Story" heading="About Us" />
 
       {/* History */}
       <Section>

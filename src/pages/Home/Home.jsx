@@ -7,9 +7,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Section, Eyebrow, SectionHeading } from '@/components/ui/section';
 import { SITE } from '@/lib/site';
+import {
+  graph,
+  webPage,
+  breadcrumb,
+  offerCatalog,
+  service,
+} from '@/lib/schema';
 
 const DOMAIN = SITE.domain;
-const OG_IMAGE = SITE.ogImage;
 
 const services = [
   {
@@ -35,48 +41,24 @@ const services = [
 ];
 
 
-const homeJsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      '@id': `${DOMAIN}/#website`,
-      url: DOMAIN,
-      name: 'Palmetto Consulting of Columbia',
-      publisher: { '@id': `${DOMAIN}/#organization` },
-      inLanguage: 'en-US',
-    },
-    {
-      '@type': 'WebPage',
-      '@id': `${DOMAIN}/#webpage`,
-      url: `${DOMAIN}/`,
-      name: 'Palmetto Consulting of Columbia | Captive Insurance Consultants',
-      isPartOf: { '@id': `${DOMAIN}/#website` },
-      about: { '@id': `${DOMAIN}/#organization` },
-      inLanguage: 'en-US',
-      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', 'h2', '[data-speakable]'] },
-    },
-    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${DOMAIN}/` }] },
-    {
-      '@type': 'OfferCatalog',
-      name: 'Insurance Consulting Services',
-      itemListElement: services.map((s, i) => ({
-        '@type': 'Offer',
-        position: i + 1,
-        itemOffered: {
-          '@type': 'Service',
-          name: s.title,
-          description: s.body,
-          provider: { '@id': `${DOMAIN}/#organization` },
-          areaServed: { '@type': 'Country', name: 'United States' },
-          serviceType: 'Insurance Consulting',
-          category: 'Captive Insurance',
-          additionalType: 'https://en.wikipedia.org/wiki/Captive_insurance',
-        },
-      })),
-    },
-  ],
-};
+const homeJsonLd = graph([
+  webPage({
+    id: 'webpage',
+    url: '/',
+    name: 'Palmetto Consulting of Columbia | Captive Insurance Consultants',
+  }),
+  breadcrumb([{ name: 'Home', path: '/' }]),
+  offerCatalog(
+    'Insurance Consulting Services',
+    services.map((s) =>
+      service({
+        name: s.title,
+        description: s.body,
+        additionalType: 'https://en.wikipedia.org/wiki/Captive_insurance',
+      }),
+    ),
+  ),
+]);
 
 export default function Home() {
   return (

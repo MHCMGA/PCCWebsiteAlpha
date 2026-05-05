@@ -3,6 +3,7 @@ import { MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
+import HeroBanner from '@/components/HeroBanner/HeroBanner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,90 +11,29 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Section, Eyebrow } from '@/components/ui/section';
 import { SITE } from '@/lib/site';
+import {
+  graph,
+  webPage,
+  breadcrumb,
+  offerCatalog,
+  service,
+} from '@/lib/schema';
 
 const DOMAIN = SITE.domain;
-const OG_IMAGE = SITE.ogImage;
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${DOMAIN}/` },
-    { '@type': 'ListItem', position: 2, name: 'Contact Us', item: `${DOMAIN}/contact` },
-  ],
-};
-
-const contactJsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'ContactPage',
-      '@id': `${DOMAIN}/contact#webpage`,
-      url: `${DOMAIN}/contact`,
-      name: 'Contact Palmetto Consulting of Columbia',
-      isPartOf: { '@id': `${DOMAIN}/#website` },
-      about: { '@id': `${DOMAIN}/#organization` },
-      inLanguage: 'en-US',
-      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', 'h2', '[data-speakable]'] },
-    },
-    {
-      '@type': ['InsuranceAgency', 'ProfessionalService', 'Organization'],
-      '@id': `${DOMAIN}/#organization`,
-      name: 'Palmetto Consulting of Columbia, LLC',
-      legalName: 'Palmetto Consulting of Columbia, LLC',
-      alternateName: 'PCC',
-      url: DOMAIN,
-      logo: `${DOMAIN}/icons/icon-512.png`,
-      image: `${DOMAIN}/og.png`,
-      description: 'Independent insurance consultants in Columbia, SC specializing in captive insurance company design, growth management, and CFO services since 1998.',
-      foundingDate: '1998',
-      founder: { '@type': 'Person', name: 'John A. Weitzel' },
-      slogan: 'All business by referral.',
-      knowsAbout: [
-        'Captive Insurance',
-        'Captive Insurance Company Formation',
-        'Insurance CFO Services',
-        'Reinsurance',
-        'Property and Casualty Insurance',
-        'Insurance Regulatory Reporting',
-        'Insurance Treasury Management',
-        'AM Best Rating Agency Relationships',
-      ],
-      areaServed: { '@type': 'Country', name: 'United States' },
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: '1325 Park St. Suite 200',
-        addressLocality: 'Columbia',
-        addressRegion: 'SC',
-        postalCode: '29201',
-        addressCountry: 'US',
-      },
-      geo: { '@type': 'GeoCoordinates', latitude: 34.0007, longitude: -81.0348 },
-      telephone: '+1-803-904-8461',
-      email: 'info@palmettoconsulting.us',
-      priceRange: '$$$',
-      contactPoint: [{
-        '@type': 'ContactPoint',
-        telephone: '+1-803-904-8461',
-        contactType: 'customer service',
-        areaServed: 'US',
-        availableLanguage: ['en'],
-        email: 'info@palmettoconsulting.us',
-      }],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'Insurance Consulting Services',
-        itemListElement: [
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Captive Insurance Company Design', serviceType: 'Captive Insurance Consulting', category: 'Captive Insurance' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Captive Growth Management', serviceType: 'Captive Insurance Consulting', category: 'Captive Insurance' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Insurance CFO Services', serviceType: 'Insurance CFO Services', category: 'Insurance Consulting' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Insurance Controllership', serviceType: 'Insurance Controllership', category: 'Insurance Consulting' } },
-        ],
-      },
-    },
-    breadcrumbSchema,
-  ],
-};
+const contactJsonLd = graph([
+  webPage({ id: 'webpage', url: '/contact', name: 'Contact Palmetto Consulting of Columbia', type: 'ContactPage' }),
+  offerCatalog('Insurance Consulting Services', [
+    service({ name: 'Captive Insurance Company Design' }),
+    service({ name: 'Captive Growth Management' }),
+    service({ name: 'Insurance CFO Services', serviceType: 'Insurance CFO Services', category: 'Insurance Consulting' }),
+    service({ name: 'Insurance Controllership', serviceType: 'Insurance Controllership', category: 'Insurance Consulting' }),
+  ]),
+  breadcrumb([
+    { name: 'Home', path: '/' },
+    { name: 'Contact Us', path: '/contact' },
+  ]),
+]);
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -136,20 +76,7 @@ export default function Contact() {
         <script type="application/ld+json">{JSON.stringify(contactJsonLd)}</script>
       </Helmet>
 
-      <section
-        className="relative isolate flex min-h-[42vh] items-center text-white"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-contact.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="container-x relative z-10 text-center">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)]">Reach Out</p>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Contact Us</h1>
-        </div>
-      </section>
+      <HeroBanner image="/hero-contact.webp" eyebrow="Reach Out" heading="Contact Us" />
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
