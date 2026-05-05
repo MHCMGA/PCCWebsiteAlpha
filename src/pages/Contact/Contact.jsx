@@ -144,7 +144,7 @@ export default function Contact() {
         className="relative isolate flex min-h-[42vh] items-center text-white"
         style={{
           backgroundImage:
-            "linear-gradient(135deg, var(--color-navy) 0%, #00538f 60%, var(--color-teal) 100%)",
+            "linear-gradient(rgba(0,48,87,0.55), rgba(0,48,87,0.78)), url('/hero-contact.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
