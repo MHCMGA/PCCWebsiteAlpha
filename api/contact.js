@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { checkBotId } from 'botid/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -20,6 +21,18 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    const verification = await checkBotId();
+    if (verification.isBot) {
+      return res.status(403).json({ error: 'Request blocked.' });
+    }
+  } catch {
+    // checkBotId() throws on misconfig; fail closed in production, open locally
+    if (process.env.VERCEL_ENV === 'production') {
+      return res.status(503).json({ error: 'Verification temporarily unavailable.' });
+    }
   }
 
   if (!process.env.RESEND_API_KEY || !TO_EMAIL) {
