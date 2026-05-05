@@ -5,6 +5,12 @@ import AnimatedSection from '@/components/AnimatedSection/AnimatedSection';
 import StatsBar from '@/components/StatsBar/StatsBar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 import { Section, Eyebrow, SectionHeading } from '@/components/ui/section';
 import { SITE } from '@/lib/site';
 
@@ -184,6 +190,24 @@ export default function Home() {
             );
           })}
         </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section>
+        <AnimatedSection className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Common Questions</Eyebrow>
+          <SectionHeading>Frequently Asked Questions</SectionHeading>
+        </AnimatedSection>
+        <AnimatedSection delay={120} className="mx-auto mt-8 max-w-3xl">
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((f, i) => (
+              <AccordionItem key={f.q} value={`faq-${i}`}>
+                <AccordionTrigger>{f.q}</AccordionTrigger>
+                <AccordionContent>{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </AnimatedSection>
       </Section>
 
       {/* CTA */}
