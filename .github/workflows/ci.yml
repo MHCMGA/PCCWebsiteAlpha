@@ -87,6 +87,9 @@ jobs:
         env:
           CI: "1"
 
+      - name: Install Chrome for pa11y (puppeteer-core)
+        run: pnpm dlx @puppeteer/browsers install chrome@stable --path "$HOME/.cache/puppeteer"
+
       - name: Pa11y-CI (WCAG2AA static)
         run: pnpm a11y:serve
 
