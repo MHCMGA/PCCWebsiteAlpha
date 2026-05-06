@@ -2,8 +2,8 @@
   {
     "url": "http://localhost:4173/",
     "isRepresentativeRun": true,
-    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost--2026_05_05_20_22_27.report.html",
-    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost--2026_05_05_20_22_27.report.json",
+    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost--2026_05_06_00_37_36.report.html",
+    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost--2026_05_06_00_37_36.report.json",
     "summary": {
       "performance": 1,
       "accessibility": 1,
@@ -14,8 +14,8 @@
   {
     "url": "http://localhost:4173/about",
     "isRepresentativeRun": true,
-    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-about-2026_05_05_20_22_44.report.html",
-    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-about-2026_05_05_20_22_44.report.json",
+    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-about-2026_05_06_00_37_50.report.html",
+    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-about-2026_05_06_00_37_50.report.json",
     "summary": {
       "performance": 1,
       "accessibility": 1,
@@ -26,8 +26,8 @@
   {
     "url": "http://localhost:4173/contact",
     "isRepresentativeRun": true,
-    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-contact-2026_05_05_20_23_03.report.html",
-    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-contact-2026_05_05_20_23_03.report.json",
+    "htmlPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-contact-2026_05_06_00_38_02.report.html",
+    "jsonPath": "/Users/jdf/projects/05-04-2026-pcc-v2/PCCWebsiteAlpha/reports/lighthouse/localhost-contact-2026_05_06_00_38_02.report.json",
     "summary": {
       "performance": 1,
       "accessibility": 1,
