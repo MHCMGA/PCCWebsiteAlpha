@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Total initial JS (gzip)",
+    "path": "dist/assets/*.js",
+    "limit": "140 KB",
+    "gzip": true
+  },
+  {
+    "name": "React vendor chunk (gzip)",
+    "path": "dist/assets/react-vendor-*.js",
+    "limit": "75 KB",
+    "gzip": true
+  },
+  {
+    "name": "App index chunk (gzip)",
+    "path": "dist/assets/index-*.js",
+    "limit": "42 KB",
+    "gzip": true
+  },
+  {
+    "name": "CSS (gzip)",
+    "path": "dist/assets/index-*.css",
+    "limit": "10 KB",
+    "gzip": true
+  }
+]

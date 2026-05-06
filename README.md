@@ -20,6 +20,7 @@
 [![axe-core](https://img.shields.io/badge/axe--core-4.11-663399?style=flat-square)](https://www.deque.com/axe/)
 [![pa11y-ci](https://img.shields.io/badge/pa11y--ci-WCAG2AA-1F7A8C?style=flat-square)](https://pa11y.org)
 [![knip](https://img.shields.io/badge/knip-clean-22C55E?style=flat-square)](https://knip.dev)
+[![size-limit](https://img.shields.io/badge/bundle-%E2%89%A4140%20kB%20gzip-22C55E?style=flat-square)](./.size-limit.json)
 
 **Security**
 [![syft](https://img.shields.io/badge/syft-SBOM-0A0?style=flat-square)](https://github.com/anchore/syft)
@@ -83,6 +84,7 @@ npm run dev          # http://localhost:5173
 | `npm run biome`      | Biome 2 check (primary linter)                       |
 | `npm run biome:fix`  | Biome safe + unsafe autofixes                        |
 | `npm run knip`       | Knip: unused deps / files / exports                  |
+| `npm run size`       | size-limit gzip-budget check (after `build`)         |
 | `npm run format`     | Prettier (writes)                                    |
 | `npm run a11y`       | pa11y-ci against running preview (WCAG2AA)           |
 | `npm run a11y:serve` | Boots `preview` then runs `a11y` (single command)    |
@@ -190,7 +192,18 @@ Tracked via `lighthouserc.cjs`. Current production targets:
 | Best Practices | 0.90 |
 | SEO            | 0.90 |
 
-Bundle size at last build: **~98 kB gzipped** for the entry chunk.
+## Bundle budget
+
+Enforced by `size-limit` in CI (config: `.size-limit.json`).
+
+| Chunk                          | Current  | Budget |
+| ------------------------------ | -------- | ------ |
+| Total initial JS (gzip)        | 130.7 kB | 140 kB |
+| `react-vendor` chunk (gzip)    | 70.5 kB  | 75 kB  |
+| `index` (app) chunk (gzip)     | 37.2 kB  | 42 kB  |
+| Stylesheet (gzip)              | 7.6 kB   | 10 kB  |
+
+Run `npm run size` locally; `npm run size:why` opens the bundle visualizer.
 
 ---
 
