@@ -9,12 +9,11 @@
   ],
   "crons": [{ "path": "/api/cron/ping-sitemap", "schedule": "0 12 * * 1" }],
   "functions": {
-    "api/ask.js": { "maxDuration": 30, "memory": 512, "regions": ["iad1"] },
-    "api/contact.js": { "maxDuration": 15, "memory": 256, "regions": ["iad1"] },
-    "api/og.js": { "maxDuration": 15, "memory": 512, "regions": ["iad1"] },
+    "api/ask.js": { "maxDuration": 30, "regions": ["iad1"] },
+    "api/contact.js": { "maxDuration": 15, "regions": ["iad1"] },
+    "api/og.js": { "maxDuration": 15, "regions": ["iad1"] },
     "api/cron/ping-sitemap.js": {
       "maxDuration": 15,
-      "memory": 256,
       "regions": ["iad1"]
     }
   },
