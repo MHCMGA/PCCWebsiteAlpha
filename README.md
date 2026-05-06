@@ -1,5 +1,6 @@
 # Palmetto Consulting of Columbia — pcc-v2026
 
+[![CI](https://img.shields.io/github/actions/workflow/status/MHCMGA/PCCWebsiteAlpha/ci.yml?branch=main&label=ci&logo=github&style=flat-square)](https://github.com/MHCMGA/PCCWebsiteAlpha/actions/workflows/ci.yml)
 [![Production](https://img.shields.io/website?url=https%3A%2F%2Fpalmettoconsulting.us&label=palmettoconsulting.us&up_message=live&down_message=down&style=flat-square&color=003057)](https://palmettoconsulting.us)
 [![Vercel](https://img.shields.io/badge/hosted%20on-Vercel-000?logo=vercel&style=flat-square)](https://vercel.com/mhcis/pcc-2026)
 [![Node](https://img.shields.io/badge/node-22.x-339933?logo=node.js&logoColor=fff&style=flat-square)](https://nodejs.org)

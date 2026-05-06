@@ -5,14 +5,13 @@ const ROUTES = ["/", "/about", "/contact"];
 
 for (const route of ROUTES) {
   test(`a11y: ${route} has no detectable WCAG2A/AA violations`, async ({ page }) => {
+    // Disable fade-in animations so axe samples settled colors, not
+    // mid-transition opacity which falsely flags color-contrast.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route);
     await page.waitForLoadState("networkidle");
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-      // Known: button.outline border-white on navy CTA flags color-contrast
-      // because axe inspects the border line; the surrounding text contrast
-      // is fine. Tracked separately; remove this disable once reworked.
-      .disableRules(["color-contrast"])
       .analyze();
     expect(
       results.violations,
