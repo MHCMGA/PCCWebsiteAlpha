@@ -34,3 +34,10 @@ dist-ssr
 .lighthouseci/
 
 .deepsec/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+reports/playwright/

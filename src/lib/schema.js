@@ -22,6 +22,7 @@ export function graph(nodes) {
   return { '@context': 'https://schema.org', '@graph': nodes };
 }
 
+/** @public reusable JSON-LD builder for site-wide use */
 export function website() {
   return {
     '@type': 'WebSite',
@@ -33,6 +34,7 @@ export function website() {
   };
 }
 
+/** @public reusable JSON-LD builder for site-wide use */
 export function organization() {
   return {
     '@type': ['InsuranceAgency', 'ProfessionalService', 'Organization'],

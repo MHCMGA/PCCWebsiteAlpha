@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "scripts/**/*.{mjs,js}",
+    "api/**/*.{js,ts}",
+    "tests/e2e/**/*.spec.{js,ts}",
+    "src/**/*.test.{js,jsx,ts,tsx}",
+    "lighthouserc.cjs"
+  ],
+  "project": [
+    "src/**/*.{js,jsx}",
+    "scripts/**/*.{mjs,js}",
+    "api/**/*.{js,ts}",
+    "tests/e2e/**/*.{js,ts}"
+  ],
+  "ignoreDependencies": [
+    "tailwindcss",
+    "prettier-plugin-tailwindcss"
+  ],
+  "ignoreBinaries": ["syft", "grype"],
+  "ignoreExportsUsedInFile": true,
+  "tags": ["-public"]
+}
