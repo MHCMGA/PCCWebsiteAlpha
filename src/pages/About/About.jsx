@@ -143,7 +143,7 @@ export default function About() {
             <div className="mt-8 grid gap-3 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
               {milestones.map(({ icon: Icon, label, value }) => (
                 <Card key={label} className="hover:translate-y-0">
-                  <CardContent className="p-4">
+                  <CardContent className="p-5">
                     <Icon
                       className="mb-3 size-5 text-[var(--color-teal)]"
                       aria-hidden="true"

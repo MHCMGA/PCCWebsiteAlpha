@@ -129,7 +129,7 @@ export default function Home() {
           }}
         />
         <div className="container-x relative z-10">
-          <div className="max-w-3xl rounded-sm bg-[var(--color-navy)]/90 p-6 shadow-2xl ring-1 ring-white/10 md:p-8">
+          <div className="max-w-3xl rounded-sm bg-[var(--color-navy)]/90 p-8 shadow-2xl ring-1 ring-white/10 md:p-10">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-cyan)] animate-fade-up">
               Independent Insurance Consultants in Columbia, SC
             </p>
