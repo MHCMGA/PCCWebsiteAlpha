@@ -35,7 +35,7 @@ function StatItem({ value, suffix, label }) {
         const dur = 900;
         const tick = (t) => {
           const p = Math.min(1, (t - start) / dur);
-          const eased = 1 - Math.pow(1 - p, 3);
+          const eased = 1 - (1 - p) ** 3;
           setN(Math.round(value * eased));
           if (p < 1) raf = requestAnimationFrame(tick);
         };

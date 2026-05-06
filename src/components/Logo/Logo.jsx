@@ -16,6 +16,7 @@ export default function Logo({ size = 48, variant = 'default' }) {
     <span
       className="inline-flex items-center"
       style={{ rowGap: `${m.gap}px`, columnGap: `${m.gap}px` }}
+      role="img"
       aria-label="Palmetto Consulting of Columbia"
     >
       <img

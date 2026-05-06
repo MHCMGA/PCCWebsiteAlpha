@@ -169,7 +169,7 @@ const server = createServer(async (req, res) => {
 
     const ext = extname(filePath).toLowerCase();
     const encoding = pickEncoding(req, ext);
-    const cacheKey = filePath + "|" + (encoding || "raw");
+    const cacheKey = `${filePath}|${encoding || "raw"}`;
 
     let body = cacheGet(cacheKey);
     if (!body) {

@@ -79,12 +79,12 @@ function startStaticServer(rootDir, port, fallbackHtml) {
     const server = createServer(async (req, res) => {
       try {
         const url = new URL(req.url, 'http://x');
-        let pathname = decodeURIComponent(url.pathname);
+        const pathname = decodeURIComponent(url.pathname);
         // SPA fallback - any non-asset path serves the ORIGINAL (pre-prerender)
         // index.html. We must NOT serve prerendered route HTML as the SPA shell,
         // or Helmet's per-page tags get duplicated against the static SEO tags
         // that were baked into a prior route's prerender output.
-        let filePath = join(rootDir, pathname);
+        const filePath = join(rootDir, pathname);
         let useFallback = false;
         try {
           const s = await stat(filePath);
@@ -112,7 +112,7 @@ function startStaticServer(rootDir, port, fallbackHtml) {
           'Cache-Control': 'no-store',
         });
         res.end(buf);
-      } catch (err) {
+      } catch (_err) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('not found');
       }
