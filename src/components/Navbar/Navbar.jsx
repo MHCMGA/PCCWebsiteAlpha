@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
-import Logo from '@/components/Logo/Logo';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import { Menu } from "lucide-react";
+import Logo from "@/components/Logo/Logo";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetClose,
-} from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 const links = [
-  { to: '/',        label: 'Home',     end: true },
-  { to: '/about',   label: 'About Us' },
-  { to: '/contact', label: 'Contact' },
+  { to: "/", label: "Home", end: true },
+  { to: "/about", label: "About Us" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -24,7 +24,11 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 h-16 w-full border-b border-[var(--color-border-soft)] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container-x flex h-full items-center justify-between">
-        <Link to="/" className="shrink-0" aria-label="Palmetto Consulting of Columbia, Home">
+        <Link
+          to="/"
+          className="shrink-0"
+          aria-label="Palmetto Consulting of Columbia, Home"
+        >
           <Logo size={36} />
         </Link>
 
@@ -37,8 +41,9 @@ export default function Navbar() {
               end={l.end}
               className={({ isActive }) =>
                 cn(
-                  'relative px-4 py-2 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] transition-colors hover:text-[var(--color-teal)]',
-                  isActive && 'text-[var(--color-teal)] after:absolute after:left-4 after:right-4 after:bottom-0 after:h-[2px] after:bg-[var(--color-teal)]'
+                  "relative px-4 py-2 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] transition-colors hover:text-[var(--color-teal)]",
+                  isActive &&
+                    "text-[var(--color-teal)] after:absolute after:left-4 after:right-4 after:bottom-0 after:h-[2px] after:bg-[var(--color-teal)]",
                 )
               }
             >
@@ -65,15 +70,17 @@ export default function Navbar() {
             </div>
             <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
               {links.map((l) => {
-                const active =
-                  l.end ? location.pathname === l.to : location.pathname.startsWith(l.to);
+                const active = l.end
+                  ? location.pathname === l.to
+                  : location.pathname.startsWith(l.to);
                 return (
                   <SheetClose asChild key={l.to}>
                     <Link
                       to={l.to}
                       className={cn(
-                        'rounded-sm px-4 py-3 text-base font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] hover:bg-[var(--color-bg)]',
-                        active && 'bg-[var(--color-bg)] text-[var(--color-teal)]'
+                        "rounded-sm px-4 py-3 text-base font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] hover:bg-[var(--color-bg)]",
+                        active &&
+                          "bg-[var(--color-bg)] text-[var(--color-teal)]",
                       )}
                     >
                       {l.label}

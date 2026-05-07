@@ -51,18 +51,12 @@ const contactSchema = z.object({
     .string()
     .trim()
     .min(1, "Please enter your email address.")
-    .regex(
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      "Please enter a valid email address.",
-    ),
+    .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address."),
   message: z
     .string()
     .trim()
     .min(1, "Please enter a short message.")
-    .min(
-      10,
-      "Please include a little more detail so we can route your note.",
-    ),
+    .min(10, "Please include a little more detail so we can route your note."),
 });
 
 const contactMethods = [
@@ -360,7 +354,11 @@ export default function Contact() {
                       disabled={submitting}
                       className="w-full"
                     >
-                      {submitting ? <Spinner label="Sending" /> : "Send Message"}
+                      {submitting ? (
+                        <Spinner label="Sending" />
+                      ) : (
+                        "Send Message"
+                      )}
                     </Button>
                   </form>
                 </Form>

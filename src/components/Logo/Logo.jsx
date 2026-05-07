@@ -1,4 +1,4 @@
-import iconSrc from '@/assets/pcc-icon.png';
+import iconSrc from "@/assets/pcc-icon.png";
 
 // Use round-pixel values; the `gap` shorthand is normalized by Chrome's
 // CSSOM into `row-gap`/`column-gap` longhand when the prerender HTML is
@@ -9,9 +9,13 @@ const SIZE_MAP = {
   44: { gap: 14, font: 15, max: 242 },
 };
 
-export default function Logo({ size = 48, variant = 'default' }) {
-  const isLight = variant === 'light';
-  const m = SIZE_MAP[size] || { gap: Math.round(size * 0.32), font: Math.round(size * 0.34), max: Math.round(size * 5.5) };
+export default function Logo({ size = 48, variant = "default" }) {
+  const isLight = variant === "light";
+  const m = SIZE_MAP[size] || {
+    gap: Math.round(size * 0.32),
+    font: Math.round(size * 0.34),
+    max: Math.round(size * 5.5),
+  };
   return (
     <span
       className="inline-flex items-center"
@@ -31,8 +35,8 @@ export default function Logo({ size = 48, variant = 'default' }) {
         className="font-extrabold leading-tight tracking-tight"
         style={{
           fontSize: `${m.font}px`,
-          color: isLight ? '#ffffff' : 'var(--color-navy)',
-          letterSpacing: '-0.01em',
+          color: isLight ? "#ffffff" : "var(--color-navy)",
+          letterSpacing: "-0.01em",
           maxWidth: `${m.max}px`,
         }}
       >

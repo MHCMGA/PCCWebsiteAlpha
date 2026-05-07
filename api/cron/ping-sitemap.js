@@ -2,6 +2,8 @@
 // Wired in vercel.json under "crons". Vercel sends a GET with a Bearer
 // header equal to CRON_SECRET when set.
 
+import { reportException } from "../_lib/sentry.js";
+
 const SITEMAP = "https://palmettoconsulting.us/sitemap.xml";
 
 const PING_TARGETS = [
@@ -50,6 +52,9 @@ export default async function handler(req, res) {
         });
         return { target: t.name, status: r.status };
       } catch (err) {
+        await reportException(err, {
+          tags: { handler: "cron-ping-sitemap", target: t.name },
+        });
         return { target: t.name, error: String(err).slice(0, 200) };
       }
     }),

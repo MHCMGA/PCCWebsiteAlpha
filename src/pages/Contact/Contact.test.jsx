@@ -2,6 +2,12 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+
+vi.mock("@microsoft/clarity", () => ({
+  default: { init: vi.fn(), event: vi.fn(), setTag: vi.fn() },
+}));
+
+import { track } from "@vercel/analytics";
 import Contact from "./Contact";
 
 function renderRoute() {
@@ -19,6 +25,7 @@ describe("Contact page", () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: true }) }),
     );
+    track.mockClear();
   });
 
   it("renders the contact form fields", () => {
@@ -46,6 +53,11 @@ describe("Contact page", () => {
         expect.objectContaining({ method: "POST" }),
       ),
     );
+    await waitFor(() =>
+      expect(track).toHaveBeenCalledWith("contact_form_submitted", {
+        outcome: "success",
+      }),
+    );
   });
 
   it("shows inline validation before posting incomplete submissions", async () => {
@@ -65,5 +77,10 @@ describe("Contact page", () => {
       screen.getByText(/Please enter a short message/i),
     ).toBeInTheDocument();
     expect(global.fetch).not.toHaveBeenCalled();
+    await waitFor(() =>
+      expect(track).toHaveBeenCalledWith("contact_form_submitted", {
+        outcome: "invalid",
+      }),
+    );
   });
 });

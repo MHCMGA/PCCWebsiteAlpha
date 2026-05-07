@@ -4,6 +4,7 @@ import { waitUntil } from "@vercel/functions";
 import { render } from "@react-email/render";
 import ContactNotification from "../emails/contact-notification.js";
 import ContactAutoReply from "../emails/contact-autoreply.js";
+import { reportException } from "./_lib/sentry.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -44,8 +45,11 @@ export default async function handler(req, res) {
     if (verification.isBot) {
       return res.status(403).json({ error: "Request blocked." });
     }
-  } catch {
+  } catch (err) {
     if (process.env.VERCEL_ENV === "production") {
+      await reportException(err, {
+        tags: { handler: "contact", stage: "botid" },
+      });
       return res
         .status(503)
         .json({ error: "Verification temporarily unavailable." });
@@ -113,6 +117,10 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error("Resend notification error:", error);
+      await reportException(
+        new Error(`Resend notification failed: ${error.message || error}`),
+        { tags: { handler: "contact", stage: "notification-send" } },
+      );
       return res
         .status(502)
         .json({ error: "Failed to send message. Please try again later." });
@@ -135,7 +143,13 @@ export default async function handler(req, res) {
             text: replyText,
             tags: [{ name: "template", value: "contact-autoreply" }],
           });
-          if (ar.error) console.error("Resend autoreply error:", ar.error);
+          if (ar.error) {
+            console.error("Resend autoreply error:", ar.error);
+            await reportException(
+              new Error(`Resend autoreply failed: ${ar.error.message || ar.error}`),
+              { tags: { handler: "contact", stage: "autoreply-send" } },
+            );
+          }
           console.log("[contact:ok]", {
             name_len: cleanName.length,
             msg_len: cleanMessage.length,
@@ -145,6 +159,9 @@ export default async function handler(req, res) {
           });
         } catch (e) {
           console.error("autoreply dispatch failed:", e);
+          await reportException(e, {
+            tags: { handler: "contact", stage: "autoreply-dispatch" },
+          });
         }
       })(),
     );
@@ -152,6 +169,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error("Contact handler error:", err);
+    await reportException(err, {
+      tags: { handler: "contact", stage: "handler" },
+    });
     return res
       .status(500)
       .json({ error: "Unexpected error. Please try again later." });

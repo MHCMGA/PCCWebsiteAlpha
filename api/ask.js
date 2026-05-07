@@ -5,6 +5,7 @@
 
 import { checkBotId } from "botid/server";
 import { waitUntil } from "@vercel/functions";
+import { reportException } from "./_lib/sentry.js";
 
 const MODEL = process.env.AI_MODEL || "anthropic/claude-haiku-4.5";
 const GATEWAY_URL = "https://ai-gateway.vercel.sh/v1/chat/completions";
@@ -53,6 +54,7 @@ export default async function handler(req, res) {
   } catch (err) {
     if (process.env.VERCEL_ENV === "production") {
       console.error("[ask] BotID error:", err);
+      await reportException(err, { tags: { handler: "ask", stage: "botid" } });
       return res
         .status(503)
         .json({ error: "Service temporarily unavailable." });
@@ -94,6 +96,10 @@ export default async function handler(req, res) {
   if (!upstream.ok) {
     const text = await upstream.text().catch(() => "");
     console.error("[ask] gateway", upstream.status, text.slice(0, 300));
+    await reportException(
+      new Error(`AI gateway ${upstream.status}: ${text.slice(0, 200)}`),
+      { tags: { handler: "ask", stage: "gateway" } },
+    );
     return res
       .status(502)
       .json({ error: "Assistant temporarily unavailable." });
