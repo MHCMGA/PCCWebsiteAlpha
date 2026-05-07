@@ -9,8 +9,31 @@
   --color-ink: #003057;
   --color-muted: #6b7280;
 
+  /* shadcn standard tokens — mapped to PCC brand. New shadcn components
+     reference these (e.g. bg-primary, text-muted-foreground); existing
+     PCC components keep using --color-navy/teal/cyan directly. */
+  --color-background: #f7f7f5;
+  --color-foreground: #003057;
+  --color-card: #ffffff;
+  --color-card-foreground: #003057;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #003057;
+  --color-primary: #006fa8;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #003057;
+  --color-secondary-foreground: #ffffff;
+  --color-accent: #e9f5fd;
+  --color-accent-foreground: #003057;
+  --color-muted-foreground: #6b7280;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #eeeeee;
+  --color-input: #eeeeee;
+  --color-ring: #006fa8;
+
   --font-sans: "Segoe UI", Arial, sans-serif;
 
+  --radius: 4px;
   --radius-card: 4px;
 
   --animate-fade-up: fade-up 0.55s ease both;
@@ -52,6 +75,9 @@
   *::before,
   *::after {
     box-sizing: border-box;
+  }
+  :root {
+    color-scheme: light;
   }
   html {
     scroll-behavior: smooth;

@@ -1,6 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import AnimatedSection from "@/components/AnimatedSection/AnimatedSection";
 import HeroBanner from "@/components/HeroBanner/HeroBanner";
 import {
@@ -13,12 +16,24 @@ import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Section, Eyebrow } from "@/components/ui/section";
 import { Spinner } from "@/components/ui/spinner";
 import { SITE } from "@/lib/site";
+import {
+  trackContactSubmit,
+  trackEmailClick,
+  trackPhoneClick,
+} from "@/lib/track";
 import {
   graph,
   webPage,
@@ -29,7 +44,26 @@ import {
 
 const DOMAIN = SITE.domain;
 const initialForm = { name: "", email: "", message: "" };
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Please enter your full name."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Please enter your email address.")
+    .regex(
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      "Please enter a valid email address.",
+    ),
+  message: z
+    .string()
+    .trim()
+    .min(1, "Please enter a short message.")
+    .min(
+      10,
+      "Please include a little more detail so we can route your note.",
+    ),
+});
 
 const contactMethods = [
   {
@@ -43,36 +77,16 @@ const contactMethods = [
     label: "Phone",
     value: SITE.phone,
     href: `tel:${SITE.phoneE164}`,
+    onClick: () => trackPhoneClick("contact_card"),
   },
   {
     icon: Mail,
     label: "Email",
     value: SITE.email,
     href: `mailto:${SITE.email}`,
+    onClick: () => trackEmailClick("contact_card"),
   },
 ];
-
-function getFormErrors(form) {
-  const nextErrors = {};
-  const cleanName = form.name.trim();
-  const cleanEmail = form.email.trim();
-  const cleanMessage = form.message.trim();
-
-  if (!cleanName) nextErrors.name = "Please enter your full name.";
-  if (!cleanEmail) {
-    nextErrors.email = "Please enter your email address.";
-  } else if (!emailPattern.test(cleanEmail)) {
-    nextErrors.email = "Please enter a valid email address.";
-  }
-  if (!cleanMessage) {
-    nextErrors.message = "Please enter a short message.";
-  } else if (cleanMessage.length < 10) {
-    nextErrors.message =
-      "Please include a little more detail so we can route your note.";
-  }
-
-  return nextErrors;
-}
 
 const contactJsonLd = graph([
   webPage({
@@ -102,49 +116,26 @@ const contactJsonLd = graph([
 ]);
 
 export default function Contact() {
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
+  const form = useForm({
+    resolver: zodResolver(contactSchema),
+    defaultValues: initialForm,
+  });
+  const submitting = form.formState.isSubmitting;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((current) => ({ ...current, [name]: value }));
-    setErrors((current) => ({ ...current, [name]: undefined }));
-    setStatus(null);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const nextErrors = getFormErrors(form);
-    if (Object.keys(nextErrors).length > 0) {
-      setErrors(nextErrors);
-      setStatus({
-        variant: "warning",
-        title: "Please check the form",
-        message:
-          "A few details need attention before we can send your message.",
-      });
-      return;
-    }
-
-    setSubmitting(true);
+  const onValid = async (data) => {
     setStatus(null);
     const { toast } = await import("sonner");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          message: form.message.trim(),
-        }),
+        body: JSON.stringify(data),
       });
-      const data = await res.json().catch(() => ({}));
+      const body = await res.json().catch(() => ({}));
       if (!res.ok)
         throw new Error(
-          data.error || "Failed to send message. Please try again.",
+          body.error || "Failed to send message. Please try again.",
         );
       toast.success("Message sent. We will be in touch soon.");
       setStatus({
@@ -152,15 +143,23 @@ export default function Contact() {
         title: "Message sent",
         message: "Thank you. We will be in touch soon.",
       });
-      setForm(initialForm);
-      setErrors({});
+      form.reset(initialForm);
+      trackContactSubmit("success");
     } catch (err) {
       const message = err.message || "Something went wrong. Please try again.";
       toast.error(message);
       setStatus({ variant: "error", title: "Message not sent", message });
-    } finally {
-      setSubmitting(false);
+      trackContactSubmit("error");
     }
+  };
+
+  const onInvalid = () => {
+    setStatus({
+      variant: "warning",
+      title: "Please check the form",
+      message: "A few details need attention before we can send your message.",
+    });
+    trackContactSubmit("invalid");
   };
 
   return (
@@ -228,28 +227,35 @@ export default function Contact() {
             </p>
 
             <div className="grid gap-4">
-              {contactMethods.map(({ icon: Icon, label, value, href }) => (
-                <Card key={label} className="hover:translate-y-0">
-                  <CardContent className="flex gap-4 p-5">
-                    <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
-                      <Icon size={24} aria-hidden="true" />
-                    </span>
-                    <div className="text-sm leading-7">
-                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
-                        {label}
-                      </p>
-                      <a
-                        href={href}
-                        className="font-bold text-[var(--color-navy)] hover:text-[var(--color-teal)]"
-                        target={href.startsWith("http") ? "_blank" : undefined}
-                        rel={href.startsWith("http") ? "noreferrer" : undefined}
-                      >
-                        {value}
-                      </a>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              {contactMethods.map(
+                ({ icon: Icon, label, value, href, onClick }) => (
+                  <Card key={label} className="hover:translate-y-0">
+                    <CardContent className="flex gap-4 p-5">
+                      <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-[var(--color-bg)] text-[var(--color-teal)]">
+                        <Icon size={24} aria-hidden="true" />
+                      </span>
+                      <div className="text-sm leading-7">
+                        <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+                          {label}
+                        </p>
+                        <a
+                          href={href}
+                          onClick={onClick}
+                          className="font-bold text-[var(--color-navy)] hover:text-[var(--color-teal)]"
+                          target={
+                            href.startsWith("http") ? "_blank" : undefined
+                          }
+                          rel={
+                            href.startsWith("http") ? "noreferrer" : undefined
+                          }
+                        >
+                          {value}
+                        </a>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ),
+              )}
             </div>
 
             <Card className="mt-6 hover:translate-y-0">
@@ -285,92 +291,79 @@ export default function Contact() {
           <AnimatedSection delay={150}>
             <Card>
               <CardContent className="p-8">
-                <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                  {status ? (
-                    <Alert variant={status.variant} title={status.title}>
-                      <p>{status.message}</p>
-                    </Alert>
-                  ) : null}
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="John Smith"
-                      required
-                      autoComplete="name"
-                      aria-invalid={Boolean(errors.name)}
-                      aria-describedby={errors.name ? "name-error" : undefined}
-                    />
-                    {errors.name ? (
-                      <p
-                        id="name-error"
-                        className="text-sm font-medium text-red-700"
-                      >
-                        {errors.name}
-                      </p>
-                    ) : null}
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      required
-                      autoComplete="email"
-                      aria-invalid={Boolean(errors.email)}
-                      aria-describedby={
-                        errors.email ? "email-error" : undefined
-                      }
-                    />
-                    {errors.email ? (
-                      <p
-                        id="email-error"
-                        className="text-sm font-medium text-red-700"
-                      >
-                        {errors.email}
-                      </p>
-                    ) : null}
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      rows={6}
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="Tell us how we can help..."
-                      required
-                      aria-invalid={Boolean(errors.message)}
-                      aria-describedby={
-                        errors.message ? "message-error" : undefined
-                      }
-                    />
-                    {errors.message ? (
-                      <p
-                        id="message-error"
-                        className="text-sm font-medium text-red-700"
-                      >
-                        {errors.message}
-                      </p>
-                    ) : null}
-                  </div>
-                  <Button
-                    type="submit"
-                    disabled={submitting}
-                    className="w-full"
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onValid, onInvalid)}
+                    noValidate
+                    className="space-y-5"
                   >
-                    {submitting ? <Spinner label="Sending" /> : "Send Message"}
-                  </Button>
-                </form>
+                    {status ? (
+                      <Alert variant={status.variant} title={status.title}>
+                        <p>{status.message}</p>
+                      </Alert>
+                    ) : null}
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="text"
+                              placeholder="John Smith"
+                              autoComplete="name"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="font-medium text-red-700" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email Address</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="email"
+                              placeholder="john@example.com"
+                              autoComplete="email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="font-medium text-red-700" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Message</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              rows={6}
+                              placeholder="Tell us how we can help..."
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="font-medium text-red-700" />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full"
+                    >
+                      {submitting ? <Spinner label="Sending" /> : "Send Message"}
+                    </Button>
+                  </form>
+                </Form>
               </CardContent>
             </Card>
           </AnimatedSection>
