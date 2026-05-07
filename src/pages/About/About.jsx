@@ -33,12 +33,12 @@ const team = [
   },
   {
     name: "Matthew A. Holycross, CPA",
-    role: "Member",
+    role: "Principal",
     bio: "Matthew joined Palmetto in 2015, bringing a background in traditional Property & Casualty carrier management as well as extensive experience in the Alternative Risk and Captive market. His perspectives have expanded the firm's capabilities and value to clients.",
   },
   {
     name: "Michael D. Hunter, CPA",
-    role: "Member",
+    role: "Principal",
     bio: "Michael joined Palmetto in 2020. He brings significant experience as an external audit manager for a national accounting firm and as the CFO of multiple AM-Best Rated Property and Casualty insurers, further strengthening the team's financial leadership.",
     initials: "MH",
     photo: "/team/michael-hunter-v4.webp",
