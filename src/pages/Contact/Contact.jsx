@@ -30,6 +30,7 @@ import { Section, Eyebrow } from "@/components/ui/section";
 import { Spinner } from "@/components/ui/spinner";
 import { SITE } from "@/lib/site";
 import {
+  bucketMessageLength,
   trackContactSubmit,
   trackEmailClick,
   trackPhoneClick,
@@ -122,6 +123,11 @@ export default function Contact() {
   const onValid = async (data) => {
     setStatus(null);
     const { toast } = await import("sonner");
+    const detail = {
+      msg_len: bucketMessageLength((data.message ?? "").length),
+      from_path: typeof window !== "undefined" ? window.location.pathname : undefined,
+    };
+    let outcome = "error";
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -129,10 +135,20 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
       const body = await res.json().catch(() => ({}));
-      if (!res.ok)
+      if (!res.ok) {
+        outcome =
+          res.status === 429
+            ? "rate_limited"
+            : res.status === 403
+              ? "spam"
+              : res.status === 400 || res.status === 422
+                ? "invalid"
+                : "error";
         throw new Error(
           body.error || "Failed to send message. Please try again.",
         );
+      }
+      outcome = "success";
       toast.success("Message sent. We will be in touch soon.");
       setStatus({
         variant: "success",
@@ -140,12 +156,12 @@ export default function Contact() {
         message: "Thank you. We will be in touch soon.",
       });
       form.reset(initialForm);
-      trackContactSubmit("success");
     } catch (err) {
       const message = err.message || "Something went wrong. Please try again.";
       toast.error(message);
       setStatus({ variant: "error", title: "Message not sent", message });
-      trackContactSubmit("error");
+    } finally {
+      trackContactSubmit(outcome, detail);
     }
   };
 
@@ -155,7 +171,11 @@ export default function Contact() {
       title: "Please check the form",
       message: "A few details need attention before we can send your message.",
     });
-    trackContactSubmit("invalid");
+    const currentMsg = form.getValues("message") ?? "";
+    trackContactSubmit("invalid", {
+      msg_len: bucketMessageLength(currentMsg.length),
+      from_path: typeof window !== "undefined" ? window.location.pathname : undefined,
+    });
   };
 
   return (

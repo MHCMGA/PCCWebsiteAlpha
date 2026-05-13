@@ -54,9 +54,10 @@ describe("Contact page", () => {
       ),
     );
     await waitFor(() =>
-      expect(track).toHaveBeenCalledWith("contact_form_submitted", {
-        outcome: "success",
-      }),
+      expect(track).toHaveBeenCalledWith(
+        "contact_form_submitted",
+        expect.objectContaining({ outcome: "success" }),
+      ),
     );
   });
 
@@ -78,9 +79,10 @@ describe("Contact page", () => {
     ).toBeInTheDocument();
     expect(global.fetch).not.toHaveBeenCalled();
     await waitFor(() =>
-      expect(track).toHaveBeenCalledWith("contact_form_submitted", {
-        outcome: "invalid",
-      }),
+      expect(track).toHaveBeenCalledWith(
+        "contact_form_submitted",
+        expect.objectContaining({ outcome: "invalid" }),
+      ),
     );
   });
 });
