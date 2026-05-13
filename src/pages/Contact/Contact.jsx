@@ -43,7 +43,7 @@ import {
 } from "@/lib/schema";
 
 const DOMAIN = SITE.domain;
-const initialForm = { name: "", email: "", message: "" };
+const initialForm = { name: "", email: "", message: "", website: "" };
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Please enter your full name."),
@@ -57,6 +57,8 @@ const contactSchema = z.object({
     .trim()
     .min(1, "Please enter a short message.")
     .min(10, "Please include a little more detail so we can route your note."),
+  // Honeypot — visually hidden; server treats any non-empty value as a bot.
+  website: z.string().max(0).optional().default(""),
 });
 
 const contactMethods = [
@@ -296,6 +298,29 @@ export default function Contact() {
                         <p>{status.message}</p>
                       </Alert>
                     ) : null}
+                    {/* Honeypot — hidden from real users; bots that fill it get a 200 + silent drop. */}
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        left: "-10000px",
+                        width: "1px",
+                        height: "1px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <label htmlFor="website">
+                        Leave this field empty
+                        <input
+                          id="website"
+                          type="text"
+                          name="website"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          {...form.register("website")}
+                        />
+                      </label>
+                    </div>
                     <FormField
                       control={form.control}
                       name="name"

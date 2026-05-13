@@ -10,3 +10,4 @@ match:
 exclude:
   - "**/dist/**"
   - "**/reports/**"
+  - "**/.deepsec/**"

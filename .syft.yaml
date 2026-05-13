@@ -10,3 +10,4 @@ exclude:
   - "./dist"
   - "./reports"
   - "./node_modules/.cache"
+  - "./.deepsec/**"

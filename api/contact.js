@@ -22,6 +22,8 @@ const isValidEmail = (email) =>
   email.length <= 254;
 
 const MAX_BODY_BYTES = 12_000;
+const MAX_URLS_IN_MESSAGE = 4;
+const URL_RE = /\bhttps?:\/\/|www\./gi;
 
 function setNoStore(res) {
   res.setHeader("Cache-Control", "no-store, max-age=0");
@@ -33,6 +35,16 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const contentType = String(req.headers["content-type"] || "")
+    .split(";")[0]
+    .trim()
+    .toLowerCase();
+  if (contentType !== "application/json") {
+    return res
+      .status(415)
+      .json({ error: "Content-Type must be application/json." });
   }
 
   const contentLength = Number(req.headers["content-length"] || 0);
@@ -60,7 +72,12 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Email service is not configured." });
   }
 
-  const { name, email, message } = req.body || {};
+  const { name, email, message, website } = req.body || {};
+
+  // Honeypot — real users never fill a visually-hidden field.
+  if (typeof website === "string" && website.trim() !== "") {
+    return res.status(200).json({ ok: true });
+  }
 
   if (
     typeof name !== "string" ||
@@ -72,6 +89,13 @@ export default async function handler(req, res) {
   const cleanName = name.trim();
   const cleanEmail = email.trim();
   const cleanMessage = message.trim();
+
+  const urlMatches = cleanMessage.match(URL_RE);
+  if (urlMatches && urlMatches.length > MAX_URLS_IN_MESSAGE) {
+    return res
+      .status(400)
+      .json({ error: "Message contains too many links." });
+  }
 
   if (!cleanName || !cleanEmail || !cleanMessage) {
     return res

@@ -19,5 +19,6 @@
   ],
   "ignoreBinaries": ["syft", "grype"],
   "ignoreExportsUsedInFile": true,
+  "ignore": ["src/components/ui/**"],
   "tags": ["-public"]
 }
