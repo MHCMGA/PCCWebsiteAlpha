@@ -1,22 +1,17 @@
-// Third-party visibility scripts: Microsoft Clarity (session replays + heatmaps)
-// and LinkedIn Insight Tag (company / job-title visitor identification).
+// Third-party visibility scripts: LinkedIn Insight Tag (company / job-title
+// visitor identification) and RB2B (person-level visitor de-anonymization).
 //
 // Both follow the same lazy/idle pattern as the existing extras loader in
 // main.jsx, and skip during prerender so nothing leaks into the prerendered
-// HTML payload. Clarity uses the official @microsoft/clarity SDK; LinkedIn is
-// a hand-rolled tag inject (LinkedIn does not ship an npm package).
-
-import Clarity from "@microsoft/clarity";
+// HTML payload. Microsoft Clarity was removed: it set eight third-party
+// cookies (its own MUID/SM/ANONCHK/_clck/_clsk plus Bing Ads MUID/MR/SRM_B)
+// which pinned the Lighthouse Best Practices score, and PostHog already
+// provides session replays + heatmaps without the cookie load.
 
 function isClientRuntime() {
   if (typeof window === "undefined") return false;
   if (typeof navigator !== "undefined" && navigator.webdriver) return false;
   return true;
-}
-
-export function initClarity(projectId) {
-  if (!projectId || !isClientRuntime()) return;
-  Clarity.init(projectId);
 }
 
 export function initLinkedInInsightTag(partnerId) {

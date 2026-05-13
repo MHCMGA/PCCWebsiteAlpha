@@ -1,11 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
-vi.mock("@microsoft/clarity", () => ({
-  default: { init: vi.fn() },
-}));
-
-import Clarity from "@microsoft/clarity";
-import { initClarity, initLinkedInInsightTag, initRb2b } from "./observers";
+import { initLinkedInInsightTag, initRb2b } from "./observers";
 
 function injectedScripts(srcMatch) {
   return Array.from(document.head.querySelectorAll("script")).filter((s) =>
@@ -13,9 +8,8 @@ function injectedScripts(srcMatch) {
   );
 }
 
-describe("observers (Clarity + LinkedIn Insight Tag)", () => {
+describe("observers (LinkedIn Insight Tag + RB2B)", () => {
   beforeEach(() => {
-    Clarity.init.mockClear();
     delete window._linkedin_partner_id;
     delete window._linkedin_data_partner_ids;
     document.head
@@ -30,18 +24,6 @@ describe("observers (Clarity + LinkedIn Insight Tag)", () => {
   afterEach(() => {
     delete window._linkedin_partner_id;
     delete window._linkedin_data_partner_ids;
-  });
-
-  it("initClarity is a no-op without a project id", () => {
-    initClarity();
-    initClarity("");
-    expect(Clarity.init).not.toHaveBeenCalled();
-  });
-
-  it("initClarity calls Clarity.init with the project id", () => {
-    initClarity("wmnzkdq7pj");
-    expect(Clarity.init).toHaveBeenCalledWith("wmnzkdq7pj");
-    expect(Clarity.init).toHaveBeenCalledTimes(1);
   });
 
   it("initLinkedInInsightTag is a no-op without a partner id", () => {

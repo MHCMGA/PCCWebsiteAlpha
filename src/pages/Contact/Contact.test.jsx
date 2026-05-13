@@ -3,10 +3,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
-vi.mock("@microsoft/clarity", () => ({
-  default: { init: vi.fn(), event: vi.fn(), setTag: vi.fn() },
-}));
-
 import { track } from "@vercel/analytics";
 import Contact from "./Contact";
 

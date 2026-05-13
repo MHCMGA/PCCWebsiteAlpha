@@ -37,7 +37,7 @@ if (!navigator.webdriver) {
         { createElement },
         { Toaster },
         { initBotId },
-        { initClarity, initLinkedInInsightTag, initRb2b },
+        { initLinkedInInsightTag, initRb2b },
         { initSentryClient },
       ] = await Promise.all([
         import("react"),
@@ -58,11 +58,6 @@ if (!navigator.webdriver) {
           { path: "/api/ask", method: "POST" },
         ],
       });
-      // Clarity Project IDs are not secrets — they ship in the loaded script
-      // for every visitor. Hardcode as the default; allow env override (set
-      // VITE_CLARITY_PROJECT_ID to a different value, or to '' to disable).
-      const clarityId = import.meta.env.VITE_CLARITY_PROJECT_ID ?? "wmnzkdq7pj";
-      initClarity(clarityId);
       initLinkedInInsightTag(import.meta.env.VITE_LINKEDIN_PARTNER_ID);
       initRb2b(import.meta.env.VITE_RB2B_TEAM_ID);
       initSentryClient();
