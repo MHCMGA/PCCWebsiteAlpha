@@ -21,6 +21,14 @@ export default defineConfig({
           org: sentryOrg,
           project: sentryProject,
           authToken: sentryAuthToken,
+          // Use Vercel's commit SHA as the release name so events are tied
+          // to the exact deployment, and finalize + record a Deploy in the
+          // Releases UI on every build.
+          release: {
+            name: process.env.VERCEL_GIT_COMMIT_SHA,
+            finalize: true,
+            deploy: { env: process.env.VERCEL_ENV || 'production' },
+          },
           sourcemaps: {
             // Upload, then delete maps so they never ship publicly under /assets/
             filesToDeleteAfterUpload: ['./dist/**/*.map'],
@@ -33,6 +41,16 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  // Surface Vercel's unprefixed build-time vars to the client bundle so
+  // Sentry can tag events with the exact release + environment.
+  define: {
+    'import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA': JSON.stringify(
+      process.env.VERCEL_GIT_COMMIT_SHA || '',
+    ),
+    'import.meta.env.VITE_VERCEL_ENV': JSON.stringify(
+      process.env.VERCEL_ENV || '',
+    ),
   },
   build: {
     // Required for Sentry symbolication. Maps are uploaded then deleted by
