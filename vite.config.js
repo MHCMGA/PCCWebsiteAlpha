@@ -7,25 +7,27 @@ import path from 'node:path'
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
 const sentryOrg = process.env.SENTRY_ORG
 const sentryProject = process.env.SENTRY_PROJECT
+// Only upload source maps from Vercel CI builds. Local `pnpm build` skips
+// the plugin entirely (saves ~50% of build time) without affecting prod
+// symbolication.
+const onVercel = process.env.VERCEL === '1'
 
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    // Source-map upload for production stack traces. The plugin is a no-op
-    // when SENTRY_AUTH_TOKEN is unset, so local + preview builds keep working
-    // before Sentry is provisioned.
-    sentryVitePlugin({
-      org: sentryOrg,
-      project: sentryProject,
-      authToken: sentryAuthToken,
-      disable: !sentryAuthToken,
-      sourcemaps: {
-        // Upload, then delete maps so they never ship publicly under /assets/
-        filesToDeleteAfterUpload: ['./dist/**/*.map'],
-      },
-      telemetry: false,
-    }),
+    onVercel && sentryAuthToken
+      ? sentryVitePlugin({
+          org: sentryOrg,
+          project: sentryProject,
+          authToken: sentryAuthToken,
+          sourcemaps: {
+            // Upload, then delete maps so they never ship publicly under /assets/
+            filesToDeleteAfterUpload: ['./dist/**/*.map'],
+          },
+          telemetry: false,
+        })
+      : null,
   ],
   resolve: {
     alias: {
