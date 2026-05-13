@@ -34,34 +34,24 @@ if (!navigator.webdriver) {
   const loadExtras = async () => {
     try {
       const [
-        { createElement, Fragment },
+        { createElement },
         { Toaster },
-        { Analytics },
-        { SpeedInsights },
         { initBotId },
         { initClarity, initLinkedInInsightTag, initRb2b },
         { initSentryClient },
       ] = await Promise.all([
         import("react"),
         import("@/components/ui/sonner"),
-        import("@vercel/analytics/react"),
-        import("@vercel/speed-insights/react"),
         import("botid/client/core"),
         import("@/lib/observers"),
         import("@/lib/sentry.client"),
       ]);
+      // Vercel Analytics + Speed Insights moved into App's router tree
+      // (src/lib/VercelInsights.jsx) so per-route attribution works.
       const host = document.createElement("div");
       host.id = "extras-root";
       document.body.appendChild(host);
-      createRoot(host).render(
-        createElement(
-          Fragment,
-          null,
-          createElement(Toaster),
-          createElement(Analytics),
-          createElement(SpeedInsights),
-        ),
-      );
+      createRoot(host).render(createElement(Toaster));
       initBotId({
         protect: [
           { path: "/api/contact", method: "POST" },

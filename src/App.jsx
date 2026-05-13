@@ -8,6 +8,7 @@ import Home from "@/pages/Home/Home";
 import About from "@/pages/About/About";
 import Contact from "@/pages/Contact/Contact";
 import { SITE } from "@/lib/site";
+import VercelInsights from "@/lib/VercelInsights";
 
 function NotFound() {
   return (
@@ -94,6 +95,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <VercelInsights />
     </ErrorBoundary>
   );
 }
