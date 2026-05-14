@@ -14,7 +14,14 @@ const onVercel = process.env.VERCEL === '1'
 
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      // React Compiler — auto-memoises components & hooks per React 19's
+      // model. compilationMode 'infer' (default) opts in functions the
+      // compiler can prove safe. Lower-risk than 'all'.
+      babel: {
+        plugins: [['babel-plugin-react-compiler', {}]],
+      },
+    }),
     tailwindcss(),
     onVercel && sentryAuthToken
       ? sentryVitePlugin({
@@ -59,7 +66,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react-helmet-async')) return 'helmet'
           if (
             id.includes('node_modules/react-router') ||
             id.includes('node_modules/react-dom') ||
