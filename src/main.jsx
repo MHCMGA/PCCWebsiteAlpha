@@ -3,6 +3,11 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
+// CookieConsent already statically pulls lib/consent, so the module is
+// in the initial chunk no matter what — keep the import static here
+// too. Dynamic-importing it produced a Rollup
+// INEFFECTIVE_DYNAMIC_IMPORT warning without saving any bytes.
+import { whenAccepted } from "@/lib/consent";
 
 const rootEl = document.getElementById("root");
 const tree = (
@@ -47,14 +52,12 @@ if (!navigator.webdriver) {
         { initBotId },
         { initLinkedInInsightTag, initRb2b },
         { initSentryClient },
-        { whenAccepted },
       ] = await Promise.all([
         import("react"),
         import("@/components/ui/sonner"),
         import("botid/client/core"),
         import("@/lib/observers"),
         import("@/lib/sentry.client"),
-        import("@/lib/consent"),
       ]);
       // Vercel Analytics + Speed Insights moved into App's router tree
       // (src/lib/VercelInsights.jsx) so per-route attribution works.
