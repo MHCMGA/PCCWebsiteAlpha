@@ -86,13 +86,39 @@ export default function Privacy() {
                 <code className="rounded-sm bg-[var(--color-bg)] px-1.5 py-0.5 text-sm">
                   pcc-consent
                 </code>
-                . It records whether you accepted or declined analytics on this site so the banner
-                does not reappear on every visit. You can clear it any time from your browser&apos;s
-                site-data settings.
+                . It records whether you accepted or declined optional trackers on this site so the
+                banner does not reappear on every visit. You can clear it any time from your
+                browser&apos;s site-data settings.
               </p>
               <p>
-                If you decline, we honour that choice on subsequent page loads. We do not use
-                third-party advertising cookies, cross-site tracking pixels, or fingerprinting.
+                We do not use cross-site advertising cookies, retargeting pixels, or browser
+                fingerprinting.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="mb-3 text-xl font-bold text-[var(--color-navy)]">
+                Optional trackers (only after Accept)
+              </h2>
+              <p className="mb-3">
+                When you click <strong>Accept</strong> on the cookie banner, we may also load two
+                visitor-identification scripts that help us understand which firms are evaluating
+                our services:
+              </p>
+              <ul className="ml-6 list-disc space-y-2">
+                <li>
+                  <strong>LinkedIn Insight Tag</strong> — LinkedIn&apos;s server-side script that
+                  matches LinkedIn-logged-in visits back to a job title and company. It sets
+                  third-party LinkedIn cookies on your device.
+                </li>
+                <li>
+                  <strong>RB2B</strong> — a US-only person-level visitor de-anonymization service
+                  that may identify a visitor by name and email when the visit can be matched to
+                  RB2B&apos;s opt-in B2B graph.
+                </li>
+              </ul>
+              <p className="mt-3">
+                Decline on the banner and neither script loads, on this or subsequent visits.
               </p>
             </section>
 

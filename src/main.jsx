@@ -25,6 +25,19 @@ if (rootEl.firstElementChild) {
 // Defer all client-only extras (toaster, analytics, bot detection) until after
 // hydration + idle. Skip during prerender (puppeteer sets navigator.webdriver)
 // so they never appear in the prerendered HTML payload.
+//
+// Consent gating (see src/components/CookieConsent + src/lib/consent.js):
+//
+//   Always loaded — operational / cookieless:
+//     Toaster, Sentry (error monitoring), BotID (spam shield on POST routes)
+//
+//   Loaded only after explicit Accept (the LinkedIn tag sets third-party
+//   cookies; RB2B identifies the visitor person-to-person):
+//     LinkedIn Insight Tag, RB2B
+//
+// On first visit the Accept handler in CookieConsent dispatches
+// `pcc:consent` with detail "accepted", which whenAccepted() listens for
+// and fires the deferred trackers — no page reload required.
 if (!navigator.webdriver) {
   const loadExtras = async () => {
     try {
@@ -34,12 +47,14 @@ if (!navigator.webdriver) {
         { initBotId },
         { initLinkedInInsightTag, initRb2b },
         { initSentryClient },
+        { whenAccepted },
       ] = await Promise.all([
         import("react"),
         import("@/components/ui/sonner"),
         import("botid/client/core"),
         import("@/lib/observers"),
         import("@/lib/sentry.client"),
+        import("@/lib/consent"),
       ]);
       // Vercel Analytics + Speed Insights moved into App's router tree
       // (src/lib/VercelInsights.jsx) so per-route attribution works.
@@ -53,9 +68,13 @@ if (!navigator.webdriver) {
           { path: "/api/ask", method: "POST" },
         ],
       });
-      initLinkedInInsightTag(import.meta.env.VITE_LINKEDIN_PARTNER_ID);
-      initRb2b(import.meta.env.VITE_RB2B_TEAM_ID);
       initSentryClient();
+      // Gated on explicit consent — fires now if already accepted, or
+      // hooks the next `pcc:consent` event otherwise.
+      whenAccepted(() => {
+        initLinkedInInsightTag(import.meta.env.VITE_LINKEDIN_PARTNER_ID);
+        initRb2b(import.meta.env.VITE_RB2B_TEAM_ID);
+      });
     } catch (err) {
       console.warn("[extras] failed to load", err);
     }
