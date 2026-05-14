@@ -39,7 +39,7 @@ export default function Privacy() {
                 >
                   palmettoconsulting.us
                 </Link>
-                . It does not cover how we handle information shared inside a paid engagement — that
+                . It does not cover how we handle information shared inside a paid engagement; that
                 is governed by the consulting agreement signed with each client.
               </p>
             </section>
@@ -50,7 +50,7 @@ export default function Privacy() {
               </h2>
               <ul className="ml-6 list-disc space-y-2">
                 <li>
-                  <strong>Contact form submissions</strong> — the name, email address, and message
+                  <strong>Contact form submissions.</strong> The name, email address, and message
                   body you provide when you fill out the form at{" "}
                   <Link
                     to="/contact"
@@ -62,19 +62,19 @@ export default function Privacy() {
                   . These go directly to our team inbox and nowhere else.
                 </li>
                 <li>
-                  <strong>Anonymous analytics</strong> — page views, route, referrer, device type,
-                  and Core Web Vitals via Vercel Web Analytics and Vercel Speed Insights. No IP
-                  address is stored; no cookies are set; no cross-site identifier is built.
+                  <strong>Anonymous analytics.</strong> Page views, route, referrer, device type,
+                  and Core Web Vitals via a privacy-respecting analytics service. No IP address is
+                  stored; no cookies are set; no cross-site identifier is built.
                 </li>
                 <li>
-                  <strong>Error and performance telemetry</strong> — if a page errors, Sentry
-                  collects the browser environment and stack trace so we can fix the bug. This data
-                  is retained for 30 days.
+                  <strong>Error and performance telemetry.</strong> If a page errors, our error
+                  monitor collects the browser environment and stack trace so we can fix the bug.
+                  This data is retained for 30 days.
                 </li>
                 <li>
-                  <strong>Bot protection</strong> — Vercel BotID inspects the request shape on the
-                  contact and ask endpoints to keep automated submissions out. It does not persist
-                  any identifier on your device.
+                  <strong>Bot protection.</strong> An automated request filter inspects the shape of
+                  submissions to the contact and ask endpoints to keep automated submissions out. It
+                  does not persist any identifier on your device.
                 </li>
               </ul>
             </section>
@@ -107,12 +107,12 @@ export default function Privacy() {
               </p>
               <ul className="ml-6 list-disc space-y-2">
                 <li>
-                  <strong>LinkedIn Insight Tag</strong> — LinkedIn&apos;s server-side script that
+                  <strong>LinkedIn Insight Tag.</strong> LinkedIn&apos;s server-side script that
                   matches LinkedIn-logged-in visits back to a job title and company. It sets
                   third-party LinkedIn cookies on your device.
                 </li>
                 <li>
-                  <strong>RB2B</strong> — a US-only person-level visitor de-anonymization service
+                  <strong>RB2B.</strong> A US-only person-level visitor de-anonymization service
                   that may identify a visitor by name and email when the visit can be matched to
                   RB2B&apos;s opt-in B2B graph.
                 </li>

@@ -1,49 +1,33 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { readConsent, writeConsent } from "@/lib/consent";
 
 // Cookie / tracking consent banner.
 //
-// State machine, persisted to localStorage under `pcc-consent`:
-//   "unset"     — no choice yet, banner is visible
-//   "accepted"  — analytics + visibility tags may run
-//   "declined"  — analytics + visibility tags must not run; show a brief
-//                 confirmation strip so the user knows their choice stuck
+// State machine, persisted by lib/consent under `pcc-consent`:
+//   "unset"     no choice yet, banner is visible
+//   "accepted"  analytics + visibility tags may run
+//   "declined"  analytics + visibility tags must not run; show a brief
+//               confirmation strip so the user knows their choice stuck
 //
-// SSR / prerender safety: the banner mounts only after the first effect
-// fires on the client, so the prerendered HTML never contains it (no
-// flash-of-banner on hydrate, no layout shift counted by Speed Insights).
+// SSR / prerender safety: the banner mounts only after the first
+// effect fires on the client, so the prerendered HTML never contains
+// it (no flash-of-banner on hydrate, no layout shift counted by Speed
+// Insights).
 //
-// Future hook-up: src/main.jsx loads bots / analytics scripts inside an
-// idle callback. Once we honour the choice for real, that loader should
-// short-circuit on `localStorage.getItem("pcc-consent") === "declined"`.
-const STORAGE_KEY = "pcc-consent";
-
-function readConsent() {
-  if (typeof window === "undefined") return "unset";
-  try {
-    const v = window.localStorage.getItem(STORAGE_KEY);
-    if (v === "accepted" || v === "declined") return v;
-    return "unset";
-  } catch {
-    return "unset";
-  }
-}
-
-function writeConsent(value) {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, value);
-    // Surface it to other tabs / future analytics gates.
-    window.dispatchEvent(new CustomEvent("pcc:consent", { detail: value }));
-  } catch {
-    /* private mode / storage disabled — nothing we can do, behave as
-       if declined for this session */
-  }
-}
+// Handlers always update React state BEFORE touching storage. In
+// Brave / Safari private browsing, the localStorage write can throw,
+// and if storage were first the throw would prevent the banner from
+// dismissing on tap. The split also means: the visible UX always
+// responds to the user, and the consent broadcast still runs (the
+// shared writeConsent has its own try/catch and an in-memory
+// fallback) so trackers gate correctly for the rest of the session.
 
 export default function CookieConsent() {
-  // Start hidden. The first effect decides whether to show the banner —
-  // this keeps the SSR/prerender payload identical for everyone.
+  // Start hidden. The first effect decides whether to show the
+  // banner. This keeps the SSR/prerender payload identical for
+  // everyone.
   const [state, setState] = useState("hidden");
 
   useEffect(() => {
@@ -55,12 +39,12 @@ export default function CookieConsent() {
   if (state === "hidden") return null;
 
   const onAccept = () => {
-    writeConsent("accepted");
     setState("hidden");
+    writeConsent("accepted");
   };
   const onDecline = () => {
-    writeConsent("declined");
     setState("declined-confirm");
+    writeConsent("declined");
     // Auto-dismiss the confirmation strip after a few seconds.
     window.setTimeout(() => setState("hidden"), 4500);
   };
