@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs",
     "lint": "eslint .",
     "typecheck": "biome check .",
     "biome": "biome check .",
@@ -29,7 +29,8 @@
     "sbom": "mkdir -p reports/sbom && syft scan dir:. --config .syft.yaml",
     "scan": "mkdir -p reports/scan && grype dir:. --config .grype.yaml -o table | tee reports/scan/grype.txt",
     "audit:all": "npm run sbom && npm run scan && npm run a11y:serve && npm run lighthouse",
-    "prerender": "node scripts/prerender.mjs"
+    "prerender": "node scripts/prerender.mjs",
+    "sitemap": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

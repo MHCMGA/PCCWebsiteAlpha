@@ -96,7 +96,7 @@
     <!-- Sitemap discovery -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-    <!-- Structured Data: Organization + LocalBusiness + WebSite -->
+    <!-- Structured Data: Organization (InsuranceAgency) + WebSite -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -107,6 +107,7 @@
             "name": "Palmetto Consulting of Columbia, LLC",
             "alternateName": "PCC",
             "url": "https://palmettoconsulting.us",
+            "telephone": "+1-803-904-8461",
             "logo": {
               "@type": "ImageObject",
               "url": "https://palmettoconsulting.us/icons/android-chrome-512.png",
@@ -134,38 +135,11 @@
               "postalCode": "29201",
               "addressCountry": "US"
             },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+1-803-904-8461",
-              "contactType": "customer service",
-              "areaServed": "US",
-              "availableLanguage": ["en"]
-            }
-          },
-          {
-            "@type": "LocalBusiness",
-            "@id": "https://palmettoconsulting.us/#localbusiness",
-            "name": "Palmetto Consulting of Columbia, LLC",
-            "description": "Independent insurance consultants specializing in captive insurance company design, structure, growth management, and CFO services. Serving clients from Columbia, South Carolina since 1998.",
-            "url": "https://palmettoconsulting.us",
-            "telephone": "+1-803-904-8461",
-            "image": "https://palmettoconsulting.us/og.png",
-            "logo": "https://palmettoconsulting.us/icons/android-chrome-512.png",
-            "foundingDate": "1998",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "1325 Park St. Suite 200",
-              "addressLocality": "Columbia",
-              "addressRegion": "SC",
-              "postalCode": "29201",
-              "addressCountry": "US"
-            },
             "geo": {
               "@type": "GeoCoordinates",
               "latitude": 34.0007,
               "longitude": -81.0348
             },
-            "areaServed": { "@type": "Country", "name": "United States" },
             "priceRange": "$$$$",
             "openingHoursSpecification": [
               {
@@ -180,7 +154,14 @@
                 "opens": "09:00",
                 "closes": "17:00"
               }
-            ]
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+1-803-904-8461",
+              "contactType": "customer service",
+              "areaServed": "US",
+              "availableLanguage": ["en"]
+            }
           },
           {
             "@type": "WebSite",

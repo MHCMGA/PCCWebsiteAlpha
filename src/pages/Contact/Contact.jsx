@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import AnimatedSection from "@/components/AnimatedSection/AnimatedSection";
@@ -239,7 +240,14 @@ export default function Contact() {
               Columbia, South Carolina and serves clients across the United
               States. Whether you&apos;re exploring captive insurance for the
               first time or need experienced CFO-level guidance for an
-              established carrier, we&apos;re here to help.
+              established carrier, we&apos;re here to help.{" "}
+              <Link
+                to="/about"
+                className="font-semibold text-[var(--color-navy)] underline decoration-[var(--color-teal)] underline-offset-4 hover:text-[var(--color-teal)]"
+              >
+                Learn more about our team
+              </Link>
+              .
             </p>
 
             <div className="grid gap-4">
