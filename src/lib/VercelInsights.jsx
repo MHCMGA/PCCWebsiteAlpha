@@ -5,6 +5,11 @@ import { useLocation, useParams } from "react-router-dom";
 // the Vercel analytics packages on idle so they stay out of the initial
 // bundle, then passes a stable `route` prop on every navigation so per-route
 // RES (Real Experience Score) can compute correctly.
+//
+// Speed Insights 2.x reports the full Core Web Vitals set (LCP, INP, CLS,
+// FCP, TTFB) automatically — INP coverage is live in Vercel's dashboard
+// per-route. Third-party scripts that could inflate INP (botid, sentry,
+// linkedin, rb2b) are deferred via requestIdleCallback in main.jsx.
 export default function VercelInsights() {
   const location = useLocation();
   const params = useParams();

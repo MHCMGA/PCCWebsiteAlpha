@@ -100,6 +100,17 @@
     @apply bg-[var(--color-bg)] text-[var(--color-ink)] antialiased;
     font-family: var(--font-sans);
     line-height: 1.6;
+    /* Better widow/orphan handling in long-form prose. Ignored by browsers
+       that don't support it. */
+    text-wrap: pretty;
+  }
+  /* Force balanced line breaks for headlines so two-line h1s don't end
+     with a single trailing word. Skips the body element above so it stays
+     `pretty` instead. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
   img {
     display: block;

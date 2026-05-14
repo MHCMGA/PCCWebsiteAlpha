@@ -90,6 +90,30 @@
     <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
     <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
 
+    <!--
+      Speculation Rules: tell Chromium-based browsers to fully prerender the
+      two internal routes most likely to be clicked next, so navigation
+      lands on a hot pipeline. `moderate` eagerness triggers on hover or
+      pointerdown — safer than `eager` (which would prerender on page load
+      and waste a render if the user never clicks).
+    -->
+    <script type="speculationrules">
+      {
+        "prerender": [
+          {
+            "where": { "href_matches": ["/about", "/contact"] },
+            "eagerness": "moderate"
+          }
+        ],
+        "prefetch": [
+          {
+            "where": { "href_matches": "/*" },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+
     <!-- Open Graph -->
     <!-- og:* and twitter:* tags hoisted per-page by React 19 metadata -->
 
