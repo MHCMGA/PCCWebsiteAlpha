@@ -8,6 +8,7 @@
     "build": "node scripts/encode-avif.mjs && vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
+    "lint:md": "mado check .",
     "typecheck": "biome check .",
     "biome": "biome check .",
     "biome:fix": "biome check --write .",

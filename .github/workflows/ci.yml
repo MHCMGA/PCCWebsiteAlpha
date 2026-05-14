@@ -40,6 +40,9 @@ jobs:
       - name: oxfmt (format check)
         run: pnpm format:check
 
+      - name: mado (Markdown lint)
+        uses: akiomik/mado@v0.3.0
+
       - name: Knip
         run: pnpm knip
 

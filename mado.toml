@@ -1,0 +1,64 @@
+# mado — fast Rust Markdown linter (github.com/akiomik/mado).
+# All markdownlint rules supported by 0.3.0 are enabled here except MD013
+# (line length). Modern READMEs with shields.io badges, long tables, and
+# permalinked URLs blow past 80 chars routinely — chasing those down is
+# busywork without semantic value.
+
+[lint]
+respect-ignore = true
+respect-gitignore = true
+output-format = "concise"
+quiet = false
+exclude = [
+  "node_modules",
+  "dist",
+  "reports",
+  ".deepsec",
+  "memory",
+  "CHANGELOG.md",
+]
+rules = [
+  "MD001",
+  "MD002",
+  "MD003",
+  "MD004",
+  "MD005",
+  "MD006",
+  "MD007",
+  "MD009",
+  "MD010",
+  "MD012",
+  "MD014",
+  "MD018",
+  "MD019",
+  "MD020",
+  "MD021",
+  "MD022",
+  "MD023",
+  "MD024",
+  "MD025",
+  "MD026",
+  "MD027",
+  "MD028",
+  "MD029",
+  "MD030",
+  "MD031",
+  "MD032",
+  "MD033",
+  "MD034",
+  "MD035",
+  "MD036",
+  "MD037",
+  "MD038",
+  "MD039",
+  "MD040",
+  "MD041",
+  "MD046",
+  "MD047",
+]
+
+[lint.md024]
+allow-different-nesting = true
+
+[lint.md029]
+style = "ordered"
