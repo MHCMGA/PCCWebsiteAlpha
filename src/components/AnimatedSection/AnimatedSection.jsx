@@ -1,45 +1,21 @@
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
+// Reveal-on-scroll wrapper. Pure CSS — uses `animation-timeline: view()`
+// (Chromium 115+; Firefox/Safari still working on it) gated by @supports
+// in src/index.css. Browsers without scroll-driven animations skip the
+// rule and render the children at full opacity. Reduced-motion users
+// skip the animation via the `prefers-reduced-motion: no-preference`
+// media query inside the same CSS block.
+//
+// `delay` is the animation-delay in ms. Pass it through a custom property
+// so the cascaded rule can pick it up without inline `animation-delay`
+// (which would otherwise clobber the `animation` shorthand on supporting
+// browsers).
 export default function AnimatedSection({ children, className = "", delay = 0 }) {
-  const ref = useRef(null);
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-  const [show, setShow] = useState(
-    () => prefersReducedMotion || typeof IntersectionObserver === "undefined",
-  );
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || prefersReducedMotion || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setShow(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
-    );
-    io.observe(el);
-    // Safety net: always reveal after 700ms regardless
-    const t = setTimeout(() => setShow(true), 700);
-    return () => {
-      io.disconnect();
-      clearTimeout(t);
-    };
-  }, [prefersReducedMotion]);
-
   return (
     <div
-      ref={ref}
-      className={cn(
-        "transition-all duration-700 ease-out will-change-transform motion-reduce:transition-none",
-        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-        className,
-      )}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={cn("anim-fade-in-view", className)}
+      style={delay ? { "--anim-delay": `${delay}ms` } : undefined}
     >
       {children}
     </div>

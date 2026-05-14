@@ -168,3 +168,33 @@
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 }
+
+/* Scroll-driven reveal — replaces the old IntersectionObserver-based
+   AnimatedSection. Runs on the compositor thread, no JS, no React state.
+   Browsers without `animation-timeline: view()` (currently Safari,
+   Firefox) skip the @supports block and the element renders normally.
+   Reduced-motion users get the static layout too. */
+@keyframes anim-fade-in-view {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .anim-fade-in-view {
+      animation: anim-fade-in-view linear both;
+      animation-timeline: view();
+      /* Run the keyframes between when the element enters the viewport
+         and when 30 % of it is covered — same feel as the old 0.12
+         IntersectionObserver threshold. */
+      animation-range: entry 0% cover 30%;
+      animation-delay: var(--anim-delay, 0ms);
+      will-change: opacity, transform;
+    }
+  }
+}
