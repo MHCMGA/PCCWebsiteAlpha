@@ -217,6 +217,7 @@ export default function Contact() {
               carrier, we&apos;re here to help.{" "}
               <Link
                 to="/about"
+                viewTransition
                 className="font-semibold text-[var(--color-navy)] underline decoration-[var(--color-teal)] underline-offset-4 hover:text-[var(--color-teal)]"
               >
                 Learn more about our team

@@ -11,7 +11,12 @@ export default function Footer() {
     <footer className="bg-[var(--color-navy)] text-white">
       <div className="container-x grid gap-10 py-16 md:grid-cols-3 md:gap-12">
         <div>
-          <Link to="/" className="inline-flex" aria-label="Palmetto Consulting of Columbia, Home">
+          <Link
+            to="/"
+            viewTransition
+            className="inline-flex"
+            aria-label="Palmetto Consulting of Columbia, Home"
+          >
             <Logo size={44} variant="light" />
           </Link>
           <p className="mt-4 text-sm leading-7 text-white/75">
@@ -25,17 +30,25 @@ export default function Footer() {
           </h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link to="/" className="text-white/85 hover:text-[var(--color-cyan)]">
+              <Link to="/" viewTransition className="text-white/85 hover:text-[var(--color-cyan)]">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="text-white/85 hover:text-[var(--color-cyan)]">
+              <Link
+                to="/about"
+                viewTransition
+                className="text-white/85 hover:text-[var(--color-cyan)]"
+              >
                 About Us
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="text-white/85 hover:text-[var(--color-cyan)]">
+              <Link
+                to="/contact"
+                viewTransition
+                className="text-white/85 hover:text-[var(--color-cyan)]"
+              >
                 Contact
               </Link>
             </li>

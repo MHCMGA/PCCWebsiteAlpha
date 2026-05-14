@@ -144,10 +144,14 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-3 animate-fade-up sm:flex-row">
               <Button asChild size="lg">
-                <Link to="/contact">Let&apos;s Work Together</Link>
+                <Link to="/contact" viewTransition>
+                  Let&apos;s Work Together
+                </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link to="/about">Meet the Team</Link>
+                <Link to="/about" viewTransition>
+                  Meet the Team
+                </Link>
               </Button>
             </div>
           </div>
@@ -195,7 +199,9 @@ export default function Home() {
               We believe captive insurance should be too.
             </h2>
             <Button asChild variant="outline" size="lg">
-              <Link to="/contact">Take the Next Step</Link>
+              <Link to="/contact" viewTransition>
+                Take the Next Step
+              </Link>
             </Button>
           </AnimatedSection>
         </div>

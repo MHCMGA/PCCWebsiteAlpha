@@ -284,7 +284,9 @@ export default function About() {
               Ready to work with Palmetto?
             </h2>
             <Button asChild variant="outline" size="lg">
-              <Link to="/contact">Get in Touch</Link>
+              <Link to="/contact" viewTransition>
+                Get in Touch
+              </Link>
             </Button>
           </AnimatedSection>
         </div>

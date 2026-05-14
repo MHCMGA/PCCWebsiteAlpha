@@ -154,3 +154,17 @@
 .skip-link:focus {
   top: 0;
 }
+
+/* View Transitions — react-router 7 wraps every <Link viewTransition>
+   navigation in document.startViewTransition(). The browser default is a
+   harsh 250 ms linear cross-fade; this slows it slightly and uses the
+   navy-friendly ease-out curve we use elsewhere. Reduced-motion users
+   get an instant swap. Only Chromium-family browsers support this; the
+   rest navigate without animation. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}

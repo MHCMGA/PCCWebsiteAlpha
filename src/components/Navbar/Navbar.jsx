@@ -19,7 +19,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 h-16 w-full border-b border-[var(--color-border-soft)] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container-x flex h-full items-center justify-between">
-        <Link to="/" className="shrink-0" aria-label="Palmetto Consulting of Columbia, Home">
+        <Link
+          to="/"
+          viewTransition
+          className="shrink-0"
+          aria-label="Palmetto Consulting of Columbia, Home"
+        >
           <Logo size={36} />
         </Link>
 
@@ -30,6 +35,7 @@ export default function Navbar() {
               key={l.to}
               to={l.to}
               end={l.end}
+              viewTransition
               className={({ isActive }) =>
                 cn(
                   "relative px-4 py-2 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] transition-colors hover:text-[var(--color-teal)]",
@@ -68,6 +74,7 @@ export default function Navbar() {
                   <SheetClose asChild key={l.to}>
                     <Link
                       to={l.to}
+                      viewTransition
                       className={cn(
                         "rounded-sm px-4 py-3 text-base font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] hover:bg-[var(--color-bg)]",
                         active && "bg-[var(--color-bg)] text-[var(--color-teal)]",
@@ -80,7 +87,9 @@ export default function Navbar() {
               })}
               <SheetClose asChild>
                 <Button asChild className="mt-4 w-full">
-                  <Link to="/contact">Get in Touch</Link>
+                  <Link to="/contact" viewTransition>
+                    Get in Touch
+                  </Link>
                 </Button>
               </SheetClose>
             </nav>
