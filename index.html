@@ -88,10 +88,12 @@
     />
 
     <!--
-      Per-page SEO tags (title, description, canonical, og:*, twitter:*) are
-      hoisted to <head> by React 19's native document metadata support. See
-      src/App.jsx for site-wide invariants and src/pages/*/*.jsx for per-page
-      overrides.
+      Per-page SEO tags (title, description, canonical, og:*) are hoisted
+      to <head> by React 19's native document metadata support. See
+      src/App.jsx for site-wide invariants and src/pages/*/*.jsx for
+      per-page overrides. Open Graph tags double as the link-preview
+      source for X and other platforms that fall back to og:* when
+      twitter:* is absent.
     -->
     <meta name="author" content="Palmetto Consulting of Columbia, LLC" />
     <meta name="publisher" content="Palmetto Consulting of Columbia, LLC" />
@@ -159,7 +161,7 @@
     </script>
 
     <!-- Open Graph -->
-    <!-- og:* and twitter:* tags hoisted per-page by React 19 metadata -->
+    <!-- og:* tags hoisted per-page by React 19 metadata -->
 
     <!-- Sitemap discovery -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />

@@ -185,11 +185,6 @@ export default function Contact() {
         property="og:description"
         content="Reach Palmetto Consulting of Columbia at our Columbia, SC office. Independent insurance consultants available by phone at 803-904-8461."
       />
-      <meta name="twitter:title" content="Contact Us | Palmetto Consulting of Columbia" />
-      <meta
-        name="twitter:description"
-        content="Contact Palmetto Consulting of Columbia, independent insurance consultants in Columbia, SC. Call 803-904-8461 or send us a message."
-      />
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD injection

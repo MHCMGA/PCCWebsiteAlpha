@@ -63,9 +63,6 @@ export default function App() {
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
       <meta property="og:locale" content="en_US" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:image" content={SITE.ogImage} />
-      <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
       {siteVerifications.map((v) => (
         <meta key={v.name} name={v.name} content={v.content} />
       ))}

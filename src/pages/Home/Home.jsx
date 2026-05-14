@@ -77,14 +77,6 @@ export default function Home() {
         property="og:description"
         content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998."
       />
-      <meta
-        name="twitter:title"
-        content="Palmetto Consulting of Columbia | Captive Insurance Consultants"
-      />
-      <meta
-        name="twitter:description"
-        content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998."
-      />
       {/* JSON-LD: inline (not in <head>) — Google parses it anywhere in the doc */}
       <script
         type="application/ld+json"

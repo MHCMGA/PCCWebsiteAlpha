@@ -110,11 +110,6 @@ export default function About() {
         property="og:description"
         content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States."
       />
-      <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
-      <meta
-        name="twitter:description"
-        content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC."
-      />
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD injection
