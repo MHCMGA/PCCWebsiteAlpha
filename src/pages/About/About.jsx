@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import {
   Briefcase,
   CalendarDays,
@@ -97,28 +96,30 @@ const aboutJsonLd = graph([
 export default function About() {
   return (
     <>
-      <Helmet>
-        <title>About Us | Palmetto Consulting of Columbia | Columbia, SC</title>
-        <meta
-          name="description"
-          content="Learn about Palmetto Consulting of Columbia, LLC, an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists."
-        />
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-        <link rel="canonical" href={`${DOMAIN}/about`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${DOMAIN}/about`} />
-        <meta property="og:title" content="About Us | Palmetto Consulting of Columbia" />
-        <meta
-          property="og:description"
-          content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States."
-        />
-        <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
-        <meta
-          name="twitter:description"
-          content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC."
-        />
-        <script type="application/ld+json">{JSON.stringify(aboutJsonLd)}</script>
-      </Helmet>
+      <title>About Us | Palmetto Consulting of Columbia | Columbia, SC</title>
+      <meta
+        name="description"
+        content="Learn about Palmetto Consulting of Columbia, LLC, an independent insurance consulting firm founded in Columbia, SC in 1998. Meet our expert team of insurance CFO and captive market specialists."
+      />
+      <meta name="robots" content="index, follow, max-image-preview:large" />
+      <link rel="canonical" href={`${DOMAIN}/about`} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${DOMAIN}/about`} />
+      <meta property="og:title" content="About Us | Palmetto Consulting of Columbia" />
+      <meta
+        property="og:description"
+        content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States."
+      />
+      <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
+      <meta
+        name="twitter:description"
+        content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC."
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD injection
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
 
       <HeroBanner image="/hero-about.webp" eyebrow="Our Story" heading="About Us" />
 

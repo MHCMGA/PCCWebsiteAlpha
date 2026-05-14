@@ -51,9 +51,9 @@
 
     <!--
       Per-page SEO tags (title, description, canonical, og:*, twitter:*) are
-      injected by react-helmet-async to avoid duplicate / conflicting tags in
-      prerendered output. See src/App.jsx for site-wide defaults applied to
-      404 / non-prerendered routes, and src/pages/*/*.jsx for per-page overrides.
+      hoisted to <head> by React 19's native document metadata support. See
+      src/App.jsx for site-wide invariants and src/pages/*/*.jsx for per-page
+      overrides.
     -->
     <meta name="author" content="Palmetto Consulting of Columbia, LLC" />
     <meta name="publisher" content="Palmetto Consulting of Columbia, LLC" />
@@ -91,7 +91,7 @@
     <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
 
     <!-- Open Graph -->
-    <!-- og:* and twitter:* tags injected per-page by react-helmet-async -->
+    <!-- og:* and twitter:* tags hoisted per-page by React 19 metadata -->
 
     <!-- Sitemap discovery -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />

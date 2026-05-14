@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
@@ -13,10 +12,8 @@ import VercelInsights from "@/lib/VercelInsights";
 function NotFound() {
   return (
     <div className="container-x py-24 text-center">
-      <Helmet>
-        <title>Page Not Found | Palmetto Consulting of Columbia</title>
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
+      <title>Page Not Found | Palmetto Consulting of Columbia</title>
+      <meta name="robots" content="noindex, follow" />
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-teal)]">404</p>
       <h1 className="mt-2 text-3xl font-extrabold text-[var(--color-navy)]">Page not found</h1>
       <p className="mt-4 text-[var(--color-muted)]">
@@ -53,24 +50,23 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      {/* Site-wide SEO defaults - only invariant tags. Per-page Helmet owns title/canonical/description/og:url/og:title/og:description. */}
-      <Helmet htmlAttributes={{ lang: "en" }}>
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={SITE.name} />
-        <meta property="og:image" content={SITE.ogImage} />
-        <meta property="og:image:secure_url" content={SITE.ogImage} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
-        <meta property="og:locale" content="en_US" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={SITE.ogImage} />
-        <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
-        {siteVerifications.map((v) => (
-          <meta key={v.name} name={v.name} content={v.content} />
-        ))}
-      </Helmet>
+      {/* Site-wide SEO defaults - only invariant tags. React 19 hoists these
+          to <head> automatically. Per-page components own title / canonical /
+          description / og:url / og:title / og:description / og:type. */}
+      <meta property="og:site_name" content={SITE.name} />
+      <meta property="og:image" content={SITE.ogImage} />
+      <meta property="og:image:secure_url" content={SITE.ogImage} />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
+      <meta property="og:locale" content="en_US" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={SITE.ogImage} />
+      <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
+      {siteVerifications.map((v) => (
+        <meta key={v.name} name={v.name} content={v.content} />
+      ))}
       <ScrollToTop />
       <a href="#main-content" className="skip-link">
         Skip to main content

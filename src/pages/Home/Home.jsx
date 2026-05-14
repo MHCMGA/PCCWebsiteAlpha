@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { Building2 as Buildings, TrendingUp as ChartLineUp, Handshake, Target } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection/AnimatedSection";
@@ -61,34 +60,37 @@ const homeJsonLd = graph([
 export default function Home() {
   return (
     <>
-      <Helmet>
-        <title>Captive Insurance Consultants in Columbia, SC | Palmetto Consulting</title>
-        <meta
-          name="description"
-          content="Palmetto Consulting of Columbia, LLC are independent insurance consultants in Columbia, SC specializing in captive insurance design, growth management, and CFO services since 1998."
-        />
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-        <link rel="canonical" href={`${DOMAIN}/`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${DOMAIN}/`} />
-        <meta
-          property="og:title"
-          content="Palmetto Consulting of Columbia | Captive Insurance Consultants"
-        />
-        <meta
-          property="og:description"
-          content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998."
-        />
-        <meta
-          name="twitter:title"
-          content="Palmetto Consulting of Columbia | Captive Insurance Consultants"
-        />
-        <meta
-          name="twitter:description"
-          content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998."
-        />
-        <script type="application/ld+json">{JSON.stringify(homeJsonLd)}</script>
-      </Helmet>
+      <title>Captive Insurance Consultants in Columbia, SC | Palmetto Consulting</title>
+      <meta
+        name="description"
+        content="Palmetto Consulting of Columbia, LLC are independent insurance consultants in Columbia, SC specializing in captive insurance design, growth management, and CFO services since 1998."
+      />
+      <meta name="robots" content="index, follow, max-image-preview:large" />
+      <link rel="canonical" href={`${DOMAIN}/`} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${DOMAIN}/`} />
+      <meta
+        property="og:title"
+        content="Palmetto Consulting of Columbia | Captive Insurance Consultants"
+      />
+      <meta
+        property="og:description"
+        content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace. Serving clients since 1998."
+      />
+      <meta
+        name="twitter:title"
+        content="Palmetto Consulting of Columbia | Captive Insurance Consultants"
+      />
+      <meta
+        name="twitter:description"
+        content="Independent insurance consultants in Columbia, SC focused on captive insurance and the traditional insurance marketplace since 1998."
+      />
+      {/* JSON-LD: inline (not in <head>) — Google parses it anywhere in the doc */}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: deliberate JSON-LD injection
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
 
       {/* Hero */}
       <section

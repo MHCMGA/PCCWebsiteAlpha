@@ -1,16 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
 import About from "./About";
 
 function renderRoute() {
   return render(
-    <HelmetProvider>
-      <MemoryRouter>
-        <About />
-      </MemoryRouter>
-    </HelmetProvider>,
+    <MemoryRouter>
+      <About />
+    </MemoryRouter>,
   );
 }
 

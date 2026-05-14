@@ -1,18 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
 
 import { track } from "@vercel/analytics";
 import Contact from "./Contact";
 
 function renderRoute() {
   return render(
-    <HelmetProvider>
-      <MemoryRouter>
-        <Contact />
-      </MemoryRouter>
-    </HelmetProvider>,
+    <MemoryRouter>
+      <Contact />
+    </MemoryRouter>,
   );
 }
 
