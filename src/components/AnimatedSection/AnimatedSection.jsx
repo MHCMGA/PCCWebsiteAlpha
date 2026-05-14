@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-export default function AnimatedSection({
-  children,
-  className = "",
-  delay = 0,
-}) {
+export default function AnimatedSection({ children, className = "", delay = 0 }) {
   const ref = useRef(null);
   const prefersReducedMotion =
     typeof window !== "undefined" &&
@@ -16,12 +12,7 @@ export default function AnimatedSection({
 
   useEffect(() => {
     const el = ref.current;
-    if (
-      !el ||
-      prefersReducedMotion ||
-      typeof IntersectionObserver === "undefined"
-    )
-      return;
+    if (!el || prefersReducedMotion || typeof IntersectionObserver === "undefined") return;
     const io = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {

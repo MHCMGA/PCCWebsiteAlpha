@@ -17,9 +17,7 @@ function renderRoute() {
 describe("About page", () => {
   it("renders the page heading", () => {
     renderRoute();
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      /About Us/i,
-    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/About Us/i);
   });
 
   it("shows all three team members", () => {

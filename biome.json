@@ -12,7 +12,6 @@
       "api/**/*.{js,mjs,ts}",
       "vite.config.*",
       "vitest.config.*",
-      "eslint.config.*",
       "!**/dist",
       "!**/coverage",
       "!**/reports",

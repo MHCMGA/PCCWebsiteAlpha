@@ -2,14 +2,8 @@
 // Inline `style` uses `backgroundImage` longhand and rgba whitespace matched
 // to Chrome CSSOM normalized form to avoid React #418 hydration mismatches
 // on the prerendered route. See checkpoint 017.
-export default function HeroBanner({
-  image,
-  eyebrow,
-  heading,
-  minHeight = "42vh",
-}) {
-  const overlay =
-    "linear-gradient(rgba(0, 48, 87, 0.55), rgba(0, 48, 87, 0.78))";
+export default function HeroBanner({ image, eyebrow, heading, minHeight = "42vh" }) {
+  const overlay = "linear-gradient(rgba(0, 48, 87, 0.55), rgba(0, 48, 87, 0.78))";
   return (
     <section
       className="relative isolate flex items-center text-white"
@@ -26,9 +20,7 @@ export default function HeroBanner({
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-          {heading}
-        </h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">{heading}</h1>
       </div>
     </section>
   );

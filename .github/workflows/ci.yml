@@ -34,11 +34,11 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Biome
+      - name: Biome (lint)
         run: pnpm biome
 
-      - name: ESLint
-        run: pnpm lint
+      - name: oxfmt (format check)
+        run: pnpm format:check
 
       - name: Knip
         run: pnpm knip

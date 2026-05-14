@@ -7,8 +7,7 @@ export const Toaster = (props) => (
     richColors
     toastOptions={{
       classNames: {
-        toast:
-          "border border-[var(--color-border-soft)] bg-white text-[var(--color-navy)]",
+        toast: "border border-[var(--color-border-soft)] bg-white text-[var(--color-navy)]",
       },
     }}
     {...props}

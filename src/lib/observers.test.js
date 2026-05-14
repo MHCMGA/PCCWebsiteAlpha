@@ -13,9 +13,7 @@ describe("observers (LinkedIn Insight Tag + RB2B)", () => {
     delete window._linkedin_partner_id;
     delete window._linkedin_data_partner_ids;
     document.head
-      .querySelectorAll(
-        'script[src*="licdn"], script[src*="b2bjsstore"], script[data-rb2b]',
-      )
+      .querySelectorAll('script[src*="licdn"], script[src*="b2bjsstore"], script[data-rb2b]')
       .forEach((s) => {
         s.remove();
       });
@@ -43,9 +41,7 @@ describe("observers (LinkedIn Insight Tag + RB2B)", () => {
   it("initLinkedInInsightTag is idempotent for the same partner id", () => {
     initLinkedInInsightTag("123456");
     initLinkedInInsightTag("123456");
-    expect(
-      window._linkedin_data_partner_ids.filter((id) => id === "123456"),
-    ).toHaveLength(1);
+    expect(window._linkedin_data_partner_ids.filter((id) => id === "123456")).toHaveLength(1);
     expect(injectedScripts("snap.licdn.com")).toHaveLength(1);
   });
 

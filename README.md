@@ -14,7 +14,7 @@
 
 **Quality**
 [![Biome](https://img.shields.io/badge/Biome-2.4-60A5FA?logo=biome&logoColor=fff&style=flat-square)](https://biomejs.dev)
-[![ESLint](https://img.shields.io/badge/ESLint-10-4B32C3?logo=eslint&logoColor=fff&style=flat-square)](https://eslint.org)
+[![oxfmt](https://img.shields.io/badge/oxfmt-0.49-A50034?style=flat-square)](https://oxc.rs)
 [![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=fff&style=flat-square)](https://vitest.dev)
 [![Playwright](https://img.shields.io/badge/Playwright-1.59-2EAD33?logo=playwright&logoColor=fff&style=flat-square)](https://playwright.dev)
 [![axe-core](https://img.shields.io/badge/axe--core-4.11-663399?style=flat-square)](https://www.deque.com/axe/)

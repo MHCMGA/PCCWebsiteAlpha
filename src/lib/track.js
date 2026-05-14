@@ -76,8 +76,7 @@ export function trackContactSubmit(outcome, detail = {}) {
       try {
         const host = new URL(ref).hostname;
         if (/google|bing|duckduckgo|yahoo|brave/.test(host)) refCat = "search";
-        else if (/facebook|linkedin|twitter|x\.com|instagram|reddit/.test(host))
-          refCat = "social";
+        else if (/facebook|linkedin|twitter|x\.com|instagram|reddit/.test(host)) refCat = "social";
         else refCat = host === window.location.hostname ? "internal" : "other";
       } catch {
         refCat = "other";

@@ -13,10 +13,8 @@ const buttonVariants = cva(
         secondary:
           "bg-white text-[var(--color-navy)] shadow-sm ring-1 ring-[var(--color-border-soft)] hover:bg-[var(--color-bg)] hover:text-[var(--color-teal)]",
         danger: "bg-red-600 text-white shadow-sm hover:bg-red-700",
-        outline:
-          "border-2 border-white text-white hover:bg-white hover:text-[var(--color-teal)]",
-        ghost:
-          "text-[var(--color-navy)] hover:bg-[var(--color-bg)] hover:text-[var(--color-teal)]",
+        outline: "border-2 border-white text-white hover:bg-white hover:text-[var(--color-teal)]",
+        ghost: "text-[var(--color-navy)] hover:bg-[var(--color-bg)] hover:text-[var(--color-teal)]",
         navy: "bg-[var(--color-navy)] text-white shadow-sm hover:bg-[var(--color-teal)] motion-safe:hover:-translate-y-0.5",
       },
       size: {
@@ -33,11 +31,7 @@ export const Button = React.forwardRef(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
-      <Comp
-        ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
-        {...props}
-      />
+      <Comp ref={ref} className={cn(buttonVariants({ variant, size }), className)} {...props} />
     );
   },
 );

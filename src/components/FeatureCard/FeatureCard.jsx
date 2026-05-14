@@ -2,13 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-export default function FeatureCard({
-  icon: Icon,
-  title,
-  body,
-  badge,
-  className,
-}) {
+export default function FeatureCard({ icon: Icon, title, body, badge, className }) {
   return (
     <Card className={cn("group h-full overflow-hidden", className)}>
       <CardContent className="flex h-full flex-col p-8">
@@ -18,9 +12,7 @@ export default function FeatureCard({
           </div>
           {badge ? <Badge variant="navy">{badge}</Badge> : null}
         </div>
-        <h3 className="mb-3 text-lg font-bold text-[var(--color-navy)]">
-          {title}
-        </h3>
+        <h3 className="mb-3 text-lg font-bold text-[var(--color-navy)]">{title}</h3>
         <p className="text-sm leading-7 text-[var(--color-muted)]">{body}</p>
       </CardContent>
     </Card>

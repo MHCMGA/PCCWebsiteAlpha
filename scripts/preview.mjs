@@ -16,11 +16,7 @@ import { readFile, stat } from "node:fs/promises";
 import { dirname, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "node:http";
-import {
-  gzipSync,
-  brotliCompressSync,
-  constants as zlibConstants,
-} from "node:zlib";
+import { gzipSync, brotliCompressSync, constants as zlibConstants } from "node:zlib";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -46,16 +42,7 @@ const MIME = {
 };
 
 // MIME types that compress well. Images / fonts are already compressed.
-const COMPRESSIBLE = new Set([
-  ".html",
-  ".js",
-  ".mjs",
-  ".css",
-  ".json",
-  ".svg",
-  ".txt",
-  ".xml",
-]);
+const COMPRESSIBLE = new Set([".html", ".js", ".mjs", ".css", ".json", ".svg", ".txt", ".xml"]);
 
 // Tiny LRU for compressed payloads so we don't recompress every request.
 const cache = new Map(); // key: filePath + '|' + encoding -> Buffer
@@ -98,11 +85,7 @@ function cacheControlFor(pathname) {
     return "public, max-age=31536000, immutable";
   }
   // images we treat as moderately stable
-  if (
-    pathname.startsWith("/team/") ||
-    pathname.startsWith("/hero-") ||
-    pathname === "/og.png"
-  ) {
+  if (pathname.startsWith("/team/") || pathname.startsWith("/hero-") || pathname === "/og.png") {
     return "public, max-age=2592000";
   }
   if (

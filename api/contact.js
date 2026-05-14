@@ -9,17 +9,14 @@ import { reportException } from "./_lib/sentry.js";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-const REPLY_TO_PCC =
-  process.env.RESEND_REPLY_TO || "info@palmettoconsulting.us";
+const REPLY_TO_PCC = process.env.RESEND_REPLY_TO || "info@palmettoconsulting.us";
 const TO_EMAIL = (process.env.RESEND_TO_EMAIL || "")
   .split(",")
   .map((e) => e.trim())
   .filter(Boolean);
 
 const isValidEmail = (email) =>
-  typeof email === "string" &&
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
-  email.length <= 254;
+  typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
 
 const MAX_BODY_BYTES = 12_000;
 const MAX_URLS_IN_MESSAGE = 4;
@@ -42,9 +39,7 @@ export default async function handler(req, res) {
     .trim()
     .toLowerCase();
   if (contentType !== "application/json") {
-    return res
-      .status(415)
-      .json({ error: "Content-Type must be application/json." });
+    return res.status(415).json({ error: "Content-Type must be application/json." });
   }
 
   const contentLength = Number(req.headers["content-length"] || 0);
@@ -62,9 +57,7 @@ export default async function handler(req, res) {
       await reportException(err, {
         tags: { handler: "contact", stage: "botid" },
       });
-      return res
-        .status(503)
-        .json({ error: "Verification temporarily unavailable." });
+      return res.status(503).json({ error: "Verification temporarily unavailable." });
     }
   }
 
@@ -79,11 +72,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true });
   }
 
-  if (
-    typeof name !== "string" ||
-    typeof email !== "string" ||
-    typeof message !== "string"
-  ) {
+  if (typeof name !== "string" || typeof email !== "string" || typeof message !== "string") {
     return res.status(400).json({ error: "Invalid input." });
   }
   const cleanName = name.trim();
@@ -92,23 +81,17 @@ export default async function handler(req, res) {
 
   const urlMatches = cleanMessage.match(URL_RE);
   if (urlMatches && urlMatches.length > MAX_URLS_IN_MESSAGE) {
-    return res
-      .status(400)
-      .json({ error: "Message contains too many links." });
+    return res.status(400).json({ error: "Message contains too many links." });
   }
 
   if (!cleanName || !cleanEmail || !cleanMessage) {
-    return res
-      .status(400)
-      .json({ error: "Name, email, and message are required." });
+    return res.status(400).json({ error: "Name, email, and message are required." });
   }
   if (cleanName.length > 200 || cleanMessage.length > 5000) {
     return res.status(400).json({ error: "Input is too long." });
   }
   if (!isValidEmail(cleanEmail)) {
-    return res
-      .status(400)
-      .json({ error: "Please provide a valid email address." });
+    return res.status(400).json({ error: "Please provide a valid email address." });
   }
 
   const meta = {
@@ -141,13 +124,10 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error("Resend notification error:", error);
-      await reportException(
-        new Error(`Resend notification failed: ${error.message || error}`),
-        { tags: { handler: "contact", stage: "notification-send" } },
-      );
-      return res
-        .status(502)
-        .json({ error: "Failed to send message. Please try again later." });
+      await reportException(new Error(`Resend notification failed: ${error.message || error}`), {
+        tags: { handler: "contact", stage: "notification-send" },
+      });
+      return res.status(502).json({ error: "Failed to send message. Please try again later." });
     }
 
     waitUntil(
@@ -196,8 +176,6 @@ export default async function handler(req, res) {
     await reportException(err, {
       tags: { handler: "contact", stage: "handler" },
     });
-    return res
-      .status(500)
-      .json({ error: "Unexpected error. Please try again later." });
+    return res.status(500).json({ error: "Unexpected error. Please try again later." });
   }
 }

@@ -3,12 +3,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import Logo from "@/components/Logo/Logo";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -24,11 +19,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 h-16 w-full border-b border-[var(--color-border-soft)] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container-x flex h-full items-center justify-between">
-        <Link
-          to="/"
-          className="shrink-0"
-          aria-label="Palmetto Consulting of Columbia, Home"
-        >
+        <Link to="/" className="shrink-0" aria-label="Palmetto Consulting of Columbia, Home">
           <Logo size={36} />
         </Link>
 
@@ -79,8 +70,7 @@ export default function Navbar() {
                       to={l.to}
                       className={cn(
                         "rounded-sm px-4 py-3 text-base font-bold uppercase tracking-[0.1em] text-[var(--color-navy)] hover:bg-[var(--color-bg)]",
-                        active &&
-                          "bg-[var(--color-bg)] text-[var(--color-teal)]",
+                        active && "bg-[var(--color-bg)] text-[var(--color-teal)]",
                       )}
                     >
                       {l.label}

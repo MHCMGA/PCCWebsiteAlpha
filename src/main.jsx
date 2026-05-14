@@ -9,9 +9,7 @@ const rootEl = document.getElementById("root");
 const tree = (
   <StrictMode>
     <HelmetProvider>
-      <BrowserRouter
-        basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}
-      >
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}>
         <App />
       </BrowserRouter>
     </HelmetProvider>

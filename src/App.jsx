@@ -17,12 +17,8 @@ function NotFound() {
         <title>Page Not Found | Palmetto Consulting of Columbia</title>
         <meta name="robots" content="noindex, follow" />
       </Helmet>
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-teal)]">
-        404
-      </p>
-      <h1 className="mt-2 text-3xl font-extrabold text-[var(--color-navy)]">
-        Page not found
-      </h1>
+      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-teal)]">404</p>
+      <h1 className="mt-2 text-3xl font-extrabold text-[var(--color-navy)]">Page not found</h1>
       <p className="mt-4 text-[var(--color-muted)]">
         The page you&apos;re looking for doesn&apos;t exist.
       </p>
@@ -66,17 +62,11 @@ export default function App() {
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta
-          property="og:image:alt"
-          content="Palmetto Consulting of Columbia, PCC logo"
-        />
+        <meta property="og:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
         <meta property="og:locale" content="en_US" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={SITE.ogImage} />
-        <meta
-          name="twitter:image:alt"
-          content="Palmetto Consulting of Columbia, PCC logo"
-        />
+        <meta name="twitter:image:alt" content="Palmetto Consulting of Columbia, PCC logo" />
         {siteVerifications.map((v) => (
           <meta key={v.name} name={v.name} content={v.content} />
         ))}

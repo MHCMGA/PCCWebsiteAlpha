@@ -19,10 +19,7 @@ function StatItem({ value, suffix, label }) {
 
 export default function StatsBar() {
   return (
-    <section
-      aria-label="Key statistics"
-      className="bg-[var(--color-navy)] py-14 text-white"
-    >
+    <section aria-label="Key statistics" className="bg-[var(--color-navy)] py-14 text-white">
       <div className="container-x grid gap-10 md:grid-cols-3 md:gap-6">
         {stats.map((s) => (
           <StatItem key={s.label} {...s} />

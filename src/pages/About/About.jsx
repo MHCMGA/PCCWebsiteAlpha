@@ -107,32 +107,20 @@ export default function About() {
         <link rel="canonical" href={`${DOMAIN}/about`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${DOMAIN}/about`} />
-        <meta
-          property="og:title"
-          content="About Us | Palmetto Consulting of Columbia"
-        />
+        <meta property="og:title" content="About Us | Palmetto Consulting of Columbia" />
         <meta
           property="og:description"
           content="Founded in Columbia, SC in 1998, Palmetto Consulting brings decades of captive insurance expertise and independent CFO services to clients across the United States."
         />
-        <meta
-          name="twitter:title"
-          content="About Us | Palmetto Consulting of Columbia"
-        />
+        <meta name="twitter:title" content="About Us | Palmetto Consulting of Columbia" />
         <meta
           name="twitter:description"
           content="Meet the team behind Palmetto Consulting of Columbia, independent insurance consultants serving clients since 1998 from Columbia, SC."
         />
-        <script type="application/ld+json">
-          {JSON.stringify(aboutJsonLd)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(aboutJsonLd)}</script>
       </Helmet>
 
-      <HeroBanner
-        image="/hero-about.webp"
-        eyebrow="Our Story"
-        heading="About Us"
-      />
+      <HeroBanner image="/hero-about.webp" eyebrow="Our Story" heading="About Us" />
 
       {/* History */}
       <Section>
@@ -144,16 +132,11 @@ export default function About() {
               {milestones.map(({ icon: Icon, label, value }) => (
                 <Card key={label} className="hover:translate-y-0">
                   <CardContent className="p-5">
-                    <Icon
-                      className="mb-3 size-5 text-[var(--color-teal)]"
-                      aria-hidden="true"
-                    />
+                    <Icon className="mb-3 size-5 text-[var(--color-teal)]" aria-hidden="true" />
                     <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                       {label}
                     </p>
-                    <p className="mt-1 font-extrabold text-[var(--color-navy)]">
-                      {value}
-                    </p>
+                    <p className="mt-1 font-extrabold text-[var(--color-navy)]">{value}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -164,17 +147,15 @@ export default function About() {
             className="space-y-5 text-base leading-7 text-[var(--color-ink)]"
           >
             <p data-speakable>
-              Palmetto Consulting of Columbia, LLC was founded in 1998 by John
-              A. Weitzel, an insurance executive whose career spanned nearly 50
-              years working for, or consulting with, insurance companies,
-              primarily as a Chief Financial Officer. Our offices are located in
-              Columbia, South Carolina, at the heart of the Palmetto State.
+              Palmetto Consulting of Columbia, LLC was founded in 1998 by John A. Weitzel, an
+              insurance executive whose career spanned nearly 50 years working for, or consulting
+              with, insurance companies, primarily as a Chief Financial Officer. Our offices are
+              located in Columbia, South Carolina, at the heart of the Palmetto State.
             </p>
             <p>
-              Since 2003, Palmetto&apos;s services have been focused almost
-              exclusively on the captive insurance industry. Clients have
-              included prospective and established captive insurance companies
-              and captive managers across the United States.
+              Since 2003, Palmetto&apos;s services have been focused almost exclusively on the
+              captive insurance industry. Clients have included prospective and established captive
+              insurance companies and captive managers across the United States.
             </p>
           </AnimatedSection>
         </div>
@@ -205,8 +186,8 @@ export default function About() {
                 From Compliance to Best Practices
               </h2>
               <p className="text-base leading-8 text-white/85 md:text-lg">
-                Palmetto helps clients assemble the right team, navigate
-                formation, and keep every specialist aligned after launch.
+                Palmetto helps clients assemble the right team, navigate formation, and keep every
+                specialist aligned after launch.
               </p>
               <Accordion
                 type="single"
@@ -219,10 +200,9 @@ export default function About() {
                     Formation stage guidance
                   </AccordionTrigger>
                   <AccordionContent className="text-white/75">
-                    We help assemble insurance management, underwriting, claims,
-                    investment management, actuary, audit, and legal experts;
-                    select appropriate domiciles; develop business plans;
-                    project financial results; and walk captive applications
+                    We help assemble insurance management, underwriting, claims, investment
+                    management, actuary, audit, and legal experts; select appropriate domiciles;
+                    develop business plans; project financial results; and walk captive applications
                     from submission to approval.
                   </AccordionContent>
                 </AccordionItem>
@@ -231,10 +211,9 @@ export default function About() {
                     Operational team captain
                   </AccordionTrigger>
                   <AccordionContent className="text-white/75">
-                    Once a client is operational, we help ensure team members
-                    meet their benchmarks and contribute toward the collective
-                    success of the client. Long-term regulator relationships,
-                    based on mutual respect, facilitate this process.
+                    Once a client is operational, we help ensure team members meet their benchmarks
+                    and contribute toward the collective success of the client. Long-term regulator
+                    relationships, based on mutual respect, facilitate this process.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -245,8 +224,8 @@ export default function About() {
                   Referral only
                 </Badge>
                 <p className="text-xl font-extrabold leading-8 tracking-tight">
-                  &quot;There is a reason we do not advertise, all our business
-                  is generated by referral.&quot;
+                  &quot;There is a reason we do not advertise, all our business is generated by
+                  referral.&quot;
                 </p>
               </CardContent>
             </Card>
@@ -284,18 +263,11 @@ export default function About() {
                           .join("")}
                     </div>
                   )}
-                  <h3 className="text-lg font-bold text-[var(--color-navy)]">
-                    {m.name}
-                  </h3>
-                  <Badge
-                    variant={m.name.includes("CPA") ? "default" : "navy"}
-                    className="mt-3"
-                  >
+                  <h3 className="text-lg font-bold text-[var(--color-navy)]">{m.name}</h3>
+                  <Badge variant={m.name.includes("CPA") ? "default" : "navy"} className="mt-3">
                     {m.role}
                   </Badge>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
-                    {m.bio}
-                  </p>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{m.bio}</p>
                 </CardContent>
               </Card>
             </AnimatedSection>

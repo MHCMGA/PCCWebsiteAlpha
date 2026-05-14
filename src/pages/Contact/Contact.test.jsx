@@ -61,18 +61,10 @@ describe("Contact page", () => {
     renderRoute();
     fireEvent.click(screen.getByRole("button", { name: /Send Message/i }));
 
-    expect(
-      await screen.findByText(/Please check the form/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Please enter your full name/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Please enter your email address/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Please enter a short message/i),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(/Please check the form/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter your full name/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter your email address/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter a short message/i)).toBeInTheDocument();
     expect(global.fetch).not.toHaveBeenCalled();
     await waitFor(() =>
       expect(track).toHaveBeenCalledWith(

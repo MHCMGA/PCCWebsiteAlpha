@@ -17,16 +17,12 @@ function renderRoute() {
 describe("Home page", () => {
   it("renders the hero heading", () => {
     renderRoute();
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      /Palmetto Consulting/i,
-    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Palmetto Consulting/i);
   });
 
   it("renders all four service cards", () => {
     renderRoute();
-    expect(
-      screen.getByText(/Insurance Company Design & Structure/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Insurance Company Design & Structure/i)).toBeInTheDocument();
     expect(screen.getByText(/Industry Relationships/i)).toBeInTheDocument();
     expect(screen.getByText(/Growth Management/i)).toBeInTheDocument();
     expect(screen.getByText(/One-Size Fits All/i)).toBeInTheDocument();
@@ -34,9 +30,7 @@ describe("Home page", () => {
 
   it("exposes the contact CTA links", () => {
     renderRoute();
-    const ctas = screen
-      .getAllByRole("link")
-      .filter((a) => a.getAttribute("href") === "/contact");
+    const ctas = screen.getAllByRole("link").filter((a) => a.getAttribute("href") === "/contact");
     expect(ctas.length).toBeGreaterThanOrEqual(2);
   });
 });

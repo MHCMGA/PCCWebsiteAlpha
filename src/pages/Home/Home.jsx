@@ -1,10 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import {
-  Building2 as Buildings,
-  TrendingUp as ChartLineUp,
-  Handshake,
-  Target,
-} from "lucide-react";
+import { Building2 as Buildings, TrendingUp as ChartLineUp, Handshake, Target } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection/AnimatedSection";
 import FeatureCard from "@/components/FeatureCard/FeatureCard";
@@ -13,13 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Section, Eyebrow, SectionHeading } from "@/components/ui/section";
 import { SITE } from "@/lib/site";
-import {
-  graph,
-  webPage,
-  breadcrumb,
-  offerCatalog,
-  service,
-} from "@/lib/schema";
+import { graph, webPage, breadcrumb, offerCatalog, service } from "@/lib/schema";
 
 const DOMAIN = SITE.domain;
 
@@ -73,9 +62,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>
-          Captive Insurance Consultants in Columbia, SC | Palmetto Consulting
-        </title>
+        <title>Captive Insurance Consultants in Columbia, SC | Palmetto Consulting</title>
         <meta
           name="description"
           content="Palmetto Consulting of Columbia, LLC are independent insurance consultants in Columbia, SC specializing in captive insurance design, growth management, and CFO services since 1998."
@@ -124,8 +111,7 @@ export default function Home() {
           aria-hidden="true"
           className="absolute inset-0 -z-10"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(0, 48, 87, 0.55), rgba(0, 48, 87, 0.78))",
+            backgroundImage: "linear-gradient(rgba(0, 48, 87, 0.55), rgba(0, 48, 87, 0.78))",
           }}
         />
         <div className="container-x relative z-10">
@@ -138,13 +124,9 @@ export default function Home() {
               <br />
               of Columbia
             </h1>
-            <p
-              className="mb-10 text-lg md:text-xl text-white/85 animate-fade-up"
-              data-speakable
-            >
+            <p className="mb-10 text-lg md:text-xl text-white/85 animate-fade-up" data-speakable>
               Focused on the intersection of captive insurance
-              <br className="hidden md:inline" /> and the traditional insurance
-              marketplace.
+              <br className="hidden md:inline" /> and the traditional insurance marketplace.
             </p>
             <div className="mb-8 flex flex-wrap gap-3 animate-fade-up">
               <Badge variant="light">Founded 1998</Badge>
@@ -168,14 +150,10 @@ export default function Home() {
       {/* Mission */}
       <Section>
         <AnimatedSection className="mx-auto max-w-3xl text-center">
-          <p
-            className="text-lg md:text-xl leading-8 text-[var(--color-navy)]"
-            data-speakable
-          >
-            Based in Columbia, South Carolina, Palmetto remains uniquely focused
-            on the intersection of captive insurance and the traditional
-            insurance marketplace, primarily on those opportunities where our
-            backgrounds can add the most value to our clients and partners.
+          <p className="text-lg md:text-xl leading-8 text-[var(--color-navy)]" data-speakable>
+            Based in Columbia, South Carolina, Palmetto remains uniquely focused on the intersection
+            of captive insurance and the traditional insurance marketplace, primarily on those
+            opportunities where our backgrounds can add the most value to our clients and partners.
           </p>
         </AnimatedSection>
       </Section>

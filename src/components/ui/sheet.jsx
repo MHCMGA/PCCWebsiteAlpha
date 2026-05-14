@@ -42,14 +42,10 @@ export const SheetContent = React.forwardRef(
         ref={ref}
         className={cn(
           "fixed z-50 bg-white shadow-xl transition-transform duration-300",
-          side === "right" &&
-            "inset-y-0 right-0 h-full w-80 data-[state=closed]:translate-x-full",
-          side === "left" &&
-            "inset-y-0 left-0 h-full w-80 data-[state=closed]:-translate-x-full",
-          side === "top" &&
-            "inset-x-0 top-0 w-full data-[state=closed]:-translate-y-full",
-          side === "bottom" &&
-            "inset-x-0 bottom-0 w-full data-[state=closed]:translate-y-full",
+          side === "right" && "inset-y-0 right-0 h-full w-80 data-[state=closed]:translate-x-full",
+          side === "left" && "inset-y-0 left-0 h-full w-80 data-[state=closed]:-translate-x-full",
+          side === "top" && "inset-x-0 top-0 w-full data-[state=closed]:-translate-y-full",
+          side === "bottom" && "inset-x-0 bottom-0 w-full data-[state=closed]:translate-y-full",
           className,
         )}
         {...p}

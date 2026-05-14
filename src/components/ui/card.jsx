@@ -24,19 +24,11 @@ export const CardContent = React.forwardRef(({ className, ...p }, ref) => (
 CardContent.displayName = "CardContent";
 
 export const CardTitle = React.forwardRef(({ className, ...p }, ref) => (
-  <h3
-    ref={ref}
-    className={cn("text-base font-bold text-[var(--color-navy)]", className)}
-    {...p}
-  />
+  <h3 ref={ref} className={cn("text-base font-bold text-[var(--color-navy)]", className)} {...p} />
 ));
 CardTitle.displayName = "CardTitle";
 
 export const CardDescription = React.forwardRef(({ className, ...p }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-[var(--color-muted)] leading-7", className)}
-    {...p}
-  />
+  <p ref={ref} className={cn("text-sm text-[var(--color-muted)] leading-7", className)} {...p} />
 ));
 CardDescription.displayName = "CardDescription";

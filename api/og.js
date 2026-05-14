@@ -12,15 +12,12 @@ const CYAN = "#27b6fd";
 
 export default function handler(req) {
   const { searchParams } = new URL(req.url);
-  const eyebrow = (
-    searchParams.get("eyebrow") || "Palmetto Consulting of Columbia"
-  ).slice(0, 80);
-  const title = (
-    searchParams.get("title") || "Independent Captive Insurance Consultants"
-  ).slice(0, 140);
-  const tagline = (
-    searchParams.get("tagline") || "Columbia, SC · Since 1998"
-  ).slice(0, 80);
+  const eyebrow = (searchParams.get("eyebrow") || "Palmetto Consulting of Columbia").slice(0, 80);
+  const title = (searchParams.get("title") || "Independent Captive Insurance Consultants").slice(
+    0,
+    140,
+  );
+  const tagline = (searchParams.get("tagline") || "Columbia, SC · Since 1998").slice(0, 80);
 
   return new ImageResponse(
     {
@@ -110,12 +107,9 @@ export default function handler(req) {
       width: 1200,
       height: 630,
       headers: {
-        "Cache-Control":
-          "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
-        "CDN-Cache-Control":
-          "public, s-maxage=86400, stale-while-revalidate=604800",
-        "Vercel-CDN-Cache-Control":
-          "public, s-maxage=86400, stale-while-revalidate=604800",
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+        "CDN-Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
+        "Vercel-CDN-Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
       },
     },
   );

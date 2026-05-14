@@ -8,36 +8,36 @@
 //
 // Gated entirely on SENTRY_DSN. With no DSN configured the module is a no-op.
 
-import * as Sentry from '@sentry/node'
+import * as Sentry from "@sentry/node";
 
-let initialized = false
+let initialized = false;
 
 export function initSentryServer() {
-  if (initialized) return Sentry
-  const dsn = process.env.SENTRY_DSN
-  if (!dsn) return Sentry
+  if (initialized) return Sentry;
+  const dsn = process.env.SENTRY_DSN;
+  if (!dsn) return Sentry;
 
   Sentry.init({
     dsn,
-    environment: process.env.VERCEL_ENV || 'development',
+    environment: process.env.VERCEL_ENV || "development",
     release: process.env.VERCEL_GIT_COMMIT_SHA || undefined,
     tracesSampleRate: 0,
     // Match the client init — collect IP, request headers, body context.
     sendDefaultPii: true,
-  })
+  });
 
-  initialized = true
-  return Sentry
+  initialized = true;
+  return Sentry;
 }
 
 // Capture-and-flush helper for serverless: Sentry.captureException is fire-and
 // -forget, but Vercel functions can terminate before the event ships. flush()
 // gives it up to 2s to send.
 export async function reportException(err, context) {
-  initSentryServer()
-  Sentry.captureException(err, context)
+  initSentryServer();
+  Sentry.captureException(err, context);
   try {
-    await Sentry.flush(2000)
+    await Sentry.flush(2000);
   } catch {
     // never let Sentry's own failures bubble
   }
