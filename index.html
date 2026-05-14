@@ -19,6 +19,44 @@
     />
     <meta name="color-scheme" content="light" />
 
+    <!--
+      Self-heal on stale-HTML / missing-chunk situations. When a deploy
+      goes live without skew protection, any client still holding the
+      previous build's HTML will 404 on the now-purged hashed chunks.
+      This early handler listens for those failures, throws away the
+      stale HTML, and reloads once so the browser fetches the fresh
+      HTML with the current chunk names. Capped to one reload per 30 s
+      to avoid loops if the asset really is gone.
+    -->
+    <script>
+      (function () {
+        var KEY = "pcc-bundle-reload-at";
+        function shouldReload(now) {
+          try {
+            var last = +(sessionStorage.getItem(KEY) || 0);
+            if (now - last < 30000) return false;
+            sessionStorage.setItem(KEY, String(now));
+            return true;
+          } catch (e) {
+            return true;
+          }
+        }
+        window.addEventListener(
+          "error",
+          function (e) {
+            var t = e && e.target;
+            if (!t || t.tagName !== "SCRIPT" || !t.src) return;
+            if (t.src.indexOf("/assets/") === -1) return;
+            if (!shouldReload(Date.now())) return;
+            try {
+              window.location.reload();
+            } catch (_) {}
+          },
+          true,
+        );
+      })();
+    </script>
+
     <!-- Favicons / App icons -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link

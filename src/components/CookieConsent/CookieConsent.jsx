@@ -114,7 +114,7 @@ export default function CookieConsent() {
               style={{ pointerEvents: "auto" }}
               className="inline-flex h-9 items-center justify-center rounded-sm px-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--color-navy)] transition-colors hover:bg-[var(--color-bg)] hover:text-[var(--color-teal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-teal)] focus-visible:ring-offset-2"
             >
-              No thanks
+              Decline
             </button>
             <button
               type="button"
@@ -122,7 +122,7 @@ export default function CookieConsent() {
               style={{ pointerEvents: "auto" }}
               className="inline-flex h-9 items-center justify-center rounded-sm bg-[var(--color-teal)] px-4 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-sm transition-all hover:bg-[var(--color-navy)] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-teal)] focus-visible:ring-offset-2 motion-safe:hover:-translate-y-0.5"
             >
-              Got it
+              Accept
             </button>
           </div>
         </div>
