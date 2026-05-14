@@ -37,6 +37,14 @@ export default function CookieConsent() {
   const rootRef = useRef(null);
 
   useEffect(() => {
+    // Puppeteer sets navigator.webdriver true, so the prerender step
+    // bails here. Critical: if the effect runs during prerender, the
+    // strip ends up in the static HTML, which then mismatches the
+    // client's "hidden" initial state on hydrate. React tears down
+    // the SSR DOM and re-renders, but the click handlers can fail to
+    // attach on touch devices during that handoff — which was the
+    // real reason taps on Accept / Decline did nothing.
+    if (typeof navigator !== "undefined" && navigator.webdriver) return;
     try {
       const choice = readConsent();
       if (choice === "unset") setState("prompt");
