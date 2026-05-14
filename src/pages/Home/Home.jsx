@@ -97,18 +97,25 @@ export default function Home() {
         className="relative isolate flex min-h-[78vh] items-center overflow-hidden text-white"
         style={{ minHeight: "78vh" }}
       >
-        <img
-          src="/hero-buildings-1400.webp"
-          srcSet="/hero-buildings-600.webp 600w, /hero-buildings-900.webp 900w, /hero-buildings-1400.webp 1400w"
-          sizes="100vw"
-          alt=""
-          aria-hidden="true"
-          width="1400"
-          height="934"
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet="/hero-buildings-600.avif 600w, /hero-buildings-900.avif 900w, /hero-buildings-1400.avif 1400w"
+            sizes="100vw"
+          />
+          <img
+            src="/hero-buildings-1400.webp"
+            srcSet="/hero-buildings-600.webp 600w, /hero-buildings-900.webp 900w, /hero-buildings-1400.webp 1400w"
+            sizes="100vw"
+            alt=""
+            aria-hidden="true"
+            width="1400"
+            height="934"
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 -z-10 h-full w-full object-cover"
+          />
+        </picture>
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-10"
