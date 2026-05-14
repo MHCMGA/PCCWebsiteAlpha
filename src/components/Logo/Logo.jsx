@@ -1,4 +1,4 @@
-import iconSrc from "@/assets/pcc-icon.png";
+import iconSrc from "@/assets/pcc-icon.svg";
 
 // Use round-pixel values; the `gap` shorthand is normalized by Chrome's
 // CSSOM into `row-gap`/`column-gap` longhand when the prerender HTML is
