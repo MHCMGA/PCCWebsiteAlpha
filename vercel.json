@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!api/|assets/|icons/|team/|_vercel/|\\.well-known/|about|contact|index\\.html).*)",
+      "source": "/((?!api/|assets/|icons/|team/|_vercel/|\\.well-known/|about|contact|privacy|index\\.html).*)",
       "destination": "/index.html"
     }
   ],

@@ -45,6 +45,12 @@ const ROUTES = [
     changefreq: "monthly",
     sources: ["src/pages/Contact"],
   },
+  {
+    loc: "/privacy",
+    priority: "0.3",
+    changefreq: "yearly",
+    sources: ["src/pages/Privacy"],
+  },
 ];
 
 function gitLastModIso(paths) {

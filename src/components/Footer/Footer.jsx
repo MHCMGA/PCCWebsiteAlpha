@@ -103,7 +103,18 @@ export default function Footer() {
           &copy; <span suppressHydrationWarning>{year}</span> Palmetto Consulting of Columbia, LLC.
           All rights reserved.
         </p>
-        <p>Independent Insurance Consultants in Columbia, SC</p>
+        <div className="flex items-center gap-4">
+          <Link
+            to="/privacy"
+            viewTransition
+            className="text-white/75 hover:text-[var(--color-cyan)]"
+          >
+            Privacy Policy
+          </Link>
+          <span className="hidden md:inline">
+            Independent Insurance Consultants in Columbia, SC
+          </span>
+        </div>
       </div>
     </footer>
   );

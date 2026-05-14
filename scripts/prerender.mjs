@@ -12,7 +12,7 @@
 //
 // Environment:
 //   PRERENDER_PORT  (default 4178)
-//   PRERENDER_ROUTES  comma-separated, default "/,/about,/contact"
+//   PRERENDER_ROUTES  comma-separated, default "/,/about,/contact,/privacy"
 
 import puppeteer from "puppeteer-core";
 import { mkdir, writeFile, readFile, stat } from "node:fs/promises";
@@ -55,7 +55,7 @@ const ROOT = join(__dirname, "..");
 const DIST = join(ROOT, "dist");
 const PORT = Number(process.env.PRERENDER_PORT || 4178);
 const ORIGIN = `http://127.0.0.1:${PORT}`;
-const ROUTES = (process.env.PRERENDER_ROUTES || "/,/about,/contact").split(",");
+const ROUTES = (process.env.PRERENDER_ROUTES || "/,/about,/contact,/privacy").split(",");
 
 const READY_SELECTOR = "main h1";
 
