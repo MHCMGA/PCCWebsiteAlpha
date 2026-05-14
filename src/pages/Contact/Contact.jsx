@@ -370,6 +370,17 @@ export default function Contact() {
                     <Button type="submit" disabled={submitting} className="w-full">
                       {submitting ? <Spinner label="Sending" /> : "Send Message"}
                     </Button>
+                    <p className="mt-3 text-center text-xs text-[var(--color-muted)]">
+                      By submitting, you agree to our{" "}
+                      <Link
+                        to="/privacy"
+                        viewTransition
+                        className="underline underline-offset-2 hover:text-[var(--color-teal)]"
+                      >
+                        Privacy Policy
+                      </Link>
+                      .
+                    </p>
                   </form>
                 </Form>
               </CardContent>

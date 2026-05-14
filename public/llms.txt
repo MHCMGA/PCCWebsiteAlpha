@@ -20,6 +20,7 @@
 - [Home](https://palmettoconsulting.us/): Overview, services, and firm positioning.
 - [About Us](https://palmettoconsulting.us/about): Firm history (founded 1998), team biographies (John A. Weitzel, Matthew A. Holycross CPA, Michael D. Hunter CPA), what we do.
 - [Contact](https://palmettoconsulting.us/contact): Office address (1325 Park St. Suite 200, Columbia, SC 29201), phone (803-904-8461), and contact form.
+- [Privacy Policy](https://palmettoconsulting.us/privacy): What information the site collects from visitors, how cookies and trackers are handled, and how to request deletion.
 
 ## Services
 
