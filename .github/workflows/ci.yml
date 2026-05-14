@@ -90,17 +90,6 @@ jobs:
         env:
           CI: "1"
 
-      - name: Install Chrome (system)
-        uses: browser-actions/setup-chrome@v1
-        id: setup-chrome
-        with:
-          chrome-version: stable
-
-      - name: Pa11y-CI (WCAG2AA static)
-        run: pnpm a11y:serve
-        env:
-          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
-
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4

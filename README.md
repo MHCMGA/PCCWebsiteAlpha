@@ -18,7 +18,6 @@
 [![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=fff&style=flat-square)](https://vitest.dev)
 [![Playwright](https://img.shields.io/badge/Playwright-1.59-2EAD33?logo=playwright&logoColor=fff&style=flat-square)](https://playwright.dev)
 [![axe-core](https://img.shields.io/badge/axe--core-4.11-663399?style=flat-square)](https://www.deque.com/axe/)
-[![pa11y-ci](https://img.shields.io/badge/pa11y--ci-WCAG2AA-1F7A8C?style=flat-square)](https://pa11y.org)
 [![knip](https://img.shields.io/badge/knip-clean-22C55E?style=flat-square)](https://knip.dev)
 [![size-limit](https://img.shields.io/badge/bundle-%E2%89%A4140%20kB%20gzip-22C55E?style=flat-square)](./.size-limit.json)
 
@@ -47,11 +46,11 @@ Marketing site for **Palmetto Consulting of Columbia, LLC** — independent insu
 | Icons         | lucide-react                           |
 | Animations    | IntersectionObserver + RAF (no GSAP)   |
 | Notifications | sonner toasts                          |
-| Schema / SEO  | react-helmet-async, JSON-LD inline     |
+| Schema / SEO  | React 19 native metadata, JSON-LD inline |
 | Unit tests    | Vitest + Testing Library + jsdom       |
 | E2E tests     | Playwright (desktop + mobile chromium) |
-| A11y          | pa11y-ci (static) + axe-core (runtime) |
-| Linting       | Biome 2.4 (primary) + ESLint 10        |
+| A11y          | @axe-core/playwright (runtime)         |
+| Lint / format | Biome 2.4 (lint) + oxfmt 0.49 (format) |
 | Dead code     | knip                                   |
 | Hosting       | Vercel                                 |
 | DNS           | Vercel-managed (Cloudflare formerly)   |
@@ -80,18 +79,18 @@ npm run dev          # http://localhost:5173
 | `npm run test:ui`    | Vitest UI                                            |
 | `npm run test:e2e`   | Playwright e2e (smoke + axe) against `preview`       |
 | `npm run test:e2e:ui`| Playwright UI mode                                   |
-| `npm run lint`       | ESLint                                               |
+| `npm run lint`       | Biome lint                                           |
+| `npm run lint:fix`   | Biome lint with safe autofixes                       |
 | `npm run biome`      | Biome 2 check (primary linter)                       |
 | `npm run biome:fix`  | Biome safe + unsafe autofixes                        |
 | `npm run knip`       | Knip: unused deps / files / exports                  |
 | `npm run size`       | size-limit gzip-budget check (after `build`)         |
-| `npm run format`     | Prettier (writes)                                    |
-| `npm run a11y`       | pa11y-ci against running preview (WCAG2AA)           |
-| `npm run a11y:serve` | Boots `preview` then runs `a11y` (single command)    |
-| `npm run lighthouse` | Lighthouse CI against `dist/` (perf, a11y, SEO, BP)  |
+| `npm run format`     | oxfmt write                                          |
+| `npm run format:check` | oxfmt check                                        |
+| `npm run lighthouse` | Lighthouse CI against `dist/` via `npx @lhci/cli`    |
 | `npm run sbom`       | Generate SPDX + CycloneDX + Syft SBOMs in `reports/` |
 | `npm run scan`       | Grype vulnerability scan against the project         |
-| `npm run audit:all`  | sbom + scan + a11y + lighthouse (full CI bundle)     |
+| `npm run audit:all`  | sbom + scan + e2e + lighthouse (full CI bundle)      |
 
 ---
 
@@ -100,10 +99,10 @@ npm run dev          # http://localhost:5173
 ```
 src/
 ├── App.jsx                  # Routes, ErrorBoundary, Toaster
-├── main.jsx                 # Mount + HelmetProvider
+├── main.jsx                 # Mount (createRoot/hydrateRoot)
 ├── index.css                # Tailwind v4 @theme tokens, container-x utility
 ├── assets/
-│   └── pcc-icon.png         # Crescent brand mark (transparent)
+│   └── pcc-icon.svg         # Crescent brand mark (potrace, inlined as data URI)
 ├── components/
 │   ├── Logo/                # "Palmetto Consulting of Columbia" wordmark
 │   ├── Navbar/              # Sticky white nav + Radix Sheet (mobile)
@@ -137,19 +136,19 @@ public/
 
 ## SEO
 
-- Inline JSON-LD per page: `Organization`, `LocalBusiness`, `WebSite` w/ `SearchAction`, `BreadcrumbList`, `FAQPage`, `Service`, `Person`
-- `og:*` + `twitter:*` meta on every route via `react-helmet-async`
-- `sitemap.xml` (3 routes), `robots.txt`, `llms.txt`
-- Canonical URLs set per route
+- Inline JSON-LD per page: `Organization` (incl. `InsuranceAgency`, `LocalBusiness`), `WebSite`, `BreadcrumbList`, `Service`, `Person`
+- `og:*` + `twitter:*` meta + per-route `<title>` / `<link rel=canonical>` hoisted by React 19's native document metadata
+- `sitemap.xml` generated at build time, `<lastmod>` derived from `git log`
+- `robots.txt`, `llms.txt`
+- Canonical URLs set per route; `www.palmettoconsulting.us → palmettoconsulting.us` is a 308 redirect at the edge
 - Lighthouse SEO target: **≥ 0.9** (asserted in `lighthouserc.cjs`)
 
 ---
 
 ## Accessibility
 
-- **Static crawl:** pa11y-ci enforces **WCAG 2.0 AA** across `/`, `/about`, `/contact`
 - **Runtime axe:** `@axe-core/playwright` scans each route inside Playwright,
-  catching dynamic-state issues pa11y can't see (open dialogs, focus traps)
+  catching dynamic-state issues (open dialogs, focus traps) as well as static violations
 - shadcn primitives wrap Radix → focus rings, ARIA, keyboard nav out of the box
 - Lighthouse a11y assertion: **≥ 0.9** (errors out CI if regressed)
 - Screen-reader-only alt text on decorative imagery (`aria-hidden`)
@@ -158,8 +157,7 @@ public/
 Run a single audit:
 
 ```bash
-npm run build && npm run a11y:serve   # pa11y crawl
-npm run test:e2e                      # axe runtime scan
+npm run test:e2e        # axe runtime scan (desktop + mobile)
 ```
 
 ---

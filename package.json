@@ -25,12 +25,10 @@
     "size:why": "size-limit --why",
     "format": "oxfmt src scripts api",
     "format:check": "oxfmt --check src scripts api",
-    "a11y": "pa11y-ci --config .pa11yci.cjs",
-    "a11y:serve": "concurrently -k -s first \"npm:preview\" \"wait-on http://localhost:4173 && pa11y-ci --config .pa11yci.cjs\"",
-    "lighthouse": "lhci autorun --config=./lighthouserc.cjs",
+    "lighthouse": "npx --yes @lhci/cli@latest autorun --config=./lighthouserc.cjs",
     "sbom": "mkdir -p reports/sbom && syft scan dir:. --config .syft.yaml",
     "scan": "mkdir -p reports/scan && grype dir:. --config .grype.yaml -o table | tee reports/scan/grype.txt",
-    "audit:all": "npm run sbom && npm run scan && npm run a11y:serve && npm run lighthouse",
+    "audit:all": "npm run sbom && npm run scan && npm run test:e2e && npm run lighthouse",
     "prerender": "node scripts/prerender.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs"
   },
@@ -65,7 +63,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@biomejs/biome": "^2.4.15",
-    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "@size-limit/file": "^12.1.0",
     "@sparticuz/chromium": "^148.0.0",
@@ -77,17 +74,14 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/ui": "^4.1.6",
     "babel-plugin-react-compiler": "^1.0.0",
-    "concurrently": "^9.2.1",
     "jsdom": "^29.1.1",
     "knip": "^6.13.1",
     "oxfmt": "^0.49.0",
-    "pa11y-ci": "^4.1.1",
     "puppeteer-core": "^24.43.1",
     "size-limit": "^12.1.0",
     "tailwindcss": "^4.3.0",
     "vite": "^8.0.13",
-    "vitest": "^4.1.6",
-    "wait-on": "^9.0.10"
+    "vitest": "^4.1.6"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
